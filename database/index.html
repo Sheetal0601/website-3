@@ -1,0 +1,512 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        Database 
+    </title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @charset "UTF-8";@import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd,.popover kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram{text-align:center;background-color:inherit;border-radius:0;white-space:inherit}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.MJX_Assistive_MathML{display:none}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;padding:0 15px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc-label{opacity:.3;background-color:#ccc;border:none;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:23px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child > ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif}html[lang^=ja] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html .markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html .markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html .markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html[lang^=ja] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html[lang=zh-tw] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html[lang=zh-cn] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}html .ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html .ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html .ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:3px;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:cover}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.ui-published-note{color:#337ab7}.ui-published-note .fa{font-size:20px;vertical-align:top}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;letter-spacing:.025em}.focus,:focus{outline:none!important}::-moz-focus-inner{border:0!important}body{font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] body{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}abbr[data-original-title],abbr[title]{cursor:help}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true"><h1 id="Database"><a class="anchor hidden-xs" href="#Database" title="Database"><span class="octicon octicon-link"></span></a>Database</h1><h3 id="Due-Friday-December-13-2019-at-1159pm"><a class="anchor hidden-xs" href="#Due-Friday-December-13-2019-at-1159pm" title="Due-Friday-December-13-2019-at-1159pm"><span class="octicon octicon-link"></span></a>Due: Friday, December 13, 2019 at 11:59pm</h3><p><strong>Important note:</strong> You may <strong><em>not</em></strong> hand this project in late unless you have an extension from Professor Doeppner. If you hand in after 11:59pm on December 13th, your project will not be graded and you will receive a 0.</p><h1 id="Introduction"><a class="anchor hidden-xs" href="#Introduction" title="Introduction"><span class="octicon octicon-link"></span></a>Introduction</h1><p>After compiling the underwater photos he took on a recent <a href="https://cs.brown.edu/~twd/fish/start.htm" target="_blank" rel="noopener">diving expedition</a>, twd believes he’s discovered a new species of fish. However, with more than 27,000 known species of fish in existence, he has no easy way of determining whether his proposed name, <em>Exsaedisys assemblae</em>, is already taken. He decides to commission a database that maps known species of fish to the publications in which they were first named. Unfortunately, the Tstaff’s in-house <a href="https://en.wikipedia.org/wiki/Esoteric_programming_language#LOLCODE" target="_blank" rel="noopener">LOLCODE</a> developer is having difficulty making the database thread-safe and able to support multiple clients. Thus, in his time of need, twd turns to you.</p><p>In this project, you will be creating a simple server to manage a database of key-value pairs over a network. Multiple concurrent users should be able to search for items in the database, add new entries and remove existing entries.</p><h1 id="Support-Code"><a class="anchor hidden-xs" href="#Support-Code" title="Support-Code"><span class="octicon octicon-link"></span></a>Support Code</h1><p>The support code for this project consists of the following files:</p><ul>
+<li>
+<p><strong>client.c:</strong> A C file that produces the <em>client</em> program, including the client REPL and client-side networking.</p>
+</li>
+<li>
+<p><strong>server.c:</strong> A C file containing the <em>server</em> program.</p>
+</li>
+<li>
+<p><strong>comm.h:</strong> A header defining abstraction for server-side networking helper functions.</p>
+</li>
+<li>
+<p><strong>comm.c:</strong> A C file that implements the server-side networking helper functions.</p>
+</li>
+<li>
+<p><strong>db.h:</strong> A header containing function declarations for the database.</p>
+</li>
+<li>
+<p><strong>db.c:</strong> A C file implementing database functionality.</p>
+</li>
+<li>
+<p><strong>scripts</strong>: A directory containing database test scripts. Each of these scripts is just a series of client commands in a file, one per line. Feel free to make your own in addition to those provided. These scripts are useful for testing your database as well as seeding it with initial data. <a href="#bookmark=id.1bj4s6ilwixx">See section</a><a href="#bookmark=id.1bj4s6ilwixx"> 5.2 f</a><a href="#bookmark=id.1bj4s6ilwixx">or more information on scripts.</a></p>
+</li>
+</ul><p>In addition, macOS may not implement some pthread functionality such as read/write locks and barriers. To accommodate this, we have attached the following files:</p><ul>
+<li>
+<p><strong>pthread_OSX.c</strong>: A C file implementing missing OSX pthread functionality.</p>
+</li>
+<li>
+<p><strong>pthread_OSX.h</strong>: A header file defining declarations and structs for OSX pthread functionality.</p>
+</li>
+</ul><p><strong>For this project, you will be modifying <strong><strong><em>db.c</em></strong></strong> to make it thread-safe, you will be filling out <strong><strong><em>server.c</em></strong></strong> to handle multiple clients and respond to signals, and you will be using <strong><strong><em>comm.c</em></strong></strong> to answer the questions in <strong><strong><em>questions</em></strong></strong>.</strong></p><p>Note that you will need to write a Makefile for the project, which produces the executables <em>server</em> and <em>client</em>. In order to enable all of the necessary compiler warnings, you should use the flags from your Shell makefiles, with the addition of the <strong>-pthread</strong> flag. You will only ever need to directly run <em>server</em> to start the server and run <em>client</em> to connect to the server.</p><p>You can install this project by running</p><pre><code>cs0330_install database
+</code></pre><h2 id="Client-Interface"><a class="anchor hidden-xs" href="#Client-Interface" title="Client-Interface"><span class="octicon octicon-link"></span></a>Client Interface</h2><p>The client program has been implemented for you. In the provided stencil, the client is written to connect to your server and interact with the database. The client supports client-only commands described below, while the server supports <a href="#heading=h.5pokqx1xzfz">server-only commands</a>. You can input queries to the client interface from either a script file or a REPL and the client will send them to the server. The server then processes each query and sends an appropriate response to the client.</p><p>The client can interact with the database using the following commands:</p><ul>
+<li>
+<p><strong>a &lt;key&gt;</strong> <strong>&lt;value&gt;</strong>: Adds <strong>&lt;key&gt;</strong> into the database with value <strong>&lt;value&gt;</strong>.</p>
+</li>
+<li>
+<p><strong>q &lt;key&gt;</strong>: Retrieves the value stored with key <strong>&lt;key&gt;</strong>.</p>
+</li>
+<li>
+<p><strong>d &lt;key&gt;</strong>: Deletes the given key and its associated value from the database.</p>
+</li>
+<li>
+<p><strong>f &lt;file&gt;</strong>: Executes the sequence of commands contained in the specified file.</p>
+</li>
+</ul><p>A client will close its connection to the server and exit upon reaching the end of a script file, or on <strong>CTRL+D</strong> if reading from the command line.</p><h1 id="Database1"><a class="anchor hidden-xs" href="#Database1" title="Database1"><span class="octicon octicon-link"></span></a>Database</h1><p>The database, implemented in <em>db.c</em>, consists of a collection of nodes organized in a binary search tree (which is not necessarily balanced). Each node contains a pointer to a left and right child, either or both of which may be null pointers. The key associated with a given node is <a href="https://en.wikipedia.org/wiki/Lexicographical_order" target="_blank" rel="noopener">lexicographically</a> greater than all keys in the node’s left subtree, and lexicographically less than all keys in the node’s right subtree. In other words, an in-order traversal of the tree nodes yields a lexicographical ordering of the corresponding keys.</p><p>The database supports the following functions:</p><h2 id="db_add"><a class="anchor hidden-xs" href="#db_add" title="db_add"><span class="octicon octicon-link"></span></a>db_add()</h2><p>The <strong>db_add()</strong> function calls <strong>search()</strong> to determine if the given key is already in the database. If the key is not in the database, the function creates a new node with the given key and value and inserts this node into the database as a child of the parent node returned by <strong>search()</strong>.</p><h2 id="db_query"><a class="anchor hidden-xs" href="#db_query" title="db_query"><span class="octicon octicon-link"></span></a>db_query()</h2><p>The <strong>db_query()</strong> function calls <strong>search()</strong> to retrieve the node associated with the given key. If such a node is found, the function retrieves the value stored in that node and returns it. Remember to handle edge cases like an empty database or a missing key.</p><h2 id="db_remove"><a class="anchor hidden-xs" href="#db_remove" title="db_remove"><span class="octicon octicon-link"></span></a>db_remove()</h2><p>The <strong>db_remove()</strong> function calls <strong>search()</strong> to retrieve the node associated with the given key. If such a node is found, the function must delete it while preserving the tree ordering constraints. There are three cases that may occur, depending on the children of the node to be removed:</p><ul>
+<li>
+<p>Both children are <strong>NULL</strong>: In this case, the function simply deletes the node and sets the corresponding pointer of the parent node to <strong>NULL</strong>.</p>
+</li>
+<li>
+<p>One child is <strong>NULL</strong>: In this case, the function replaces the node with its non-<strong>NULL</strong> child.</p>
+</li>
+<li>
+<p>Neither child is <strong>NULL</strong>: In this case, the function finds the leftmost child of the node’s right subtree and replaces the removed node with this one. Since the replacement node has no left child, it is easy to remove it from its current position, and since it is the leftmost child of its subtree it can occupy the position of the deleted node and satisfy the tree’s ordering constraints.</p>
+</li>
+</ul><h2 id="db_print"><a class="anchor hidden-xs" href="#db_print" title="db_print"><span class="octicon octicon-link"></span></a>db_print()</h2><p>The <strong>db_print()</strong> function performs a <a href="https://www.geeksforgeeks.org/tree-traversals-inorder-preorder-and-postorder/" target="_blank" rel="noopener">pre-order</a> traversal of the tree, printing the node’s representation and then recursively printing its left and right subtrees. It will attempt to print to a file with the given filename, or stdout if none is provided. Be sure to remove trailing whitespace (e.g. newlines) from the filename!</p><p>It is important that you implement this function as specified. Our testing suite <strong>requires</strong> this function, and it must be thread safe.</p><h2 id="db_cleanup"><a class="anchor hidden-xs" href="#db_cleanup" title="db_cleanup"><span class="octicon octicon-link"></span></a>db_cleanup()</h2><p>The <strong>db_cleanup()</strong> function should <strong>free</strong> all dynamically-allocated nodes in the database. You should call this function before exiting on the server, and <em>only</em> when you are certain that no other threads are using or will use the database. You should use the variables in the <strong>server_control_t</strong> struct located near the top of <em>server.c</em> to ensure that all threads are terminated <em>before</em> you call <strong>db_cleanup</strong> in your main thread.</p><h2 id="interpret_command"><a class="anchor hidden-xs" href="#interpret_command" title="interpret_command"><span class="octicon octicon-link"></span></a>interpret_command()</h2><p>The <strong>interpret_command()</strong> function gets called by the server to interpret a command from a client, call database functions, and store the response.</p><h1 id="Assignment"><a class="anchor hidden-xs" href="#Assignment" title="Assignment"><span class="octicon octicon-link"></span></a>Assignment</h1><p>You will be modifying the code to allow for multiple clients (multi-threading), thread-safety, signal handling and client cancellation. While the client-side code is provided for you, you will be implementing the server-side. <strong>You will only need to modify <strong><strong><em>server.c</em></strong></strong>, <strong><strong><em>db.c,</em></strong></strong> and possibly <strong><strong><em>db.h</em></strong></strong> to complete the code-component of this project.</strong></p><p>This assignment is split up into four parts. We recommend starting this project early because you’ll be applying a lot of different concepts.</p><ul>
+<li>
+<p><strong>Part 1: Networking</strong></p>
+<ul>
+<li>
+<p>All the client-side <em>networking</em> functions have been implemented for you, along with the entire client program, in client.c.</p>
+</li>
+<li>
+<p>All the server-side <em>networking</em> functions have also been implemented for you in comm.c. However, you are responsible for implementing the rest of the server program. Thus, you will be using the networking functions from comm.c to help set up your server in server.c.</p>
+</li>
+<li>
+<p>As part of your assignment, you will submit written answers to questions related to the networking portion of this project (see <a href="#heading=h.gvl7sxh1mze1">section 4.1.1</a>).</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Part 2: Multiple Clients (Multi-threading)</strong></p>
+<ul>
+<li>Your server must be able to handle multiple clients. Each connection from a client to the server should be serviced by a thread. You must maintain a list of these client connection threads.</li>
+</ul>
+</li>
+<li>
+<p><strong>Part 3: Thread Safety</strong></p>
+<ul>
+<li>
+<p>The database must implement fine-grained locking (see below for explanation).</p>
+</li>
+<li>
+<p>Your server must be able to handle <strong>“s”</strong> (stop), <strong>“g”</strong> (go) commands using a condition variable and mutex, and <strong>“p”</strong> (print).</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Part 4: Cancellation and Signal Handling</strong></p>
+<ul>
+<li>
+<p>When the server receives an <strong>EOF</strong> from <strong>stdin</strong>, all client connection threads should be immediately terminated (via cancellation), after which the server should exit cleanly. You must also ensure that no new <strong>client_t</strong> structs are added to the thread list after you call <strong>delete_all()</strong> from the main thread when your server REPL terminates. Allowing this would cause your server to terminate with a non-empty thread list which would result in a memory leak! When debugging this you may find it useful to <strong>assert</strong> that the list is empty before calling <strong>db_cleanup()</strong> (Note, when a client loses connection to the server, it should shut itself down).</p>
+</li>
+<li>
+<p>When the server receives a <strong>SIGINT</strong>, all client connections should be immediately terminated via cancellation, after which the server should continue its input loop. Your implementation must allow users to spawn new clients after a <strong>SIGINT</strong> is delivered to the server. The server should behave exactly as it did before receiving a <strong>SIGINT</strong> (only now the database is potentially non-empty because of operations requested by previous clients).</p>
+</li>
+</ul>
+</li>
+</ul><h2 id="Networking"><a class="anchor hidden-xs" href="#Networking" title="Networking"><span class="octicon octicon-link"></span></a>Networking</h2><p>Your first task is to establish a TCP connection between a client and the server using the support code we provide. Like in the Networking Lab, you will be using a socket-based server. (NOTE:  We are providing a fully functional client.c, but you are welcome to dissect and tamper with it. Keep in mind, however, that if you do, it will become more difficult for us to help you with bugs!)</p><p>To establish the connection, the client must find the server’s internet address using <strong>getaddrinfo()</strong> and then set up a TCP connection with it. After finding the appropriate socket, the client creates an I/O stream to communicate with the server. Finally, the client uses <strong>fputs()</strong>, <strong>fgets()</strong> and <strong>fflush()</strong> to transmit and receive data.</p><p>We provide networking support code in <em>comm.c</em>. You will use these functions to handle multiple client connections. All clients should access the same shared database. (NOTE:  Note that the database will not yet be thread-safe, so your program may behave incorrectly or crash if it receives input from more than one client at a time. You will fix this shortly.)</p><p>There are also questions listed below about the purpose and implementation of the support functions for you to answer. Take a look at the demo server provided with the first network programming lecture for a refresher if you need one!</p><h3 id="Questions"><a class="anchor hidden-xs" href="#Questions" title="Questions"><span class="octicon octicon-link"></span></a>Questions</h3><p>You’ll find the written questions in the file named <em>questions</em> in your <em>database</em> folder. Answer the provided questions in this file based on the provided file <em>comm.c</em>, and make sure it is included when you hand in. We are looking for a good amount of detail, so if you’re not sure whether to add a detail or not, we recommend erring on the side of too much, rather than too little, information.</p><h2 id="Multithreading"><a class="anchor hidden-xs" href="#Multithreading" title="Multithreading"><span class="octicon octicon-link"></span></a>Multithreading</h2><p>To implement the multithreaded version of the server, we suggest that you start with <strong>client_constructor()</strong> so that it spawns a new thread which executes <strong>run_client()</strong>. You will also need to ensure that <strong>client_destructor()</strong> is called at some point for each client, probably at the end of <strong>run_client()</strong>.</p><p>Because the server does not technically know what a client thread is going to do next, it is difficult for the server to clean up the underlying client thread resources while it (the server) is still running. To make our lives easier, we would like the client threads to clean themselves up. The best way to do this is probably to detach each client thread. Be careful when you clean up at the end—the database should be deleted, but not before all clients are done with it. Unfortunately, If we detached our client threads we cannot wait for them to finish with <strong>pthread_join()</strong>. <em>(Hint: One way to get around this is to maintain a thread-safe counter of the number of active threads.)</em></p><p>You should error-check pthread library functions using <strong>handle_error_en()</strong> in <em>comm.h</em> where appropriate.</p><h2 id="Thread-Safety"><a class="anchor hidden-xs" href="#Thread-Safety" title="Thread-Safety"><span class="octicon octicon-link"></span></a>Thread Safety</h2><p>Now that you have multiple threads, you must modify the database so that it is thread-safe. There are two ways to do this: <em>coarse-grained locking</em> or <em>fine-grained locking</em>. Both techniques are discussed below, but you <em>must</em> implement fine-grained locking.</p><p>In addition to making the database thread-safe, you will add some additional features to the server to facilitate testing.</p><h3 id="Coarse-Grained-Locking"><a class="anchor hidden-xs" href="#Coarse-Grained-Locking" title="Coarse-Grained-Locking"><span class="octicon octicon-link"></span></a>Coarse-Grained Locking</h3><p>The simplest way to ensure thread safety is to put a read/write lock on the whole database. Each thread should obtain an appropriate type of lock (read/write) before accessing the database.</p><p>We recommend you implement and test coarse-grained locking first to get used to read/write locks before attempting the more difficult fine-grained locking scheme described below.</p><h3 id="Fine-Grained-Locking"><a class="anchor hidden-xs" href="#Fine-Grained-Locking" title="Fine-Grained-Locking"><span class="octicon octicon-link"></span></a>Fine-Grained Locking</h3><p>Coarse-grained locking is easy to implement, but it is not very efficient. For any modifications to occur, a single thread must obtain exclusive access to the entire database. This strategy ignores the fact that nodes in the tree have some level of independence: an operation writing to one part of the database tree is completely separate from another operation writing to a distinct part of the tree. A more efficient design would use <em>fine-grained locking</em>. In this design, each node in the tree has its own read/write lock. These locks must be carefully managed to maintain database consistency while allowing multiple threads to access and modify distinct parts of the database simultaneously.</p><p>To implement fine-grained locking, you should modify the <strong>search()</strong> function in <em>db.c</em> to accept an additional parameter specifying read- or write-locking. This function should lock the root node and percolate down the tree, locking each node <em>before</em> releasing the lock on its parent. You will also have to modify the other database functions and the <strong>node_t</strong> structure so that they handle locking appropriately. Be sure to update <strong>db_print()</strong> because it does not use <strong>search()</strong>. You must think carefully about the operations involved to avoid deadlocks and ensure that the database stays consistent.</p><h3 id="Stop-and-Go"><a class="anchor hidden-xs" href="#Stop-and-Go" title="Stop-and-Go"><span class="octicon octicon-link"></span></a>Stop and Go</h3><p>To test thread safety you should add <strong>“s” (stop) and “g”</strong> (go) functionality to your server REPL. <a href="#bookmark=id.p4m376aik7bu">See section </a><a href="#bookmark=id.p4m376aik7bu">5.3</a><a href="#bookmark=id.p4m376aik7bu"> for more information. </a></p><h2 id="Cancellation-and-Signals"><a class="anchor hidden-xs" href="#Cancellation-and-Signals" title="Cancellation-and-Signals"><span class="octicon octicon-link"></span></a>Cancellation and Signals</h2><p>In the last part of this assignment, you will add signal handling and cancellation to your database. Specifically, you must update the database so it supports the following behavior:</p><ul>
+<li>
+<p>When the server process receives an <strong>EOF</strong> from <strong>stdin</strong>, the server should stop accepting input from clients and all clients should be immediately terminated, after which the program should exit cleanly.</p>
+</li>
+<li>
+<p>When the server process receives a <strong>SIGINT</strong> signal, all existing clients should terminate. The program should continue to accept input and create connections to new clients when requested.</p>
+</li>
+</ul><p>To implement these two features, you should maintain a list of all client connection threads. When a thread is created, it should add itself to the list. To terminate all current threads, we cancel all threads on the list. When a thread terminates (either from cancellation or naturally), it removes itself from the list.</p><p>When working with this part of the assignment, it’s important to ensure that your program is not leaking any memory. You should ensure that the client thread data is cleaned up appropriately and that your thread list is completely empty before the server cleans up the database upon termination. To determine if a leak detected by valgrind is occurring due to this library behavior, check the trace of the reported leak. If the trace begins at <strong>pthread_cancel()</strong> or <strong>pthread_cancel_init()</strong>, and only references lines of code in library C files, then it’s not a result of your code. You may also notice it if running a variable number of clients against your server produces the same roughly constant leak. This apparent leak is visible in the demo we have provided. Valgrind is a helpful debugging tool, but it is not perfect.  Whenever in doubt about whether a valgrind error is related to your code, try running the same script and occurrences with the demo and check for the same error. If you encounter the same error with the demo, it is likely not a problem you should worry about. If you are still unsure about a leak in your code, please talk to a TA or post on Piazza.</p><p>Note that you must be careful about the timing involved—if the listener thread creates a new client, then the main (REPL) thread reaches an <strong>EOF</strong>, it may issue a "cancel all’’ command before the new client connection has added itself to the list. To address this, you should have some thread-safe mechanism for the server to indicate that it is no longer accepting new clients, and each new client should ensure that the server is still accepting clients before it adds itself to the list of clients and begins to serve the client with which it is associated.</p><h3 id="Cancellation"><a class="anchor hidden-xs" href="#Cancellation" title="Cancellation"><span class="octicon octicon-link"></span></a>Cancellation</h3><p>To implement Part 3: Thread Safety, you will need to use <em>cancellation</em>, a feature of the pthreads library that allows for semi-asynchronous thread termination. A thread may be marked for cancellation at any time using the <strong>pthread_cancel()</strong> function; however, it is not cancelled immediately. When a thread marked for cancellation reaches a <em>cancellation point</em> (one of a set of library functions specified by the POSIX standard) it is terminated. You can find a list of POSIX-specified cancellation points using <strong>man 7 pthreads</strong>. Of the support code functions, <strong>comm_serve()</strong> acts as a cancellation point. It is safe to call <strong>pthread_cancel()</strong> on a thread any number of times until the thread terminates.</p><p>Each thread maintains a stack of <em>cleanup handlers</em> using the functions <strong>pthread_cleanup_push()</strong> and <strong>pthread_cleanup_pop()</strong>. When a cancelled thread reaches a cancellation point, the current cleanup handlers are executed in first-in-last-out order.</p><p>You will need to modify the client-handling threads to properly handle cancellation by installing appropriate cleanup handlers and modifying the cancel state as appropriate. For instance, the following block of code:</p><pre><code>void foo(pthread_mutex_t my_mutex, pthread_cond_t my_cond) {
+
+    pthread_mutex_lock(&amp;my_mutex);
+
+    while(!(some condition))
+
+    // Cancellation point - the thread could stop executing here
+
+    pthread_cond_wait(&amp;my_cond, &amp;my_mutex);  
+
+    // If the thread were cancelled inside pthread_cond_wait, this mutex 
+
+    // would never be unlocked
+
+    pthread_mutex_unlock(&amp;my_mutex);
+
+}
+</code></pre><p>could be replaced with:</p><pre><code>// Cleanup handler called when thread is cancelled to unlock mutex so the 
+
+// thread doesn't quit while holding the lock
+
+void cleanup_pthread_mutex_unlock(void *arg) {
+
+    pthread_mutex_unlock((pthread_mutex_t *) arg);
+
+}
+
+void foo(pthread_mutex_t my_mutex, pthread_cond_t my_cond) {
+
+    pthread_mutex_lock(&amp;my_mutex);
+
+    // Push the mutex unlock handler onto the stack of cleanup functions in 
+
+    // case the thread is cancelled while holding the lock
+
+    pthread_cleanup_push(&amp;cleanup_pthread_mutex_unlock, (void*) (&amp;my_mutex));
+
+    while(!(some condition))
+
+        pthread_cond_wait(&amp;my_cond, &amp;my_mutex);  // Cancellation point
+
+    // Pop and execute cleanup handler to release the lock regardless of 
+
+    // whether thread was cancelled
+
+    pthread_cleanup_pop(1);  
+
+}
+</code></pre><p>This way, the mutex will definitely be unlocked, even if the thread is cancelled while waiting.</p><p>Note that cancellation only occurs at most once per thread, so a cleanup handler that is executed as a result of explicit cancellation via <strong>pthread_cancel()</strong> may safely contain cancellation points. However, cancellation <em>can</em> occur while executing a cleanup handler that is explicitly called via <strong>pthread_cleanup_pop()</strong>.</p><p>Each thread has a <em>cancel state</em>, which sets whether or not a thread can be terminated at a cancellation point. The cancel state can be controlled with the <strong>pthread_setcancelstate()</strong> function. You could even disable thread cancellation on a specific caller thread with this function. Consider when it may be necessary to call this function in your implementation.</p><p>Hint: Think about how any cancellation points in thread_cleanup might cause issues.</p><p><strong>Note</strong>: The <strong>pthreads</strong> manual page states that <strong>pthread_rwlock_{wr,rd}lock()</strong> functions <strong>may</strong> be cancellation points. These functions <strong>are not</strong> implemented as cancellation points on Linux, therefore you may assume that they are not cancellation points in your implementation.</p><h3 id="Signal-Handling"><a class="anchor hidden-xs" href="#Signal-Handling" title="Signal-Handling"><span class="octicon octicon-link"></span></a>Signal Handling</h3><p>Signals occur at the process level, making them somewhat difficult to handle in multithreaded code. For this project, you will handle signals in a separate thread that runs alongside the server and client threads. To set this up, you should first mask off <strong>SIGINT</strong> for the entire process using <strong>pthread_sigmask()</strong>. Then, create a special signal monitoring thread that uses the <strong>sigwait()</strong> function to listen for <strong>SIGINT</strong> signals and cancel running clients.</p><h1 id="Demos-and-Testing"><a class="anchor hidden-xs" href="#Demos-and-Testing" title="Demos-and-Testing"><span class="octicon octicon-link"></span></a>Demos and Testing</h1><p>In this assignment we provide you with various resources to check the functionality of your database as well as double check the functionality of your networking code. Often you will start out using a client REPL to interact with your database but it will quickly become much more efficient to run clients on scripts. These scripts are nothing more than a plain text list of commands described in the Client Interface section.</p><h2 id="Running-the-Client"><a class="anchor hidden-xs" href="#Running-the-Client" title="Running-the-Client"><span class="octicon octicon-link"></span></a>Running the Client</h2><p>A single client can be run with the command</p><pre><code>./client &lt;hostname&gt; &lt;port&gt;
+</code></pre><p>And can be controlled using the client’s REPL.  Refer to section 2.1 of the handout for a list of the client’s REPL commands.</p><p>Once you are confident in your server’s performance with a single client, you can try testing using the scripts with multiple concurrent clients with the command</p><pre><code>./client &lt;hostname&gt; &lt;port&gt; [script] [occurrences]
+</code></pre><p>where script can be any one of the files in the scripts directory and occurrences is the number of concurrent clients to run the script file.</p><h2 id="Demos"><a class="anchor hidden-xs" href="#Demos" title="Demos"><span class="octicon octicon-link"></span></a>Demos</h2><p>We have provided a demo binary for this project: <strong>cs0330_db_demo_server</strong>. This is a fully functional DB server, with all parts of the assignment implemented, for you to get a better feel for the finished result.</p><h2 id="Testing-Resources"><a class="anchor hidden-xs" href="#Testing-Resources" title="Testing-Resources"><span class="octicon octicon-link"></span></a>Testing Resources</h2><p>In the <em>scripts/</em> directory, you are provided with a file <em>seacreatures.txt</em> with a series of add commands mapping sea creatures to their discoverers. Additionally, for larger tests, you can use the <em>names2013.txt</em> and <em>names1880.txt</em> files to quickly initialize a much larger database mapping baby names from those years to their frequency. In addition, the <em>scripts</em> directory contains <em>test1.txt</em>, which you can use to test your database’s thread safety in Part 2 by calling, for example, <strong>f test1.txt</strong>.</p><p>You can check tree output, using the <strong>p</strong> command (described <a href="#heading=h.5pokqx1xzfz">below</a>). You can then check whether this output is a valid binary search tree with the following script:</p><pre><code>cs0330_db_check &lt;txtfile&gt;
+</code></pre><p>where <strong>&lt;<strong><strong>txtfile</strong></strong>&gt;</strong> is the file containing the output of the <strong>p</strong> command. For example, if you input <strong>p tree.txt</strong> in the server REPL, <strong>cs0330_db_check tree.txt</strong> would check that the database’s tree is valid.</p><p>To visualize the tree output from the <strong>p</strong> command, we have provided a script that creates a PNG image of the database. To use this script, enter the following command in a terminal:</p><pre><code>cs0330_db_vis &lt;txtfile&gt; &lt;pngfile&gt;
+</code></pre><p>where <strong>txtfile</strong> is the file containing the output of the <strong>p</strong> command, and <strong>pngfile</strong> is the filename for the resulting PNG image.</p><h2 id="54-Testing-Features"><a class="anchor hidden-xs" href="#54-Testing-Features" title="54-Testing-Features"><span class="octicon octicon-link"></span></a>5.4 Testing Features</h2><p>To test thread-safety, you should add the following functionality to your server code. When the server REPL encounters the line <strong>“s”</strong>, all client threads should temporarily stop handling input. The line <strong>“<strong><strong>g</strong></strong>”</strong> should resume activity. This feature should allow you to test your database’s thread safety by pausing activity, creating several clients, and then running them all at once. To implement this feature, you should use a “stopped’’ flag with a condition variable (and associated mutex).</p><p>When the server encounters <strong>“<strong><strong>p</strong></strong>”</strong>, it should call <strong>db_print()</strong> on the database. This will help you test by allowing you to see the state of the database. You may also provide a filename to <strong>db_print()</strong> if you want the output in a file instead of standard out.</p><h2 id="Testing-for-Thread-Safety"><a class="anchor hidden-xs" href="#Testing-for-Thread-Safety" title="Testing-for-Thread-Safety"><span class="octicon octicon-link"></span></a>Testing for Thread Safety</h2><p>Although cs0330_db_check will give you a good idea of whether your locking schemes are correct and producing consistent trees, it is still possible that your database is not thread safe.  To check for thread safety, you can run the following command</p><pre><code>valgrind --tool=helgrind ./server &lt;port&gt;
+</code></pre><p>This should print any data races or lock violations.  You only need to be concerned with any races or violations that occur within db.c or server.c.  When in doubt about a certain error, compare your valgrind output to the demo.  If the demo gives the same errors, then it likely isn’t something you need to be concerned with.</p><h1 id="Tips"><a class="anchor hidden-xs" href="#Tips" title="Tips"><span class="octicon octicon-link"></span></a>Tips</h1><p>This project has a lot of thread-related functions you may be using for the first time. Be sure to check the man pages for each one so you can understand how each one works!</p><p>As you have probably seen, debugging programs involving multiple processes can be much more confusing than debugging a single component on its own. However, GDB has several tools that may be able to come to the rescue!</p><p>A basic functionality of GDB in general is to pause program execution at a specified point and investigate the state of the system. The best way to do that here is to view the current threads with <strong>info threads</strong>. The current thread (GDB is able to watch the stack of a single thread of execution at a time) will have a star next to it, and you can then switch to a thread with <strong>thread &lt;thread number&gt;</strong>. Each thread can give you a <strong>backtrace</strong>, and if you want to see them all at once, you can try something like <strong>thread apply all backtrace</strong>, which will give you the backtrace for all threads. This works for other commands as well!</p><p>If you are facing a deadlock, you will want to interrupt execution with <strong>CTRL+Z</strong> and dig your way through mutexes and so forth to identify which resources are causing the problem. You can move through a trace with <strong>frame &lt;frame number&gt;</strong>. If you find that a particular thread is stuck in, say, <strong>pthread_mutex_lock()</strong>, you’ll be able to see which mutex is being waited on, and which thread owns it. Then switch to that thread and see what it is waiting for, and so on. For more on debugging deadlocks, visit <a href="https://en.wikibooks.org/wiki/Linux_Applications_Debugging_Techniques/Deadlocks" target="_blank" rel="noopener">this helpful link</a>.</p><p>Keep in mind other common debugging techniques like setting watchpoints, calling functions within gdb, setting conditional breakpoints, etc. and you’ll have a much better time!</p><h1 id="Handin"><a class="anchor hidden-xs" href="#Handin" title="Handin"><span class="octicon octicon-link"></span></a>Handin</h1><p>To hand in your database implementation, run</p><pre><code>cs0330_handin database
+</code></pre><p>from your project working directory. Make sure you include all C files, your Makefile, the answers to the written questions, and a README. If you wish to change your handin, you can do so by re-running the handin script. Only your most recent handin will be graded.</p><h1 id="Grading"><a class="anchor hidden-xs" href="#Grading" title="Grading"><span class="octicon octicon-link"></span></a>Grading</h1><p>This project will be graded according to the following categories, ordered by weight:</p><ul>
+<li>
+<p><em>Minimum Functionality</em></p>
+<ul>
+<li>
+<p>Your client and server should communicate correctly.</p>
+</li>
+<li>
+<p>You should at least implement coarse-grained locking.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Functionality</em></p>
+<ul>
+<li>
+<p>Your client and server should communicate correctly.</p>
+</li>
+<li>
+<p>You should cleanly start and close connections.</p>
+</li>
+<li>
+<p>You should correctly implement fine-grained locking.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Correctness</em></p>
+<ul>
+<li>
+<p>Your server and database should be able to correctly handle multiple clients at once.</p>
+</li>
+<li>
+<p>Your database should be memory safe and should work.</p>
+</li>
+<li>
+<p>Your answers to our provided questions should be accurate and provide enough detail to be fully explained.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><em>Style</em></p>
+<ul>
+<li>
+<p>Your code should be readable and commented and have a README.</p>
+</li>
+<li>
+<p>Please run the reformat script (cs0330_reformat) on any C files you have edited immediately before your final hand in, even if you’ve run it before. This ensures that the most recent edition of your code passes our format autograder.</p>
+</li>
+</ul>
+</li>
+</ul><p><strong>Important​ ​note:​</strong> You may <strong><em>not</em></strong> hand this project in late unless you have an extension from Professor Doeppner. If you hand in after 11:59pm on December 13th, your project will not be graded and you will receive a 0. If you receive a grade below C on this project, the last day to request a grade review is December 16.</p></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li class=""><a href="#Database" title="Database">Database</a><ul class="nav">
+<li class="invisable-node"><ul class="nav">
+<li><a href="#Due-Friday-December-13-2019-at-1159pm" title="Due: Friday, December 13, 2019 at 11:59pm">Due: Friday, December 13, 2019 at 11:59pm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li><a href="#Support-Code" title="Support Code">Support Code</a><ul class="nav">
+<li><a href="#Client-Interface" title="Client Interface">Client Interface</a></li>
+</ul>
+</li>
+<li><a href="#Database1" title="Database">Database</a><ul class="nav">
+<li><a href="#db_add" title="db_add()">db_add()</a></li>
+<li><a href="#db_query" title="db_query()">db_query()</a></li>
+<li><a href="#db_remove" title="db_remove()">db_remove()</a></li>
+<li><a href="#db_print" title="db_print()">db_print()</a></li>
+<li><a href="#db_cleanup" title="db_cleanup()">db_cleanup()</a></li>
+<li><a href="#interpret_command" title="interpret_command()">interpret_command()</a></li>
+</ul>
+</li>
+<li><a href="#Assignment" title="Assignment">Assignment</a><ul class="nav">
+<li><a href="#Networking" title="Networking">Networking</a><ul class="nav">
+<li><a href="#Questions" title="Questions">Questions</a></li>
+</ul>
+</li>
+<li><a href="#Multithreading" title="Multithreading">Multithreading</a></li>
+<li><a href="#Thread-Safety" title="Thread Safety">Thread Safety</a><ul class="nav">
+<li><a href="#Coarse-Grained-Locking" title="Coarse-Grained Locking">Coarse-Grained Locking</a></li>
+<li><a href="#Fine-Grained-Locking" title="Fine-Grained Locking">Fine-Grained Locking</a></li>
+<li><a href="#Stop-and-Go" title="Stop and Go">Stop and Go</a></li>
+</ul>
+</li>
+<li><a href="#Cancellation-and-Signals" title="Cancellation and Signals">Cancellation and Signals</a><ul class="nav">
+<li><a href="#Cancellation" title="Cancellation">Cancellation</a></li>
+<li><a href="#Signal-Handling" title="Signal Handling">Signal Handling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Demos-and-Testing" title="Demos and Testing">Demos and Testing</a><ul class="nav">
+<li><a href="#Running-the-Client" title="Running the Client">Running the Client</a></li>
+<li><a href="#Demos" title="Demos">Demos</a></li>
+<li><a href="#Testing-Resources" title="Testing Resources">Testing Resources</a></li>
+<li><a href="#54-Testing-Features" title="5.4 Testing Features">5.4 Testing Features</a></li>
+<li><a href="#Testing-for-Thread-Safety" title="Testing for Thread Safety">Testing for Thread Safety</a></li>
+</ul>
+</li>
+<li><a href="#Tips" title="Tips">Tips</a></li>
+<li><a href="#Handin" title="Handin">Handin</a></li>
+<li><a href="#Grading" title="Grading">Grading</a></li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
+        <div class="toc"><ul class="nav">
+<li class=""><a href="#Database" title="Database">Database</a><ul class="nav">
+<li class="invisable-node"><ul class="nav">
+<li><a href="#Due-Friday-December-13-2019-at-1159pm" title="Due: Friday, December 13, 2019 at 11:59pm">Due: Friday, December 13, 2019 at 11:59pm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li><a href="#Support-Code" title="Support Code">Support Code</a><ul class="nav">
+<li><a href="#Client-Interface" title="Client Interface">Client Interface</a></li>
+</ul>
+</li>
+<li><a href="#Database1" title="Database">Database</a><ul class="nav">
+<li><a href="#db_add" title="db_add()">db_add()</a></li>
+<li><a href="#db_query" title="db_query()">db_query()</a></li>
+<li><a href="#db_remove" title="db_remove()">db_remove()</a></li>
+<li><a href="#db_print" title="db_print()">db_print()</a></li>
+<li><a href="#db_cleanup" title="db_cleanup()">db_cleanup()</a></li>
+<li><a href="#interpret_command" title="interpret_command()">interpret_command()</a></li>
+</ul>
+</li>
+<li><a href="#Assignment" title="Assignment">Assignment</a><ul class="nav">
+<li><a href="#Networking" title="Networking">Networking</a><ul class="nav">
+<li><a href="#Questions" title="Questions">Questions</a></li>
+</ul>
+</li>
+<li><a href="#Multithreading" title="Multithreading">Multithreading</a></li>
+<li><a href="#Thread-Safety" title="Thread Safety">Thread Safety</a><ul class="nav">
+<li><a href="#Coarse-Grained-Locking" title="Coarse-Grained Locking">Coarse-Grained Locking</a></li>
+<li><a href="#Fine-Grained-Locking" title="Fine-Grained Locking">Fine-Grained Locking</a></li>
+<li><a href="#Stop-and-Go" title="Stop and Go">Stop and Go</a></li>
+</ul>
+</li>
+<li><a href="#Cancellation-and-Signals" title="Cancellation and Signals">Cancellation and Signals</a><ul class="nav">
+<li><a href="#Cancellation" title="Cancellation">Cancellation</a></li>
+<li><a href="#Signal-Handling" title="Signal Handling">Signal Handling</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Demos-and-Testing" title="Demos and Testing">Demos and Testing</a><ul class="nav">
+<li><a href="#Running-the-Client" title="Running the Client">Running the Client</a></li>
+<li><a href="#Demos" title="Demos">Demos</a></li>
+<li><a href="#Testing-Resources" title="Testing Resources">Testing Resources</a></li>
+<li><a href="#54-Testing-Features" title="5.4 Testing Features">5.4 Testing Features</a></li>
+<li><a href="#Testing-for-Thread-Safety" title="Testing for Thread Safety">Testing for Thread Safety</a></li>
+</ul>
+</li>
+<li><a href="#Tips" title="Tips">Tips</a></li>
+<li><a href="#Handin" title="Handin">Handin</a></li>
+<li><a href="#Grading" title="Grading">Grading</a></li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>
+

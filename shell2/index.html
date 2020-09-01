@@ -1,0 +1,437 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        Shell 2
+    </title>
+    <link rel="icon" type="image/png" href="https://icon-library.net/images/seashell-icon/seashell-icon-20.jpg">
+    <link rel="apple-touch-icon" href="https://icon-library.net/images/seashell-icon/seashell-icon-20.jpg">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @charset "UTF-8";@import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd,.popover kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram{text-align:center;background-color:inherit;border-radius:0;white-space:inherit}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.MJX_Assistive_MathML{display:none}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;padding:0 15px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc-label{opacity:.3;background-color:#ccc;border:none;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:23px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child > ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif}html[lang^=ja] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html .markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html .markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html .markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html[lang^=ja] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html[lang=zh-tw] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html[lang=zh-cn] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}html .ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html .ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html .ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:3px;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:cover}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.ui-published-note{color:#337ab7}.ui-published-note .fa{font-size:20px;vertical-align:top}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;letter-spacing:.025em}.focus,:focus{outline:none!important}::-moz-focus-inner{border:0!important}body{font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] body{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}abbr[data-original-title],abbr[title]{cursor:help}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true" style="position: relative;"><h1 id="Shell-2"><a class="anchor hidden-xs" href="#Shell-2" title="Shell-2"><span class="octicon octicon-link"></span></a>Shell 2</h1><h3 id="Due-November-6-2019-at-1159pm"><a class="anchor hidden-xs" href="#Due-November-6-2019-at-1159pm" title="Due-November-6-2019-at-1159pm"><span class="octicon octicon-link"></span></a>Due: November 6, 2019 at 11:59pm</h3><h1 id="Introduction"><a class="anchor hidden-xs" href="#Introduction" title="Introduction"><span class="octicon octicon-link"></span></a>Introduction</h1><p>Tom was drifting through the water with his new chum the magic conch. Suddenly, an enormous tentacle emerged from the depths of the ocean and speared into the heart of his friend, splitting the shell evenly in two. Tom was otterly overwhelmed with emocean and blinked mildly, looking at his friends, shell_1 and shell_2. Shell_2 was trying to communicate, but Tom couldn’t quite catch the signals. Kelp Tom reestablish connection with his shelly friends. CTRL-\.</p><p>Now, your shell can run only one program at a time since it runs programs in the foreground, occupying the entire shell. This isn’t especially useful: most of the time, you want to be able to run multiple processes concurrently. Additionally, if that process were to hang or become unresponsive, it would be impossible to end it without also killing the shell.</p><h1 id="Before-you-write-any-code-read-this-handout-in-its-entirety"><a class="anchor hidden-xs" href="#Before-you-write-any-code-read-this-handout-in-its-entirety" title="Before-you-write-any-code-read-this-handout-in-its-entirety"><span class="octicon octicon-link"></span></a>Before you write any code, read this handout in its entirety.</h1><p>We know it’s a long read, but we promise it will ultimately end up saving you a lot of time, effort, and stress! Even if it doesn’t all make sense right away, you’ll get a better sense of where to look for answers when you start having questions. <strong>(This is now also required before being helped at hours.)</strong></p><h1 id="Assignment"><a class="anchor hidden-xs" href="#Assignment" title="Assignment"><span class="octicon octicon-link"></span></a>Assignment</h1><p>In this assignment, you will be expanding your C Shell with a basic job control system: your shell will be able to handle multiple processes by running them in the background, as well as managing processes with signal forwarding.</p><h3 id="Stencil"><a class="anchor hidden-xs" href="#Stencil" title="Stencil"><span class="octicon octicon-link"></span></a>Stencil</h3><p>There is some stencil code for this assignment. You can install it in your home directory by running</p><pre><code>cs0330_install shell_2
+</code></pre><p>However, most of the support code for this project is your Shell 1. Make sure to copy all of your Shell 1 source to your Shell 2 directory. You can use the Makefile from Shell 1 to run Shell 2, but you will want to compile with the <code>-D_GNU_SOURCE</code> and <code>-std=gnu99</code> flags to avoid potential headaches, and you will need to add the new files in the Shell 2 stencil to your Makefile.</p><h3 id="Jobs-vs-Processes"><a class="anchor hidden-xs" href="#Jobs-vs-Processes" title="Jobs-vs-Processes"><span class="octicon octicon-link"></span></a>Jobs vs. Processes</h3><p>Suppose you execute your shell within your shell. In response to additional commands, the inner shell itself will spawn its own child processes.</p><p>In this situation, the shell is not running just a single foreground process. The command it has executed now comprise of multiple processes: one for the inner shell, and additional processes spawned by the inner shell.</p><p>Still, from the point of view of the outer shell, the inner shell and its child processes is considered a single unit. This unit is called a <em>job</em>. A <em>job</em> is a process or group of processes created by your shell from a single command.</p><h3 id="Foreground-vs-Background"><a class="anchor hidden-xs" href="#Foreground-vs-Background" title="Foreground-vs-Background"><span class="octicon octicon-link"></span></a>Foreground vs. Background</h3><p>The notion of <em>foreground</em> and <em>background</em> jobs is crucial to a job control system.</p><p>A <strong>foreground</strong> job is the group of processes with which the user interacts. When the current version of your shell executes a command, that executed command (the process) will receive all future commands; the shell itself must wait for that process to terminate before it can resume receiving user input.</p><p>A <strong>background</strong> job is the opposite. It does not take over the shell’s interface, meaning that the shell still receives commands while the background processes execute and does not interrupt the shell.</p><p>Because background jobs do not take over the shell’s interface, it is possible for a shell to execute many background jobs at once.</p><h1 id="Specifications"><a class="anchor hidden-xs" href="#Specifications" title="Specifications"><span class="octicon octicon-link"></span></a>Specifications</h1><p>In addition to maintaining its current behavior, your shell should now exhibit the following additional behaviors:</p><h3 id="Signal-Handling"><a class="anchor hidden-xs" href="#Signal-Handling" title="Signal-Handling"><span class="octicon octicon-link"></span></a>Signal Handling</h3><p>If <strong>CTRL-C</strong>, <strong>CTRL-Z</strong>, or <strong>CTRL-\</strong> is typed into your shell, the resulting signal (<strong>SIGINT</strong>, <strong>SIGTSTP</strong>, or <strong>SIGQUIT</strong>, respectively) should be sent to the currently running foreground job (if one exists) instead of to your shell. If no foreground job is running, then nothing should happen.</p><h3 id="Launching-Background-Processes"><a class="anchor hidden-xs" href="#Launching-Background-Processes" title="Launching-Background-Processes"><span class="octicon octicon-link"></span></a>Launching Background Processes</h3><p>If a command ends with the character <code>&amp;</code>, that command should run in the background. Otherwise, that command should be run in the foreground.  Note: the <code>&amp;</code> character must be the last thing on the command line.</p><p>When starting a job in the background, a message indicating its job and process ID should be printed to standard output. In Shell 2, this is formatted as:</p><pre><code>[&lt;job id&gt;] (&lt;process id&gt;)
+</code></pre><p>Whenever a job is stopped by a signal, you should print a similar message formatted as follows:</p><pre><code>[&lt;jid&gt;] (&lt;pid&gt;) suspended by signal &lt;signal number&gt;
+</code></pre><p>Whenever a job is resumed via a <strong>SIGCONT</strong> signal, print another similar message with the following formatting:</p><pre><code>[&lt;jid&gt;] (&lt;pid&gt;) resumed
+</code></pre><h3 id="Reaping"><a class="anchor hidden-xs" href="#Reaping" title="Reaping"><span class="octicon octicon-link"></span></a>Reaping</h3><p>Jobs started by your shell that have terminated should be <em>reaped</em>.</p><p>Whenever a job (foreground OR background) is terminated by a signal, your shell should print a brief message indicating the cause of termination, which can be determined by the status set by <code>waitpid()</code>. The message should be formatted as follows:</p><pre><code>[&lt;jid&gt;] (&lt;pid&gt;) terminated by signal &lt;signal number&gt;
+</code></pre><p>Whenever a <strong>background</strong> job (not a foreground job) exits normally, print yet another similar message as follows:</p><pre><code>[&lt;jid&gt;] (&lt;pid&gt;) terminated with exit status &lt;status&gt;
+</code></pre><h3 id="Commands"><a class="anchor hidden-xs" href="#Commands" title="Commands"><span class="octicon octicon-link"></span></a>Commands</h3><p><strong><code>jobs</code>:</strong> lists all the current jobs, listing each job’s job ID, state (running or suspended), and command used to execute it.</p><ul>
+<li>Foreground jobs should be added to the list if they are ever suspended.</li>
+<li>Background jobs should always be added to the jobs list regardless of their state (as long as the background job does not immediately fail because it is not a valid command).</li>
+<li>We have implemented printing the list to the terminal for you in the support code. You must call <strong>jobs()</strong> to print all the jobs in your job list. See Section 7 for more information on the support code. For simplicity’s sake, assign each job an ID and add it to the job list when it is created. The first job should have ID 1, the second ID 2, and so on.</li>
+</ul><p><strong><code>bg %&lt;job&gt;</code>:</strong> resumes <code>&lt;job&gt;</code> (if it is suspended) and runs it in the background, where <code>&lt;job&gt;</code> is a job ID.</p><p><strong><code>fg %&lt;job&gt;</code>:</strong> resumes <code>&lt;job&gt;</code> (if it is suspended) and runs it in the foreground. <code>&lt;job&gt;</code> is a job ID, just as in the <code>bg</code> command.</p><p>The % above simply tells your shell that you are referencing a job ID. To maximize compatibility with the provided testing program, your shell should print no other output unless it is compiled with <code>PROMPT</code> defined (as in Shell 1).</p><p>The following sections provide information that you will find invaluable in producing the above behaviors. We recommend completing this project in a linear manner, fully finishing each subsection of a given section before moving on to the next section.</p><h1 id="Signals"><a class="anchor hidden-xs" href="#Signals" title="Signals"><span class="octicon octicon-link"></span></a>Signals</h1><p>In Shell 1, when a job is launched, the shell can do nothing but wait until that job finishes. But what if the shell needs to perform some other task, or that job will never finish? There needs to be some way to interrupt execution of that job.</p><p><em>Signals</em> are delivered asynchronously by the operating system to do precisely that. When you type characters on the keyboard, those characters are delivered to the current terminal. The terminal processes those characters and then performs some action upon its <em>foreground process group</em>. Most characters are simply passed along to be read by that process, but some, such as <strong>CTRL-C</strong>, generate a signal which is sent to every process in the terminal’s foreground process group instead.</p><p>Therefore, in order to properly forward a signal to a job running in the foreground, your shell must set the process group ID of the terminal to be that of the foreground job. If there is no current foreground job, then the terminal’s process group ID should instead be set to that of the shell.</p><h3 id="Sending-Signals"><a class="anchor hidden-xs" href="#Sending-Signals" title="Sending-Signals"><span class="octicon octicon-link"></span></a>Sending Signals</h3><pre><code class="C hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">kill</span>(<span class="hljs-params">pid_t pid, <span class="hljs-keyword">int</span> sig</span>)</span>;
+</code></pre><p>To send a signal to a process you can use the <code>kill()</code> system call. Check the <a href="https://cs.brown.edu/courses/csci0330/docs/labs/signals.pdf" target="_blank" rel="noopener">Signals Lab</a> for a refresher!</p><h3 id="Ignoring-Signals"><a class="anchor hidden-xs" href="#Ignoring-Signals" title="Ignoring-Signals"><span class="octicon octicon-link"></span></a>Ignoring Signals</h3><p>If you type <strong>CTRL-C</strong> when your shell has no foreground job, the controlling terminal will send <strong>SIGINT</strong> to your shell only. To avoid having the shell exit (or suspend execution), you must override its default behavior when it receives those signals so that it ignores the signal instead. You should <strong>not</strong> install a signal handler that does nothing. Instead, you should set the response to the signal to be <strong>SIG_IGN</strong>. Instead of using the <code>sigaction()</code> system call from the lab, you can more concisely invoke the <code>signal()</code> system call.</p><p>We have not yet covered the <strong>SIGTTOU</strong> signal, which must also be ignored here in addition to <strong>SIGINT, SIGTSTP, <strong>and</strong> SIGQUIT</strong>. <strong>SIGTTOU</strong> is sent to background processes if they attempt to write to <strong>STDOUT</strong> to prevent them from doing so. <strong>SIGTTOU</strong> should be ignored as well because when we run a foreground process from within our shell, then from the perspective of bash, our shell becomes a background process. This means that when the shell tries to take control back after some foreground process is terminated, it will be unable to do so since it receives <strong>SIGTTOU</strong>, which is not the behaviour we want.</p><h3 id="Signal-Handling-in-the-Child-Process"><a class="anchor hidden-xs" href="#Signal-Handling-in-the-Child-Process" title="Signal-Handling-in-the-Child-Process"><span class="octicon octicon-link"></span></a>Signal Handling in the Child Process</h3><p>After forking into the child process and before calling <code>execv()</code>, you should set up signal handlers to set the behaviour of all the signals ignored in the parent process back to their default behaviour using <strong>SIG_DFL</strong>. This is because we want the child process to be able to accept and act on signals sent to it.</p><h3 id="Process-Groups"><a class="anchor hidden-xs" href="#Process-Groups" title="Process-Groups"><span class="octicon octicon-link"></span></a>Process Groups</h3><p>When you <code>fork()</code> off a new child process, that process begins execution as a copy of its parent from the line at which <code>fork()</code> was called, also inheriting its parent’s <em>process group ID</em>. For signals to be properly sent to the new child process and not also to the parent, the process group ID of that child must be changed.</p><p><strong>NOTE:</strong>  <em>This will also matter later on when your shell begins to support multiple jobs; changing the process groups of those jobs is necessary so that signals will be sent to only the foreground job.)</em></p><p>The <code>setpgid()</code> system call fortunately exists to make this change. All that remains, then, is to ensure that each job has a unique process group ID. This is simple to do — individual process IDs are guaranteed to be unique, so all you need to do is set the process group ID of a job to its process ID. The child process must do this immediately after it returns from <code>fork()</code> before <code>execv()</code> is called.</p><pre><code class="C hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">setpgid</span>(<span class="hljs-params">pid_t pid, pid_t pgid</span>)
+</span></code></pre><p>A separate routine is necessary to make sure that the terminal sends signals to the right processes, however. <code>tcsetpgrp()</code> conveniently does this, changing the process group that the terminal sends typed characters and signals to, in other words, the controlling process group.</p><pre><code class="C hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">tcsetpgrp</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> fd, pid_t pgrp</span>)
+</span></code></pre><p><strong>Some things to note:</strong></p><ul>
+<li>
+<p>Keep in mind that there can be at most one foreground job that your shell may be running. If there is a foreground job, then signals such as <strong>CTRL-C</strong> must be sent to and affect the running foreground process. If there is no foreground job running in your shell, then these signals should be sent to the shell process itself (which it will ignore).</p>
+</li>
+<li>
+<p>Since <code>tcsetpgrp()</code> is used to ensure that the correct process group receives signals, you should use this call whenever a foreground process begins and make sure to set terminal control back when the foreground process terminates. Additionally, be wary of terminal control when continuing stopped background or foreground jobs.</p>
+</li>
+<li>
+<p>The file descriptor passed into <code>tcsetpgrp()</code> should be that of the controlling terminal of the current foreground job, i.e. just the <code>STDIN</code> file descriptor. The second parameter is the process group ID of the process that terminal control should be set to. Therefore, it must be the process group ID of the foreground job your shell is running (if any), or the process group ID of your shell itself.</p>
+</li>
+<li>
+<p>We recommend calling <code>tcsetpgrp()</code> in your child process, after your call to <code>setpgid()</code> and before your signal handling and input/output redirection code.</p>
+</li>
+</ul><h1 id="Multiple-Jobs"><a class="anchor hidden-xs" href="#Multiple-Jobs" title="Multiple-Jobs"><span class="octicon octicon-link"></span></a>Multiple Jobs</h1><p>Once your shell can manage signals and its foreground job, it is time to augment it so that it can run jobs in the background as well as the foreground. If your shell reads a <code>&amp;</code> character at the end of a line of input, it should execute that command in the background. You can assume that <code>&amp;</code> will only appear as the last non-whitespace character on a line.</p><p>Because a process running in the background immediately returns control of the program interface to the shell, you should be able to run a large number of background jobs (only limited by system resources).  After you execute your command you should print the job and process ID (as specified above) immediately followed by the prompt. This will enable you to immediately launch another job, without waiting for the former to complete.</p><p>Keep in mind that background jobs are run in separate process groups. You will need to track each job using a list. We have provided several functions that you can use to do this. For each job you are responsible for tracking its job ID, process ID, command, and state.</p><p><strong>NOTE:</strong> <em>You do not want to add foreground jobs to the job list unless they have been suspended.</em></p><h3 id="Process-State"><a class="anchor hidden-xs" href="#Process-State" title="Process-State"><span class="octicon octicon-link"></span></a>Process State</h3><p>At any time, a process can be in one of several states: it may be running, stopped, or terminated. (there are other states, but your shell need not track them.) Stopped processes have been suspended, but are still active and can be resumed by the user at any time. Terminated processes, referred to as <em>zombies</em>, have stopped execution and can no longer be executed, but persist on the system, continuing to consume resources until they are explicitly <em>reaped</em>.</p><p>A process’ initial state is running, and its state can be altered using signals. For example, <strong>SIGINT</strong> terminates a process, and <strong>SIGTSTP</strong> stops a process. <strong>SIGCONT</strong> can be sent to resume execution of a stopped process.</p><h1 id="Reaping1"><a class="anchor hidden-xs" href="#Reaping1" title="Reaping1"><span class="octicon octicon-link"></span></a>Reaping</h1><p>Once your shell is capable of running background jobs, it is time to properly track them. Waiting for a background job to finish defeats the purpose of the background job, however. What’s needed is a means for knowing when any child process is terminated, then getting them out of the zombie state to clean up the process table. At present, your shell uses the <code>wait()</code> system call to wait for its foreground process to finish before displaying another prompt and running another command. For this assignment, you will want to use <code>waitpid()</code>, which suspends execution of the current process until a <em>specific</em> process changes state, based on its process ID. Once the target process has finished, <code>waitpid()</code> also <em>reaps</em> that process, freeing any resources that persist on the system.</p><h3 id="Reaping-a-Child-Process"><a class="anchor hidden-xs" href="#Reaping-a-Child-Process" title="Reaping-a-Child-Process"><span class="octicon octicon-link"></span></a><em>Reaping</em> a Child Process</h3><p>The <code>waitpid()</code> system call allows your shell to do exactly that: examine a child process which has changed state, and instruct the operating system to clean up any resources associated with that child if it terminated.</p><pre><code class="C hljs"><span class="hljs-keyword">int</span> <span class="hljs-keyword">waitpid</span>(pid t pid, <span class="hljs-keyword">int</span> *status, <span class="hljs-keyword">int</span> options)
+</code></pre><p>The options parameter that define the behavior of the syscall may be set to any combination of the following flags, or to 0:</p><ul>
+<li>
+<p><strong>WNOHANG</strong> instructs the function to return immediately without hanging if no child process has terminated, returning 0 and leaves the contents of the integer pointed to by <code>status</code> unchanged. If any child process indicated by the <code>pid</code> argument <em>has</em> changed state, <code>waitpid</code> returns the process id of that child and updates <code>status</code> as usual.</p>
+</li>
+<li>
+<p><strong>WUNTRACED</strong> instructs the function to return if a child process has been stopped, even if no child process has terminated.</p>
+</li>
+<li>
+<p><strong>WCONTINUED</strong> instructs the function to return if a child has been restarted from a stopped state.</p>
+</li>
+</ul><p><code>waitpid()</code> stores information about what happened to a child process in the location pointed to by <code>status</code> (if <code>status</code> is not <code>NULL</code>). You’ll want to access this information so your shell can print an informative message about what happened. You can use the following macros, all of which have a single integer <code>status</code> as an argument, to access this information:</p><ul>
+<li>
+<p><strong><code>WIFEXITED(status)</code></strong>, which returns true if the process terminated normally and 0 otherwise;</p>
+</li>
+<li>
+<p><strong><code>WEXITSTATUS(status)</code></strong>, which returns the exit status of a normally-terminated process;</p>
+</li>
+<li>
+<p><strong><code>WIFSIGNALED(status)</code></strong>, which returns true if the process was terminated by a signal and 0 otherwise;</p>
+</li>
+<li>
+<p><strong><code>WTERMSIG(status)</code></strong>, which returns the signal which terminated the process if it terminated by a signal;</p>
+</li>
+<li>
+<p><strong><code>WIFSTOPPED(status)</code></strong>, which returns true if the process was stopped by a signal;</p>
+</li>
+<li>
+<p><strong><code>WSTOPSIG(status)</code></strong>, which returns the signal which stopped the process if it was stopped by a signal;</p>
+</li>
+<li>
+<p><strong><code>WIFCONTINUED(status)</code></strong>, which returns true if the process was resumed by <strong>SIGCONT</strong> and 0 otherwise.</p>
+</li>
+</ul><p><strong>NOTE:</strong> <em>You will not be able to catch and print <em>every</em> change in status for a given job. Specifically, if a job resumes and quickly finishes before reaping occurs, reaping will simply see that the job terminated and will print accordingly. This is expected behavior.</em></p><p>One strategy we recommend is to print information about any jobs that may have changed state just before a new prompt is printed. This is a convenient place to check which of your jobs have changed state using reaping.</p><p>In theory, reaping can also be achieved by installing <code>waitpid()</code> in the <strong>SIGCHLD</strong> signal handler. The <strong>SIGCHLD</strong> signal is sent to the parent of a child process when it exits, is interrupted, or resumes after being interrupted. We strongly advise <strong>not</strong> using this method to reap process as this can create concurrency issues. You should be using just the jobs list and <code>waitpid()</code> to reap processes.</p><h1 id="fg-and-bg"><a class="anchor hidden-xs" href="#fg-and-bg" title="fg-and-bg"><span class="octicon octicon-link"></span></a>fg and bg</h1><p>Now that you’ve added all of the other functionality, it is time to add the last piece of the puzzle: restarting a stopped job in the foreground or background using the commands <code>fg</code> and <code>bg</code> respectively, or moving a background job into the foreground with <code>fg</code>.</p><p>For both of these commands you should send a <strong>SIGCONT</strong> signal to the stopped job.</p><p>Some programs that might help you test management of foreground and background processes include:</p><pre><code>/bin/sleep
+
+/usr/bin/yes
+
+/usr/bin/find
+</code></pre><p>Note that if you try to run any program that reads from standard input (such as <code>/bin/cat</code>) in the background, it will receive the signal <strong>SIGTTIN</strong> from the terminal and be suspended. You should be able to run (and restart) such processes in the foreground with no problems, however.</p><h1 id="Support-Code"><a class="anchor hidden-xs" href="#Support-Code" title="Support-Code"><span class="octicon octicon-link"></span></a>Support Code</h1><p>You are provided with support code which will help you manage the job list. The <code>jobs.h</code> file contains declarations of the functions that you can use to this; those functions are defined in the <code>jobs.c</code> file. You are not responsible for understanding how the functions in <code>jobs.c</code> are implemented, although you are encouraged to read through it.</p><p>Here are the functions you are provided with:</p><ul>
+<li>
+<p><strong><code>init_job_list()</code>:</strong> initializes a job list (a <code>job_list_t</code>) and returns a pointer to it.</p>
+</li>
+<li>
+<p><strong><code>cleanup_job_list(job_list_t *job_list)</code>:</strong> cleans up the job list, de-allocating any system resources associated with it. Make sure you always call this before your program exits!</p>
+</li>
+<li>
+<p><strong><code>add_job(job_list_t *job_list, int jid, pid_t pid, process_state_t state, char *command)</code>:</strong> adds a job to the job list. Each job in the job list has a job id, process id, state, and command (which is the command used to start that job (e.g. <code>/bin/sleep</code>)).</p>
+</li>
+<li>
+<p><strong><code>remove_job_jid(job_list_t *job_list, int jid)</code> and <code>remove_job_pid(job_list_t *job_list, pid_t pid)</code>:</strong> remove a job from the job list, indicated by the job’s job id or process id respectively.</p>
+</li>
+<li>
+<p><strong><code>update_job_jid(job_list_t *job_list, int jid, process_state_t state)</code> and <code>update_job_pid(job_list_t *job_list, pid_t pid, process_state_t state)</code>:</strong> update the process state of the job indicated by the given job id or process id respectively.</p>
+</li>
+<li>
+<p><strong><code>get_job_pid(job_list_t *job_list, int jid)</code>:</strong> gets the process id of a job indicated by a job id.</p>
+</li>
+<li>
+<p><strong><code>get_job_jid(job_list_t *job_list, pid_t pid)</code>:</strong> gets the job id of a job indicated by a process id.</p>
+</li>
+<li>
+<p><strong><code>get_next_pid(job_list_t *job_list)</code>:</strong> returns the process id of the next job in the job list, or <code>−1</code> if the end of the list has been reached. Future calls to this function will then resume from the start of the list.</p>
+</li>
+<li>
+<p><strong><code>jobs(job_list_t *job_list)</code>:</strong> prints out the contents of the job list. Useful for implementing the <code>jobs</code> builtin command.</p>
+</li>
+</ul><p>You are also provided with a <code>process_state_t</code> enum with two values, <strong>RUNNING</strong> and <strong>STOPPED</strong>  which correspond to process states. Use these macros whenever you need to initialize or update a process state.</p><p>To use these functions in your program, you must do two things. First, you must include <code>jobs.h</code> in any file in which you reference any of these functions. Second, you must make sure to compile your program with <code>jobs.c</code>. You can do so by updating the Makefile from Shell 1 to include <code>jobs.c</code> in the list of files to compile (update <code>sh.c</code> to use<code>sh.c jobs.c</code> wherever applicable).</p><h1 id="Library-Functions"><a class="anchor hidden-xs" href="#Library-Functions" title="Library-Functions"><span class="octicon octicon-link"></span></a>Library Functions</h1><p>The same restriction on non-syscall functions from Shell 1 applies, but you are also allowed to use the support code. Remember that <code>atoi()</code> and <code>sprintf()</code> are allowed functions; these functions should be sufficient to do any string manipulation or formatting that you might need.</p><h1 id="Testing-Your-Shell"><a class="anchor hidden-xs" href="#Testing-Your-Shell" title="Testing-Your-Shell"><span class="octicon octicon-link"></span></a>Testing Your Shell</h1><p>To help test your shell, we have provided you with a tester. To use the tester, run</p><pre><code>cs0330_shell_2_test -s &lt;33noprompt&gt;
+</code></pre><p>Optional arguments to the tester include:</p><p><code>-m</code> Run the tests in valgrind to check for memory leaks</p><p><code>-p</code> Run multiple tests concurrently</p><p><code>-t &lt;trace num&gt;</code> Specify a certain trace to run (default: check all)</p><p><code>-v</code> Trace progress by printing trace descriptions, input, and output</p><p><code>-w</code> Show <em>more</em> information (such as the entire valgrind output if <code>-m</code> was run)</p><p><code>-h</code> Print help message</p><p>The tests can be found in <code>/course/cs0330/pub/shell_2</code>.</p><p>We highly recommend using the <code>-p</code> flag to speed up the testing. However, this can occasionally cause a trace to fail unexpectedly – run that trace with <code>-t &lt;tracenum&gt;</code> to check.</p><p>Also, remember you can (and should) use <code>cs0330_shell_1_test</code> to make sure all functionality from Shell 1 remains intact, but you will have to use the <code>-p</code> flag for it to work on Shell 2.</p><p><strong>NOTE:</strong> <em>If you want to run the Shell 1 tester on your Shell 2 code, make sure you use the “-p” flag. Otherwise, the tester will output a bunch of cryptic “broken pipe” errors.</em></p><h3 id="Format-of-the-Tracefiles"><a class="anchor hidden-xs" href="#Format-of-the-Tracefiles" title="Format-of-the-Tracefiles"><span class="octicon octicon-link"></span></a>Format of the Tracefiles</h3><p>Trace files contain a sequence of commands for your shell to run, interspersed with special commands that the driver interprets to mean special actions are to be taken.</p><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>TSTP</code></td>
+<td>Send a <strong>SIGTSTP</strong> signal to the shell</td>
+</tr>
+<tr>
+<td><code>INT</code></td>
+<td>Send a <strong>SIGINT</strong> signal to the shell</td>
+</tr>
+<tr>
+<td><code>QUIT</code></td>
+<td>Send a <strong>SIGQUIT</strong> signal to the shell</td>
+</tr>
+<tr>
+<td><code>KILL</code></td>
+<td>Send a <strong>SIGKILL</strong> signal to the shell</td>
+</tr>
+<tr>
+<td><code>CLOSE</code></td>
+<td>Close writer (sends <code>EOF</code> to shell)</td>
+</tr>
+<tr>
+<td><code>WAIT</code></td>
+<td>Wait for shell to terminate</td>
+</tr>
+<tr>
+<td><code>SLEEP&lt;n&gt;</code></td>
+<td>Sleep for <code>n</code> seconds</td>
+</tr>
+</tbody>
+</table><h3 id="Test-Executables"><a class="anchor hidden-xs" href="#Test-Executables" title="Test-Executables"><span class="octicon octicon-link"></span></a>Test Executables</h3><p>The testing scripts utilize small executables that are located (with their source code) in the</p><p><code>/course/cs0330/pub/shell_2/programs</code> directory. To test just one of the traces, run the tester with <code>-t &lt;tracenum&gt;</code> using the number, not the whole filename. It will be hard to understand what the tests are doing without understanding these programs, so we recommend examining the README contained in that directory as well as the source code for some of the programs.</p><h3 id="Demo"><a class="anchor hidden-xs" href="#Demo" title="Demo"><span class="octicon octicon-link"></span></a>Demo</h3><p>When in doubt, follow the implementation provided in the demos. The demos can be invoked using <code>cs0330_shell_2_demo</code> and <code>cs0330_noprompt_shell_2_demo</code>. The demos are produced from identical source code, but the first is compiled with the macro <code>PROMPT</code> defined, and consequently produces additional output.</p><h3 id="Error-Checking"><a class="anchor hidden-xs" href="#Error-Checking" title="Error-Checking"><span class="octicon octicon-link"></span></a>Error Checking</h3><p>Make sure to error check <strong>any</strong> system calls that can throw errors.  Check the man pages if you’re not sure. <strong>We cannot emphasize this more!</strong></p><h3 id="Shell-Clean-Up"><a class="anchor hidden-xs" href="#Shell-Clean-Up" title="Shell-Clean-Up"><span class="octicon octicon-link"></span></a>Shell Clean Up</h3><p><strong>IMPORTANT:</strong> Make sure you run <code>cs0330_cleanup_shell</code> after every time you work on Shell 2 on department machines. This is because it is possible that your shell could leave running processes after your shell has terminated (known as zombie processes). This slows down the department machines and the HTAs get yelled at.</p><h1 id="GDB-Tips-for-Shell-2"><a class="anchor hidden-xs" href="#GDB-Tips-for-Shell-2" title="GDB-Tips-for-Shell-2"><span class="octicon octicon-link"></span></a>GDB Tips for Shell 2</h1><p>As with all other projects, GDB will be very useful in this project. Specifically, since you are now working with signals, GDB has several commands that can help debug signals. Note that <code>set follow-fork-mode child</code>, explained in the Shell 1 handout, will still be useful.</p><h3 id="handle-signal"><a class="anchor hidden-xs" href="#handle-signal" title="handle-signal"><span class="octicon octicon-link"></span></a>handle signal</h3><p>GDB also provides several commands related to signals that will be helpful. Firstly, there is <code>handle &lt;signal&gt; [keywords...]</code>. This command allows you to manage what happens when you send a signal while in GDB. For example, when gdb receives a <strong>SIGINT</strong> signal, it prints a warning to the terminal, passes it to the program, and stops the program. If you wanted to print information that the signal was received without stopping the program, you would type <code>handle SIGINT nostop</code> in GDB. For more useful <code>handle</code> commands, visit the documentation <a href="https://sourceware.org/gdb/onlinedocs/gdb/Signals.html" target="_blank" rel="noopener">here</a>.</p><h3 id="catch-signal"><a class="anchor hidden-xs" href="#catch-signal" title="catch-signal"><span class="octicon octicon-link"></span></a>catch signal</h3><p>If, however, all you want is to simple break on a signal (for example, to step through your signal handler), you would execute the catch signal <code>[signal... | —all]</code> command. For example, to break on a <strong>SIGINT</strong>, you would run <code>catch signal SIGINT</code>, or <code>catch signal all</code> if you wanted to catch all signals. Again, for more information, refer <a href="https://sourceware.org/gdb/onlinedocs/gdb/Signals.html" target="_blank" rel="noopener">here</a>.</p><h1 id="Handing-In"><a class="anchor hidden-xs" href="#Handing-In" title="Handing-In"><span class="octicon octicon-link"></span></a>Handing In</h1><p>Before handing in your project, be sure to run this script to reformat your code to be consistent with the style guidelines:</p><pre><code>cs0330_reformat sh.c 
+</code></pre><p>You can also run this script on any other <code>.h</code> or <code>.c</code> files you have. Just be sure you don’t run it on other types of files, as this formatter is only meant for <code>.c</code> and <code>.h</code> files.</p><p>To hand in Shell 2, run:</p><pre><code>cs0330_handin shell_2
+</code></pre><p>from your project working directory. You should hand in all of your code, the Makefile used to compile your program, and a README documenting the structure of just your Shell 2 code, any bugs you have in your code, any extra features you added, and how to compile it.</p><p><strong>IMPORTANT NOTE:</strong> <em>If you have handed in but plan to hand in again after the TAs start grading (11/9 at noon), in addition to running the regular handin script, you must run <code>cs0330_grade_me_late shell_2</code></em> <em>to inform us not to start grading you yet. You must run the script by</em> <em><strong>Saturday 11/9 at noon.</strong></em></p><p>(<a href="https://better-minesweeper-draft.herokuapp.com/" target="_blank" rel="noopener">i’m finished</a>)</p></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li class=""><a href="#Shell-2" title="Shell 2">Shell 2</a><ul class="nav">
+<li><a href="#Due-November-6-2019-at-1159pm" title="Due: November 6, 2019 at 11:59pm">Due: November 6, 2019 at 11:59pm</a></li>
+</ul>
+</li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li><a href="#Before-you-write-any-code-read-this-handout-in-its-entirety" title="Before you write any code, read this handout in its entirety.">Before you write any code, read this handout in its entirety.</a></li>
+<li><a href="#Assignment" title="Assignment">Assignment</a><ul class="nav">
+<li><a href="#Stencil" title="Stencil">Stencil</a></li>
+<li><a href="#Jobs-vs-Processes" title="Jobs vs. Processes">Jobs vs. Processes</a></li>
+<li><a href="#Foreground-vs-Background" title="Foreground vs. Background">Foreground vs. Background</a></li>
+</ul>
+</li>
+<li><a href="#Specifications" title="Specifications">Specifications</a><ul class="nav">
+<li><a href="#Signal-Handling" title="Signal Handling">Signal Handling</a></li>
+<li><a href="#Launching-Background-Processes" title="Launching Background Processes">Launching Background Processes</a></li>
+<li><a href="#Reaping" title="Reaping">Reaping</a></li>
+<li><a href="#Commands" title="Commands">Commands</a></li>
+</ul>
+</li>
+<li class=""><a href="#Signals" title="Signals">Signals</a><ul class="nav">
+<li><a href="#Sending-Signals" title="Sending Signals">Sending Signals</a></li>
+<li><a href="#Ignoring-Signals" title="Ignoring Signals">Ignoring Signals</a></li>
+<li><a href="#Signal-Handling-in-the-Child-Process" title="Signal Handling in the Child Process">Signal Handling in the Child Process</a></li>
+<li><a href="#Process-Groups" title="Process Groups">Process Groups</a></li>
+</ul>
+</li>
+<li><a href="#Multiple-Jobs" title="Multiple Jobs">Multiple Jobs</a><ul class="nav">
+<li><a href="#Process-State" title="Process State">Process State</a></li>
+</ul>
+</li>
+<li><a href="#Reaping1" title="Reaping">Reaping</a><ul class="nav">
+<li><a href="#Reaping-a-Child-Process" title="Reaping a Child Process">Reaping a Child Process</a></li>
+</ul>
+</li>
+<li><a href="#fg-and-bg" title="fg and bg">fg and bg</a></li>
+<li><a href="#Support-Code" title="Support Code">Support Code</a></li>
+<li><a href="#Library-Functions" title="Library Functions">Library Functions</a></li>
+<li><a href="#Testing-Your-Shell" title="Testing Your Shell">Testing Your Shell</a><ul class="nav">
+<li><a href="#Format-of-the-Tracefiles" title="Format of the Tracefiles">Format of the Tracefiles</a></li>
+<li><a href="#Test-Executables" title="Test Executables">Test Executables</a></li>
+<li><a href="#Demo" title="Demo">Demo</a></li>
+<li><a href="#Error-Checking" title="Error Checking">Error Checking</a></li>
+<li><a href="#Shell-Clean-Up" title="Shell Clean Up">Shell Clean Up</a></li>
+</ul>
+</li>
+<li><a href="#GDB-Tips-for-Shell-2" title="GDB Tips for Shell 2">GDB Tips for Shell 2</a><ul class="nav">
+<li><a href="#handle-signal" title="handle signal">handle signal</a></li>
+<li><a href="#catch-signal" title="catch signal">catch signal</a></li>
+</ul>
+</li>
+<li><a href="#Handing-In" title="Handing In">Handing In</a></li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
+        <div class="toc"><ul class="nav">
+<li class=""><a href="#Shell-2" title="Shell 2">Shell 2</a><ul class="nav">
+<li><a href="#Due-November-6-2019-at-1159pm" title="Due: November 6, 2019 at 11:59pm">Due: November 6, 2019 at 11:59pm</a></li>
+</ul>
+</li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li><a href="#Before-you-write-any-code-read-this-handout-in-its-entirety" title="Before you write any code, read this handout in its entirety.">Before you write any code, read this handout in its entirety.</a></li>
+<li><a href="#Assignment" title="Assignment">Assignment</a><ul class="nav">
+<li><a href="#Stencil" title="Stencil">Stencil</a></li>
+<li><a href="#Jobs-vs-Processes" title="Jobs vs. Processes">Jobs vs. Processes</a></li>
+<li><a href="#Foreground-vs-Background" title="Foreground vs. Background">Foreground vs. Background</a></li>
+</ul>
+</li>
+<li><a href="#Specifications" title="Specifications">Specifications</a><ul class="nav">
+<li><a href="#Signal-Handling" title="Signal Handling">Signal Handling</a></li>
+<li><a href="#Launching-Background-Processes" title="Launching Background Processes">Launching Background Processes</a></li>
+<li><a href="#Reaping" title="Reaping">Reaping</a></li>
+<li><a href="#Commands" title="Commands">Commands</a></li>
+</ul>
+</li>
+<li class=""><a href="#Signals" title="Signals">Signals</a><ul class="nav">
+<li><a href="#Sending-Signals" title="Sending Signals">Sending Signals</a></li>
+<li><a href="#Ignoring-Signals" title="Ignoring Signals">Ignoring Signals</a></li>
+<li><a href="#Signal-Handling-in-the-Child-Process" title="Signal Handling in the Child Process">Signal Handling in the Child Process</a></li>
+<li><a href="#Process-Groups" title="Process Groups">Process Groups</a></li>
+</ul>
+</li>
+<li><a href="#Multiple-Jobs" title="Multiple Jobs">Multiple Jobs</a><ul class="nav">
+<li><a href="#Process-State" title="Process State">Process State</a></li>
+</ul>
+</li>
+<li><a href="#Reaping1" title="Reaping">Reaping</a><ul class="nav">
+<li><a href="#Reaping-a-Child-Process" title="Reaping a Child Process">Reaping a Child Process</a></li>
+</ul>
+</li>
+<li><a href="#fg-and-bg" title="fg and bg">fg and bg</a></li>
+<li><a href="#Support-Code" title="Support Code">Support Code</a></li>
+<li><a href="#Library-Functions" title="Library Functions">Library Functions</a></li>
+<li><a href="#Testing-Your-Shell" title="Testing Your Shell">Testing Your Shell</a><ul class="nav">
+<li><a href="#Format-of-the-Tracefiles" title="Format of the Tracefiles">Format of the Tracefiles</a></li>
+<li><a href="#Test-Executables" title="Test Executables">Test Executables</a></li>
+<li><a href="#Demo" title="Demo">Demo</a></li>
+<li><a href="#Error-Checking" title="Error Checking">Error Checking</a></li>
+<li><a href="#Shell-Clean-Up" title="Shell Clean Up">Shell Clean Up</a></li>
+</ul>
+</li>
+<li><a href="#GDB-Tips-for-Shell-2" title="GDB Tips for Shell 2">GDB Tips for Shell 2</a><ul class="nav">
+<li><a href="#handle-signal" title="handle signal">handle signal</a></li>
+<li><a href="#catch-signal" title="catch signal">catch signal</a></li>
+</ul>
+</li>
+<li><a href="#Handing-In" title="Handing In">Handing In</a></li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>

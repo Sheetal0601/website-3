@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        Shell 1 (C-Shell)
+    </title>
+    <link rel="icon" type="image/png" href="https://icon-library.net/images/seashell-icon/seashell-icon-20.jpg">
+    <link rel="apple-touch-icon" href="https://icon-library.net/images/seashell-icon/seashell-icon-20.jpg">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @charset "UTF-8";@import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd,.popover kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram{text-align:center;background-color:inherit;border-radius:0;white-space:inherit}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.MJX_Assistive_MathML{display:none}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;padding:0 15px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc-label{opacity:.3;background-color:#ccc;border:none;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:23px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child > ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif}html[lang^=ja] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html .markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html .markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html .markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html[lang^=ja] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html[lang=zh-tw] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html[lang=zh-cn] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}html .ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html .ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html .ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:3px;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:cover}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.ui-published-note{color:#337ab7}.ui-published-note .fa{font-size:20px;vertical-align:top}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;letter-spacing:.025em}.focus,:focus{outline:none!important}::-moz-focus-inner{border:0!important}body{font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] body{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}abbr[data-original-title],abbr[title]{cursor:help}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true" style="position: relative;"><h1 id="Shell-1-C-Shell"><a class="anchor hidden-xs" href="#Shell-1-C-Shell" title="Shell-1-C-Shell"><span class="octicon octicon-link"></span></a>Shell 1 <em>(C-Shell)</em></h1><h3 id="Due-Monday-October-28-2019-at-1159pm"><a class="anchor hidden-xs" href="#Due-Monday-October-28-2019-at-1159pm" title="Due-Monday-October-28-2019-at-1159pm"><span class="octicon octicon-link"></span></a>Due: Monday, October 28, 2019 at 11:59pm</h3><h1 id="Introduction"><a class="anchor hidden-xs" href="#Introduction" title="Introduction"><span class="octicon octicon-link"></span></a>Introduction</h1><p>It’s almost Halloween, and you’re taking some costume inspiration from your favorite tongue-twister: “she sells seashells by the seashore”. Alas, once you arrive at the beach, you realise that you accidentally brought along your computer instead of your seashell-collecting gear. But you would hate for this to be a wasted trip. Maybe some C shells would do the trick…?</p><p>In this 2-part assignment, you will be writing your own “C” shell. A shell is typically used to allow users to run other programs in a friendly environment, often offering features such as command history and job control. Shells are also interpreters, running programs written using the shell’s language (shell scripts).</p><p>This assignment serves as an exercise in C string parsing and an introduction to system calls. (You won’t be implementing the system calls themselves, just calling them correctly. If you’re interested in learning how syscalls are implemented, consider taking CS 167!)</p><h1 id="Assignment-Outline"><a class="anchor hidden-xs" href="#Assignment-Outline" title="Assignment-Outline"><span class="octicon octicon-link"></span></a>Assignment Outline</h1><p>Your task is as follows: your shell must display a prompt and wait until the user types in a line of input. It must then do some text parsing on the input and take the appropriate action. For example, some input is passed on to built-in shell commands, while other inputs specify external programs to be executed by your shell.</p><p>The built-in commands you will need to implement are <code>cd</code>, <code>ln</code>, <code>rm</code>, and <code>exit</code>.</p><p>Typically your shell should read from <code>STDIN</code> and write to <code>STDOUT</code>. However, the command line may contain input/output redirection tokens, in which case it must set up the appropriate files to deal with this.</p><p>As you know, users are far from perfect; a large part of this assignment will be supporting good error-checking while running your shell.</p><p><strong>NOTE:</strong> <em>When in doubt about how your shell should behave given a particular input, consult the demo.</em></p><p>Install the project stencil by running</p><pre><code>cs0330_install shell_1
+</code></pre><p>We <strong>highly</strong> recommend going through the following checklist in order to get the most out of your C Shell experience and using gdb if/when you run into issues (check out the GDB tips section!):</p><ol>
+<li>Ensure Makefile is up and running</li>
+<li>Read &amp; parse input as recommended in Parsing the Command Line</li>
+<li>Implement built-in commands</li>
+<li>Handle child processes (get <code>fork</code> &amp; <code>execv</code> working)</li>
+<li>Handle input/output redirection</li>
+<li>Implement error handling for syscalls and bad user input</li>
+</ol><h3 id="Minimum-Requirements-for-Shell-2"><a class="anchor hidden-xs" href="#Minimum-Requirements-for-Shell-2" title="Minimum-Requirements-for-Shell-2"><span class="octicon octicon-link"></span></a>Minimum Requirements for Shell 2</h3><p>Shell 1 is a project unto itself, but you will use most of your code for it again in next week’s project, Shell 2.</p><p>For Shell 2, it is imperative that your code for Shell 1 can successfully <code>fork</code> and <code>execv</code> new child processes based on command-line input and the built-in <code>cd</code> command is functioning. Shell 2 does not require correct implementations of the built-in shell commands <code>ln</code>, <code>rm</code>, or <code>exit</code> or input/output redirection. In other words, you must <strong>complete at least the first 2 tasks on the checklist (and also the <code>cd</code>built-in)</strong> in the previous section before proceeding to Shell 2.</p><p>Here are some things to be aware of:</p><ul>
+<li>A baseline Shell 1 implementation will not be released for work on Shell 2. All of the code you write for these two assignments will be your own.</li>
+<li>Late days used on Shell 1 will not also apply to Shell 2.</li>
+</ul><h1 id="Getting-Started"><a class="anchor hidden-xs" href="#Getting-Started" title="Getting-Started"><span class="octicon octicon-link"></span></a>Getting Started</h1><p>In this section we’ll outline the order in which you should tackle the different parts of this project. <strong>Make sure each section is working before moving on to the next one.</strong> One way to guarantee a VeryBadTime™ is to write the whole project in one go. <em><strong>Run and test incrementally.</strong></em></p><h3 id="Makefile"><a class="anchor hidden-xs" href="#Makefile" title="Makefile"><span class="octicon octicon-link"></span></a>Makefile</h3><p>For this assignment, we have given you an outline for a Makefile that you can use to compile your program. This outline consists of a list of flags that we will use to compile your shell when grading. You are responsible for handling any warnings that these flags produce. The Makefile also includes the target names that we would like you to use, but it does not include rules for any targets, and running make with this stencil Makefile will not compile your shell.</p><p>It is up to you to create a working Makefile for this assignment with what you learned from this week’s lab. <strong>We will be grading the Makefile you write on this assignment,</strong> mainly for functionality and conciseness. Use variables wherever necessary to reduce repetition, and specify dependencies correctly so make knows to recompile executables if they’ve changed since the last make. Refer to the <a href="http://cs.brown.edu/courses/csci0330/docs/labs/makefiles.pdf" target="_blank" rel="noopener">Makefile lab handout</a> if you need help. <strong>Please make sure not to use SHELL as a variable name in your Makefile.</strong></p><p>If you decide to create additional C files, you should make sure your Makefile correctly compiles them into a binary.</p><h3 id="Roadmap"><a class="anchor hidden-xs" href="#Roadmap" title="Roadmap"><span class="octicon octicon-link"></span></a>Roadmap</h3><p>Now that you’ve got your Makefile working, here’s one way to start tackling the rest of Shell 1:</p><ol>
+<li>
+<p><strong>Parse the command line:</strong></p>
+<p>While how you parse user input is up to you, we have provided an example algorithm in Parsing the Command Line.</p>
+<p>Note that you MUST use the <code>read</code> system call to get user input (no <code>scanf</code>).</p>
+<p>Ensure that the program can handle incorrect input, with some potential cases to keep in mind:</p>
+<ul>
+<li>User can enter nothing and hit the return key (your terminal should simply ignore the input and start a new line in the terminal, as Linux systems do).</li>
+<li>User should enter a supported command if there are any non-whitespace text.</li>
+<li>User can enter redirection token at ANY point in a command (see details on redirection).</li>
+<li>User cannot use any more than one of the same redirect in one line (i.e. one input, one output).</li>
+<li>User can enter any amount of whitespace between tokens.</li>
+</ul>
+</li>
+<li>
+<p><strong>Implementing <code>cd</code>, <code>rm</code>, <code>ln</code>, and <code>exit</code>:</strong></p>
+<p>For these, take a look at the <code>chdir</code>, <code>link</code>, and <code>unlink</code> commands (use <code>man</code>, or <code>man</code> pages online).</p>
+</li>
+<li>
+<p><strong>Handle Child Processes:</strong></p>
+<p>To handle any other process, you will need to create a new process using the <code>fork</code> system command.</p>
+<ul>
+<li>This will create a new child process that is an exact replica of the parent process.</li>
+<li>Make sure that the parent process waits for the child to complete (i.e. using the <code>wait</code> function)</li>
+</ul>
+<p>From there, you can use the <code>execv</code> function. This will replace this newly created child process with the program of your choosing.</p>
+<ul>
+<li>The two arguments to execv will be the full path to the program you wish to execute and an array of arguments for that program.</li>
+<li>To get the full path to a program, you may want to run:<pre><code>which &lt;command&gt;
+</code></pre>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Handle Input/Output Redirects:</strong></p>
+<p>File redirection allows your shell to feed input to a user program from a file and direct its output into another file.</p>
+<p>There are three redirect symbols that your program will need to handle:</p>
+<p>Keep in mind that redirects are not guaranteed to appear in any particular order. A redirect can appear after or before a command.</p>
+</li>
+<li>
+<p><strong>System Call Error Checking:</strong></p>
+<p>Almost all system calls return a value, which usually are used to determine if the system call was successful or not. You can use these values to do error checking on said calls.</p>
+<ul>
+<li>See the <code>man</code> pages for the respective commands for details on return values.</li>
+</ul>
+</li>
+</ol><h1 id="Parsing-the-Command-Line"><a class="anchor hidden-xs" href="#Parsing-the-Command-Line" title="Parsing-the-Command-Line"><span class="octicon octicon-link"></span></a>Parsing the Command Line</h1><p>A significant part of your implementation will most likely be the command line parsing. Redirection symbols may appear anywhere on the command line, and the file name appears as the next word after the redirection symbol. <strong>The way you parse your commands is completely up to you</strong>, but the most straightforward approach is to use <code>strtok()</code>.</p><p>Symbols and words can be separated by any amount and combination of spaces and tabs, which can also appear before the first token and after the last.</p><p>When tokenizing the command line, the first word (if it is not a redirection symbol) will be the command, and each subsequent word will be an argument to the command. You will want to remove all redirection tokens and store the remaining ones in an array of <code>char *</code> (e.g. <code>char *tokens[] = … ;</code>) for use with <code>execv</code>. <strong>Make sure that this array terminates with a null character for it to work with <code>execv</code>.</strong></p><p><strong>No input should ever crash your shell.</strong> You do not need to special case quotes (in most shells quotes would group several words into a single argument that contains white space). Make sure to check section 6 for the list of allowed built-in C functions you can use.</p><h3 id="Invalid-Command-Line-Input"><a class="anchor hidden-xs" href="#Invalid-Command-Line-Input" title="Invalid-Command-Line-Input"><span class="octicon octicon-link"></span></a>Invalid Command-Line Input</h3><p>Be very careful to check for error conditions at all stages of command line parsing. When grading, we will run additional tests to check your code specifically for error handling on bad user input and will be deducting points if error messages aren’t printed. <strong>Refer to our demo if you are unsure what is valid vs. invalid input.</strong></p><p>Since the shell is controlled by a user, it is possible to receive bizarre input. For example, your shell should be able to handle all these cases (as well as many others):</p><pre><code>33sh&gt; /bin/cat &lt; foo &lt; gub 
+ERROR - Can’t have two input redirects on one line. 
+
+33sh&gt; /bin/cat &lt; 
+ERROR - No redirection file specified. 
+
+33sh&gt; &gt; gub 
+ERROR - No command. 
+
+33sh&gt; &lt; bar /bin/cat 
+(OK - Redirection can appear anywhere in the input.)
+
+33sh&gt; [TAB]/bin/ls &lt;[TAB] foo 
+(OK - Any amount of whitespace is acceptable.)
+
+33sh&gt; /bin/bug -p1 -p2 foobar 
+(OK - Make sure parameters are parsed correctly.)
+</code></pre><p>You will not be held responsible if your input buffer is not big enough to handle user input. Use a large buffer length (e.g. 1024 bytes) and assume that the user will not enter more than that many characters.</p><p>You may assume that redirection characters are surrounded by whitespace.</p><h1 id="Executing-Shell-Commands"><a class="anchor hidden-xs" href="#Executing-Shell-Commands" title="Executing-Shell-Commands"><span class="octicon octicon-link"></span></a>Executing Shell Commands</h1><h3 id="Built-In-Shell-Commands"><a class="anchor hidden-xs" href="#Built-In-Shell-Commands" title="Built-In-Shell-Commands"><span class="octicon octicon-link"></span></a>Built-In Shell Commands</h3><p>In addition to supporting the spawning of external programs, your shell will support a few built-in commands. When a user enters a built-in command into your shell, your shell should make the necessary system calls to handle the request and return control back to the user. The following is a list of the built-in commands your shell should provide.</p><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cd &lt;dir&gt;</code></td>
+<td>Changes the current working directory.</td>
+</tr>
+<tr>
+<td><code>ln &lt;src&gt; &lt;dest&gt;</code></td>
+<td>Makes a hard link to a file.</td>
+</tr>
+<tr>
+<td><code>rm &lt;file&gt;</code></td>
+<td>Remove something from a directory.</td>
+</tr>
+<tr>
+<td><code>exit</code></td>
+<td>Quit the shell.</td>
+</tr>
+</tbody>
+</table><p>Note that we are only looking for the basic behavior of these commands. You do not need to implement flags to these commands such as <code>rm -r</code> or <code>ln -s</code>. You also do not need to support multiple arguments to rm, multiple commands on a single line, or shortcut arguments such as <code>rm *</code> or <code>cd ~</code>. Your shell should print out a descriptive error message if the user enters a malformed command. <strong>For best performance with the testing script, your error message should match the one produced in the demo</strong>, although you will not be penalized if these differ slightly.</p><h3 id="UNIX-System-Calls-for-Built-In-Functions"><a class="anchor hidden-xs" href="#UNIX-System-Calls-for-Built-In-Functions" title="UNIX-System-Calls-for-Built-In-Functions"><span class="octicon octicon-link"></span></a>UNIX System Calls for Built-In Functions</h3><p>To implement the built-in commands, you will need to understand the functionality of several UNIX system calls. You can read the manual for these commands by running the shell command</p><pre><code>man 2 &lt;syscall&gt;
+</code></pre><p>It is highly recommended that you read all the man pages for these syscalls before starting to implement built-in commands.</p><pre><code class="C hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">chdir</span>(<span class="hljs-params"><span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *path</span>)</span>; 
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">link</span>(<span class="hljs-params"><span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *existing, <span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *new</span>)</span>; 
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">unlink</span>(<span class="hljs-params"><span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *path</span>)</span>; 
+</code></pre><p>Please note that redirecting a built-in command to its bash file is <strong>not</strong> a valid implementation. You must implement the functionality yourselves, using the syscalls mentioned above.</p><h1 id="Executing-a-Program"><a class="anchor hidden-xs" href="#Executing-a-Program" title="Executing-a-Program"><span class="octicon octicon-link"></span></a>Executing a Program</h1><p>When a UNIX process executes another program, the process replaces itself with the new program entirely. As a result, in order to continue running, your shell must defer the task of executing another program to another process. Below is a list of system calls, functions, and shell commands useful to this project, related to executing a program:</p><h3 id="fork"><a class="anchor hidden-xs" href="#fork" title="fork"><span class="octicon octicon-link"></span></a>fork()</h3><pre><code class="C hljs"><span class="hljs-function">pid_t <span class="hljs-title">fork</span>(<span class="hljs-params"><span class="hljs-keyword">void</span></span>)
+</span></code></pre><p>First, you’ll need to create a new process. This must be done using the system call <code>fork()</code>, which creates a new “child” process which is an exact replica of the “parent” (the process which executed the system call). This child process begins execution at the point where the call to <code>fork()</code> returns. <code>fork()</code> returns 0 to the child process, and the child’s process ID (abbreviated <strong>pid</strong>) to the parent.</p><h3 id="execv"><a class="anchor hidden-xs" href="#execv" title="execv"><span class="octicon octicon-link"></span></a>execv()</h3><pre><code class="C hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">execv</span>(<span class="hljs-params"><span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *filename, <span class="hljs-keyword">char</span> *<span class="hljs-keyword">const</span> argv[]</span>)
+</span></code></pre><p>To actually execute a program, use the library function <code>execv()</code>. Because <code>execv()</code> replaces the entire process image with that of the new program, this function never returns if it is successful.</p><p>Its arguments include <code>filename</code>, the full path to the program to be executed, and <code>argv</code>, a null-terminated argument vector. Note that <code>argv[0]</code> MUST be the binary name (the final path component of filepath), NOT the full path to the program (which means you will have to do some processing in constructing <code>argv[0]</code> from <code>filename</code>).</p><p>As an example, the shell command <code>/bin/echo 'Hello world!'</code> would have an <code>argv</code> that looks like this:</p><pre><code class="C hljs">char *argv[<span class="hljs-number">4</span>];
+argv[<span class="hljs-number">0</span>] = <span class="hljs-string">"echo"</span>;
+argv[<span class="hljs-number">1</span>] = <span class="hljs-string">"Hello"</span>;
+argv[<span class="hljs-number">2</span>] = <span class="hljs-string">"world!"</span>;
+argv[<span class="hljs-number">3</span>] = <span class="hljs-symbol">NULL</span>;
+</code></pre><p>See the <code>which</code> section to figure out how to get the full path to the program.</p><p>Here is an example of forking and executing <code>/bin/ls</code>, with error checking:</p><pre><code class="C hljs"><span class="hljs-keyword">if</span> (!fork()) {
+    <span class="hljs-comment">/* now in child process */</span> 
+    char *argv[] = {<span class="hljs-string">"ls"</span>, <span class="hljs-keyword">NULL</span>}; 
+    execv(<span class="hljs-string">"/bin/ls"</span>, argv); 
+
+    <span class="hljs-comment">/* we won’t get here unless execv failed */</span> 
+    perror(<span class="hljs-string">"execv"</span>);
+    <span class="hljs-comment">/* hint: man perror */</span>
+
+    <span class="hljs-keyword">exit</span>(<span class="hljs-number">1</span>); 
+} 
+<span class="hljs-comment">/* parent process continues to run code out here */</span> 
+</code></pre><h3 id="wait"><a class="anchor hidden-xs" href="#wait" title="wait"><span class="octicon octicon-link"></span></a>wait()</h3><pre><code class="C hljs">pid_t <span class="hljs-keyword">wait</span>(<span class="hljs-keyword">int</span> *status) 
+</code></pre><p>Your shell should wait for the executed command to finish before displaying a new prompt and reading further input. To do this, you can use the <code>wait()</code> system call, which suspends execution of the calling process until a child process changes state (such as by terminating). If the status argument to <code>wait</code> is non-zero, details about that change of state will be stored in the memory location addressed by <code>status</code>. You don’t need that information in this assignment - you should pass <code>wait</code> the null pointer (<code>0</code> or <code>NULL</code>), which will tell it not to store any data. Type <code>man 2 wait</code> into a terminal for further information.</p><h1 id="Files-File-Descriptors-Terminal-IO"><a class="anchor hidden-xs" href="#Files-File-Descriptors-Terminal-IO" title="Files-File-Descriptors-Terminal-IO"><span class="octicon octicon-link"></span></a>Files, File Descriptors, Terminal I/O</h1><p>At a lower level, file input and output is performed using <em>file descriptors</em>. A file descriptor is simply an integer which the operating system maps to a file location. The kernel (AKA the core of the computer’s operating system) maintains a list of file descriptors and their file mappings for each process. Consequently, processes do not directly access files using <code>FILE</code> structs but rather through the kernel by using file descriptors and low-level system calls.</p><p>Subprocesses inherit open files and their corresponding file descriptors from their parent process. As a result, processes started from within a normal UNIX shell inherit three open files: <code>stdin</code>, <code>stdout</code>, and <code>stderr</code>, which are assigned file descriptors <code>0</code>, <code>1</code>, and <code>2</code> respectively. Since your shell will be run from within the system’s built-in shell, it inherits these file descriptors; processes executed within your shell will then also inherit them. As a result, whenever your shell or any process executed within it writes characters to file descriptor <code>1</code> (the descriptor corresponding to <code>stdout</code>), those characters will appear in the terminal window.</p><h3 id="open"><a class="anchor hidden-xs" href="#open" title="open"><span class="octicon octicon-link"></span></a>open()</h3><pre><code class="C hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">open</span>(<span class="hljs-params"><span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *pathname, <span class="hljs-keyword">int</span> flags, mode_t mode</span>) 
+</span></code></pre><p>The <code>open()</code> system call opens a file for reading or writing, located at the relative (starting from the process working directory) or absolute (starting from the root directory, / ) pathname, and returns a new file descriptor which maps to that file.</p><p>The other arguments for this system call are bit vectors which indicate how the file should be opened. In particular, <code>flags</code> indicates both status flags and access modes, allowing the user to determine the behavior of the new file descriptor. <code>mode</code> is used to determine the default permissions of the file if it must be created.</p><p>We recommend looking at the <code>man</code> pages (<code>man 2 open</code>) for more information.</p><p>File descriptors are opened lowest-first; that is, <code>open()</code> returns the lowest-numbered file descriptor available (i.e. currently not open) for the calling process. On an error, <code>open()</code> returns <code>−1</code>.</p><h3 id="close"><a class="anchor hidden-xs" href="#close" title="close"><span class="octicon octicon-link"></span></a>close()</h3><pre><code class="C hljs"><span class="hljs-keyword">int</span> <span class="hljs-keyword">close</span>(<span class="hljs-keyword">int</span> fd)
+</code></pre><p><code>close()</code> closes an open file descriptor, which allows it to be reopened and reused later in the life of the calling process. If no other file descriptors of the calling process map to the same file, any system resources associated with that file are freed. <code>close()</code> returns 0 on success and <code>−1</code> on error.</p><h3 id="read"><a class="anchor hidden-xs" href="#read" title="read"><span class="octicon octicon-link"></span></a>read()</h3><pre><code class="C hljs"><span class="hljs-function">ssize_t <span class="hljs-title">read</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> fd, <span class="hljs-keyword">void</span> *buf, size_t count</span>)
+</span></code></pre><p><code>read()</code> reads up to <code>count</code> bytes from the given file descriptor (<code>fd</code>) into the buffer pointed to by <code>buf</code>. It returns the number of characters read and advances the file position by that many bytes, or returns <code>−1</code> if an error occurred. <strong>Check and use this return value.</strong> It is otherwise impossible to safely use the buffer contents. Note that <code>read</code> does <strong>not null terminate the buffer.</strong></p><p><code>read()</code> waits for input: it does not return until there is data available for reading. When reading from standard input, <code>read()</code> returns when the user types <strong>enter</strong> or <strong>CTRL-D</strong>. These situations can be distinguished by examining the contents of the buffer: typing <strong>enter</strong> causes a new-line character (<code>\n</code>) to be written at the end of the line, whereas typing <strong>CTRL-D</strong> does not cause any special character to appear in the buffer. You are allowed to assume that an input command ends with <code>\n</code>, as the demo does. Also, be sure to terminate your buffer with <code>/0</code> after each iteration! Otherwise, your buffer will sometimes contain garbage characters.</p><p>If a user types <strong>CTRL-D</strong> on a line by itself, <code>read</code> will return 0, indicating that no more data is available to be read — a condition called end of file (<code>EOF</code>). In this case, <strong>your shell should exit.</strong></p><p><strong>NOTE:</strong> <em>The values <code>0</code>, <code>NULL</code>, and <code>\0</code> are interchangeable and completely equivalent.</em></p><h3 id="write"><a class="anchor hidden-xs" href="#write" title="write"><span class="octicon octicon-link"></span></a>write()</h3><pre><code class="C hljs"><span class="hljs-function">ssize_t <span class="hljs-title">write</span>(<span class="hljs-params"><span class="hljs-keyword">int</span> fd, <span class="hljs-keyword">const</span> <span class="hljs-keyword">void</span> *buf, size_t count</span>) 
+</span></code></pre><p><code>write()</code> writes up to <code>count</code> bytes from the buffer pointed to by <code>buf</code> to the given file descriptor (<code>fd</code>). It returns the number of bytes successfully written, or <code>−1</code> on an error.</p><p>While this is the lowest level and safest system call we can use to write to <code>STDOUT</code> and <code>STDERR</code>, you are not required to use <code>write()</code> for output on this assignment but may instead use <code>printf()</code> and <code>fprintf()</code> to write to <code>STDOUT</code> and <code>STDERR</code>. You will, however, have to use <code>read()</code> to read input.</p><h3 id="printf"><a class="anchor hidden-xs" href="#printf" title="printf"><span class="octicon octicon-link"></span></a>printf()</h3><pre><code class="C hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">printf</span>(<span class="hljs-params"><span class="hljs-keyword">const</span> <span class="hljs-keyword">char</span> *format, …</span>)
+</span></code></pre><p>You’re already familiar with <code>printf()</code> writing formatted output to <code>STDOUT</code>. The primary difference is that a file descriptor doesn’t need to be specified when using <code>printf()</code>; its default file descriptor is <code>STDOUT</code>.</p><p><strong>NOTE:</strong> <em>If you’re using <code>printf()</code> to write a string that doesn’t end in a newline (hint: your prompt), you must use <code>fflush(stdout)</code> after <code>printf()</code> to actually write your output to the terminal.</em></p><h1 id="Prompt-Format"><a class="anchor hidden-xs" href="#Prompt-Format" title="Prompt-Format"><span class="octicon octicon-link"></span></a>Prompt Format</h1><p>While the contents of your shell’s prompt are up to you, you must implement a particular feature in order to make your shell easier to grade. Specifically, you should surround the statement that prints your prompt with the C preprocessor directives <code>#ifdef PROMPT</code> and <code>#endif</code>, which will cause the compiler to include anything in between the two directives only when the <code>PROMPT</code> macro is defined.</p><p>For example, if you print your prompt with the statement</p><pre><code class="C hljs"><span class="hljs-built_in">printf</span>(<span class="hljs-string">"33sh&gt; "</span>); 
+</code></pre><p>you would replace it with the following:</p><pre><code class="C hljs"><span class="hljs-meta">#ifdef PROMPT </span>
+<span class="hljs-keyword">if</span> (printf(<span class="hljs-string">"33sh&gt; "</span>) &lt; <span class="hljs-number">0</span>) { 
+    <span class="hljs-comment">/* handle a write error */</span> 
+} 
+<span class="hljs-meta">#<span class="hljs-meta-keyword">endif</span></span>
+</code></pre><p><strong>NOTE:</strong> <em>If you choose to use <code>printf()</code> to write your prompts, and not <code>write()</code>, there is an additional step you will have to take to get the prompt to show up in the terminal,because the prompt does not end in a newline. See the <code>printf()</code> section for more details.</em></p><p>Your Makefile should compile two different versions of your shell program: <code>33sh</code>, which compiles with <code>PROMPT</code> defined, and <code>33noprompt</code>, which compiles without <code>PROMPT</code> defined. If you do not remember how to compile your program with a macro defined, refer back to the maze solver Makefile or the Makefiles lab.</p><p>Any other user-defined writes to standard output (i.e. debugging printouts) from your shell should also be enclosed with the <code>#ifdef PROMPT</code> and <code>#endif</code> directives. Otherwise, the testing suite will not run correctly with your shell.</p><h1 id="Input-and-Output-Redirection"><a class="anchor hidden-xs" href="#Input-and-Output-Redirection" title="Input-and-Output-Redirection"><span class="octicon octicon-link"></span></a>Input and Output Redirection</h1><p>Most shells allow the user to redirect the input and output of a program, either into a file or through a pipe (a form of interprocess communication). For example, bash terminals allow you to send a program input from a file using <code>&lt;</code>, send output from a program to a file using <code>&gt;</code> or <code>&gt;&gt;</code>, and chain the output of a program to the input of another using <code>|</code>. Your shell will be responsible for redirecting the input and output of a program but not for chaining multiple programs together.</p><h3 id="File-Redirection"><a class="anchor hidden-xs" href="#File-Redirection" title="File-Redirection"><span class="octicon octicon-link"></span></a>File Redirection</h3><p>File redirection allows your shell to feed input to a user program from a file and direct its output into another file. You do not need to support redirection for built-in commands. <strong>File redirection should be the last shell functionality you implement.</strong></p><p>The redirection symbols (<code>&lt;</code>, <code>&gt;</code>, and <code>&gt;&gt;</code>) can appear anywhere within a command in any order. For instance, the command</p><pre><code>/bin/echo hello &gt; output.txt
+</code></pre><p>will write the results of <code>/bin/echo hello</code> to a new text file <code>output.txt</code>, and the command</p><pre><code>/bin/echo &gt; output.txt hello
+</code></pre><p>should do the same thing, even though the redirection symbol is in a different spot. You can visit the Linux’s Redirection Definition page for specific examples and additional details of redirection.</p><table>
+<thead>
+<tr>
+<th>Operator</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>&lt; [path]</code></td>
+<td>Use file <code>[path]</code> as standard input</td>
+</tr>
+<tr>
+<td><code>&gt; [path]</code></td>
+<td>Use file <code>[path]</code> as standard output. If the file does not exist, it is created; otherwise, it is truncated to zero length (i.e. replaces the contents of the existing file).</td>
+</tr>
+<tr>
+<td><code>&gt;&gt; [path]</code></td>
+<td>Use file <code>[path]</code> as standard output. If the file does not exist, it is created; otherwise, output is appended to the end of it.</td>
+</tr>
+</tbody>
+</table><p>Your shell should also support error checking for input and output redirection. For example, if the shell fails to create the file to which output should be redirected, the shell must report this error and abort execution of the specified program. Additionally, it is illegal to redirect input or output twice (although it is perfectly legal to redirect input and redirect output). You can experiment with I/O redirection in the demo, which should serve as a model for the expected functionality of your shell.</p><h3 id="Redirecting-a-File-Descriptor"><a class="anchor hidden-xs" href="#Redirecting-a-File-Descriptor" title="Redirecting-a-File-Descriptor"><span class="octicon octicon-link"></span></a>Redirecting a File Descriptor</h3><p>To make a program executed by your child process read input from or write output to a specific file, rather than use the default <code>stdin</code> and <code>stdout</code>, we have to redirect the <code>stdin</code> and <code>stdout</code> file descriptors to point to the specified input and output files. Luckily, the kernel’s default behavior provides an elegant solution to this problem: when a file is opened, the kernel returns the smallest file descriptor available, regardless of its traditional association. Thus, if we close file descriptor <code>1</code> (<code>stdout</code>) and then open a file on disk, that file will be assigned file descriptor <code>1</code>. Then, when our program writes to file descriptor <code>1</code>, it will be writing to the file we’ve opened rather than <code>stdout</code> (which traditionally corresponds to file descriptor <code>1</code> by default).</p><p>For the purposes of this project, we won’t be concerned with restoring the original file descriptors for <code>stdout</code> and <code>stdin</code> in the child process as it won’t affect your shell. If you’re interested in the technically safer (but more complex) way to redirect files, check out the <code>dup()</code> and <code>dup2()</code> <code>man</code> pages.</p><h1 id="Use-of-Library-Functions"><a class="anchor hidden-xs" href="#Use-of-Library-Functions" title="Use-of-Library-Functions"><span class="octicon octicon-link"></span></a>Use of Library Functions</h1><p>You should use the <code>read()</code> system call to read from file descriptors <code>STDIN_FILENO</code> (a macro defined as <code>0</code>), <code>STDOUT_FILENO</code> (<code>1</code>), and <code>STDERR_FILENO</code> (<code>2</code>), which correspond to the file streams for standard input, standard output, and standard error respectively. You should use the  <code>write()</code> system call to write to <code>STDOUT_FILENO</code> or <code>STDERR_FILENO</code> OR the higher level non-system calls <code>printf()</code> (which doesn’t require a specified file descriptor) and <code>fprintf()</code>.</p><p>You may use any syscall. Specifically, a system call is any function that can be accessed by using the shell command <code>man 2 &lt;function&gt;</code>. Do not use floating point numbers. If you have any questions about functions that you are able to use, please post your question on Piazza.</p><p>In order to avoid confusion, here is a list of <strong>allowed</strong> non-syscall functions. While use of some of these functions would be helpful in many implementations, it is by no means required.</p><p><strong>Memory Related</strong></p><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>memset()</code></td>
+<td><code>memmove()</code></td>
+<td><code>memchr()</code></td>
+<td><code>memcmp()</code></td>
+</tr>
+<tr>
+<td><code>memcpy()</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table><p><strong>String Manipulation</strong></p><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>str(n)cat()</code></td>
+<td><code>tolower()</code></td>
+<td><code>strtol()</code></td>
+<td><code>isalnum()</code></td>
+</tr>
+<tr>
+<td><code>isalpha()</code></td>
+<td><code>iscntrl()</code></td>
+<td><code>isdigit()</code></td>
+<td><code>islower()</code></td>
+</tr>
+<tr>
+<td><code>isprint()</code></td>
+<td><code>ispunct()</code></td>
+<td><code>isspace()</code></td>
+<td><code>isxdigit()</code></td>
+</tr>
+<tr>
+<td><code>str(n)cat()</code></td>
+<td><code>str(n)cmp()</code></td>
+<td><code>str(n)cpy()</code></td>
+<td><code>strtol()</code></td>
+</tr>
+<tr>
+<td><code>isgraph()</code></td>
+<td><code>isupper()</code></td>
+<td><code>strlen()</code></td>
+<td><code>strpbrk()</code></td>
+</tr>
+<tr>
+<td><code>strstr()</code></td>
+<td><code>strtok()</code></td>
+<td><code>str(r)chr()</code></td>
+<td><code>str(c)spn()</code></td>
+</tr>
+<tr>
+<td><code>toupper()</code></td>
+<td><code>atoi()</code></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table><p><strong>Error Handling</strong></p><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>perror()</code></td>
+<td><code>assert()</code></td>
+<td><code>strerror()</code></td>
+</tr>
+</tbody>
+</table><p><strong>Output</strong></p><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>fflush()</code></td>
+<td><code>printf()</code></td>
+<td><code>(v)s(n)printf()</code></td>
+<td><code>fprintf()</code></td>
+</tr>
+</tbody>
+</table><p><strong>Miscellaneous</strong></p><table>
+<thead>
+<tr>
+<th></th>
+<th></th>
+<th></th>
+<th></th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>exit()</code></td>
+<td><code>execv()</code></td>
+<td><code>opendir()</code></td>
+<td><code>readdir()</code></td>
+</tr>
+<tr>
+<td><code>closedir()</code></td>
+<td></td>
+<td></td>
+<td></td>
+</tr>
+</tbody>
+</table><h3 id="Error-Handling"><a class="anchor hidden-xs" href="#Error-Handling" title="Error-Handling"><span class="octicon octicon-link"></span></a>Error Handling</h3><p>You are responsible for dealing with errors whenever you use the allowed system calls or <code>printf()</code>/<code>fprintf()</code>. Any function that returns or sets an error value should also be error checked, such as <code>execv()</code> and <code>wait()</code>. As this could get repetitive, you may want to make helper functions that will handle error-checking for you for frequently-used functions such as <code>printf()</code>. As with Maze, you are not required to error-check <code>fprintf()</code> when it is used to print an error message.</p><h1 id="Support"><a class="anchor hidden-xs" href="#Support" title="Support"><span class="octicon octicon-link"></span></a>Support</h1><p>We are providing you with a demo shell program and an automated testing program to use as you work on this project.</p><h3 id="Demo"><a class="anchor hidden-xs" href="#Demo" title="Demo"><span class="octicon octicon-link"></span></a>Demo</h3><p>We have provided a demo implementation of Shell 1 to show you the expected behavior of the program. This is the version with a prompt:</p><pre><code>/course/cs0330/bin/cs0330_shell_1_demo
+</code></pre><p>and this is one without</p><pre><code>/course/cs0330/bin/cs0330_noprompt_shell_1_demo
+</code></pre><p>Make sure you create an implementation both with and without a prompt, as previously described.</p><p>You should use the demo implementation as a reference for how edge cases you think of should be handled. The demo shell differs in some respects from the bash you know and love. <strong>Where they differ, emulate the demo rather than bash or another shell.</strong> For example, the <code>cd</code> command, when run without arguments in bash, changes directories to the user’s home directory. Since you will have no way of knowing the user’s home directory location, your <code>cd</code> implementation should emulate the demo’s behavior for this case.</p><h3 id="Tester"><a class="anchor hidden-xs" href="#Tester" title="Tester"><span class="octicon octicon-link"></span></a>Tester</h3><p>We have provided a test suite and testing program to test your shell. There are about 40 tests in <code>/course/cs0330/pub/shell_1</code>. The tester program will run some input through your shell, and then compare the output of your shell to the expected output. Each of the tests that this script will run represents input that Shell 1 should handle, either printing out an appropriate error or the output of a command, depending on the test. To use this script, run</p><pre><code>cs0330_shell_1_test -s 33noprompt -u /course/cs0330/pub/shell_1 
+</code></pre><p>You must run the tester with the “no prompt” version of your shell - the extra characters printed by the prompt version will cause the test suite to fail. Please also note that if your 33noprompt executable is not in your current directory, you will need to provide the fully-qualified path to the executable.<br>
+You can also run a single test by providing <code>-t /course/cs0330/pub/shell_1/&lt;testname&gt;</code> instead of the <code>-u</code> option.</p><p>Each test is a directory containing an input file, and an output and error file corresponding to the expected output of <code>stdout</code> and <code>stderr</code> respectively. Note that while most tests have their output hardcoded in their <code>output</code> file, some have this file generated at run time by a script called setup, also in the same folder. This shouldn’t matter to you while working on this project, except if you are debugging an individual test failure where it would be useful to examine the expected outputs of the test. In these cases, make sure to look at setup so that you can see exactly how the output is constructed, if it differs from the hardcoded <code>output</code> file. When you run a test case, the setup is run first, and then commands in <code>input</code> are piped into your shell (the commands will run in your shell), and then the tester checks if the output from your shell matches the content of the <code>output</code>.</p><p>The tester has some other options as well — run</p><pre><code>cs0330_shell_1_test -h
+</code></pre><p>to view them.</p><p>If every test seems to be failing, your shell is likely printing extra information to <code>stdout</code> and/or <code>stderr</code>. Use the <code>-v</code> (verbose) option to check which. Also, each test is run with a 3-second timeout. If that seems to be happening for all of your tests, then your shell may not exit when it reaches <code>EOF</code> (when <code>read()</code> returns <code>0</code>). <strong>Please make sure that this happens, since otherwise no test will pass.</strong></p><p>The testing script provided is fairly comprehensive, but we strongly recommend you do additional testing.</p><h3 id="which"><a class="anchor hidden-xs" href="#which" title="which"><span class="octicon octicon-link"></span></a>which</h3><p>For additional testing, you may find the which command helpful:</p><pre><code>which &lt;program name&gt;
+</code></pre><p>In order to execute a program in your shell, you will need that program’s full pathname. You will not be able to use only a shortcut, as you would in a bash terminal for programs such as <code>ls</code>, <code>cat</code>, <code>xpdf</code>, <code>gedit</code>, etc. To execute these programs from your shell, you must enter <code>/bin/cat</code>, <code>/usr/bin/xpdf</code>, <code>/usr/bin/gedit</code>, and so on. To find the full pathname for any arbitrary program, use <code>which</code>.</p><p>Example usage:</p><pre><code>$ which cat
+/bin/cat
+
+$ which gedit 
+/usr/bin/gedit
+</code></pre><p>For more information, see the <code>man</code> page for <code>which</code>. You can even use <code>which</code> in your shell, once you have determined its full path (type <code>which which</code> in a system terminal to find its full path)!</p><p><strong>NOTE:</strong> <em>You do not need to implement <code>which</code> for this assignment! It is described here as a resource to find full pathnames of programs that can be executed in your shell.</em></p><h3 id="Clean-Up"><a class="anchor hidden-xs" href="#Clean-Up" title="Clean-Up"><span class="octicon octicon-link"></span></a>Clean Up</h3><p>It is important that you run <code>cs0330_cleanup_shell</code> (located in <code>/course/cs0330/bin</code>) every so often when working on your shell project. This kills any zombie processes, which if left running will eat up the computer’s resources. This will be even more important when working on Shell 2.</p><h1 id="GDB-Tips-for-Shell-1"><a class="anchor hidden-xs" href="#GDB-Tips-for-Shell-1" title="GDB-Tips-for-Shell-1"><span class="octicon octicon-link"></span></a>GDB Tips for Shell 1</h1><p>As always, we recommend using GDB to help debug your project. Check out the <a href="https://cs.brown.edu/courses/csci0330/docs/guides/gdb_cheatsheet.pdf" target="_blank" rel="noopener">GDB Cheatsheet</a> on the home page for more info!</p><h3 id="Following-Child-Processes"><a class="anchor hidden-xs" href="#Following-Child-Processes" title="Following-Child-Processes"><span class="octicon octicon-link"></span></a>Following Child Processes</h3><p>When debugging your code to execute programs in C Shell it may be helpful to use GDB to verify that the programs are starting correctly. It’s important to note that by default, GDB won’t follow child processes started with <code>fork()</code>. This means that if you set a breakpoint on a line that executes in the forked process (i.e. to make sure the arguments to <code>execv()</code> are formatted correctly), GDB won’t break on that line.</p><p>However, you can change this behavior by running the GDB command <code>set follow-fork-mode child</code>. This tells GDB to debug the child process after a <code>fork</code>, and leave the parent process to run unimpeded. After setting this, GDB will break on breakpoints you set within a forked process. For more information, run <code>help set follow-fork-mode</code> within GDB.</p><h3 id="Examining-Memory-in-GDB"><a class="anchor hidden-xs" href="#Examining-Memory-in-GDB" title="Examining-Memory-in-GDB"><span class="octicon octicon-link"></span></a>Examining Memory in GDB</h3><p>As you work on your command parsing logic, it may be helpful to use GDB to peek at an area of memory in your program, for instance the input buffer as you work with it to parse out the necessary tokens.</p><p>The simplest way of determining the value of a variable or expression in GDB is <code>[p]rint &lt;expression&gt;</code>, but sometimes you will want more control over how memory is examined. In these situations, the <code>x</code> command may be helpful.</p><p>The <code>x</code> command (short for “examine”) is used to view a portion of memory starting at a specified address using the syntax <code>x/(number)(format) &lt;address&gt;</code>. For example, if you want to examine the first 20 characters after a given address, use <code>x/20c &lt;address&gt;</code>. If instead you want to examine the first 3 strings after a given address (remember that a string continues until the null character is encountered), use <code>x/3s &lt;address&gt;</code>.</p><p>Other useful format codes include <code>d</code> for an integer displayed in signed decimal, <code>x</code> for an integer displayed in hexadecimal, and <code>t</code> for an integer displayed in binary.</p><p>Note that the amount of memory displayed varies depending on the size of the specified format. <code>x/4c &lt;address&gt;</code> will print the first 4 characters after the given address, examining exactly 4 bytes of memory. <code>x/4d &lt;address&gt;</code> will print the first 4 signed integers after the given address,<br>
+however this will examine exactly 16 bytes of memory (assuming the machine uses 4 byte integers).</p><h1 id="Grading"><a class="anchor hidden-xs" href="#Grading" title="Grading"><span class="octicon octicon-link"></span></a>Grading</h1><p>Your grade for the first part of the shell project will be determined by the following categories, in order of precedence:</p><ul>
+<li>
+<p><strong>Functionality:</strong> your shell should produce correct output.</p>
+</li>
+<li>
+<p><strong>Code Correctness:</strong> your Makefile should work and your code should compile without warnings. Your code should be free of memory leaks and system calls should be used correctly. You must abide by the restrictions on library functions imposed in section 4—you will be penalized for using disallowed functions.</p>
+</li>
+<li>
+<p><strong>Error Checking:</strong> your shell should perform error checking on its input and display appropriate, informative error messages when any error occurs. Error messages should be written to standard error rather than standard output. Make sure you check the return value of each system call you use and handle errors accordingly.</p>
+</li>
+<li>
+<p><strong>Style:</strong> your code will be evaluated for its style. Don’t forget to run the formatter before handing in!</p>
+</li>
+</ul><h1 id="Handing-In"><a class="anchor hidden-xs" href="#Handing-In" title="Handing-In"><span class="octicon octicon-link"></span></a>Handing In</h1><p>To summarize, here is a list of features that a fully functioning shell would support:</p><ul>
+<li>
+<p>Continuously reads input from the user until it receives <code>EOF</code> (Ctrl-D).</p>
+</li>
+<li>
+<p>Executes programs and passes the appropriate arguments to those programs.</p>
+</li>
+<li>
+<p>Supports 4 built in commands (<code>cd</code>, <code>rm</code>, <code>ln</code>, <code>exit</code>).</p>
+</li>
+<li>
+<p>Supports 3 file redirection symbols (<code>&lt;</code>, <code>&gt;</code>, <code>&gt;&gt;</code>), including both input and output redirection in the same line.</p>
+</li>
+<li>
+<p>Extensive error checking.</p>
+</li>
+</ul><p>Before handing in your project, be sure to run this script to reformat your code to be consistent with the style guidelines:</p><pre><code>cs0330_reformat sh.c 
+</code></pre><p>You can also run this script on any other .h or .c files you have. Just be sure you don’t run it on other types of files, as this formatter is only meant for .c and .h files.<br>
+To hand in the first part of your shell, run</p><pre><code>cs0330_handin shell_1 
+</code></pre><p>from your project working directory. You must at a minimum hand in all of your code, the Makefile used to compile your program, and a README documenting the structure of your program, any bugs you have in your code, any extra features you added, and how to compile it.</p><p>If you wish to change your handin, you can do so by re-running the handin script.</p><p><strong>IMPORTANT NOTE:</strong> <em>If you have handed in but plan to hand in again after we start grading, in addition to running the regular handin script (cs0330_handin shell_1), you must run cs0330_grade_me_late shell_1 to inform us not to start grading you yet. You must run the script by the time we start grading on-time handins (11/3 at 2:00pm).</em></p><p>If you do not run this script, the TAs will proceed to grade whatever you have already handed in, and you will receive a grade report with the rest of the class that is based on the code you handed in before we started grading.</p><p>If something changes, you can run the script with the <code>--undo</code> flag (before the project deadline) to tell us to grade you on-time and with the <code>--info</code> flag to check if you’re currently on the list for late grading.</p><p>(<a href="https://arcade.gamesalad.com/games/127648" target="_blank" rel="noopener">i’m finished</a>)</p></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li><a href="#Shell-1-C-Shell" title="Shell 1 (C-Shell)">Shell 1 (C-Shell)</a><ul class="nav">
+<li><a href="#Due-Monday-October-28-2019-at-1159pm" title="Due: Monday, October 28, 2019 at 11:59pm">Due: Monday, October 28, 2019 at 11:59pm</a></li>
+</ul>
+</li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li class=""><a href="#Assignment-Outline" title="Assignment Outline">Assignment Outline</a><ul class="nav">
+<li class=""><a href="#Minimum-Requirements-for-Shell-2" title="Minimum Requirements for Shell 2">Minimum Requirements for Shell 2</a></li>
+</ul>
+</li>
+<li><a href="#Getting-Started" title="Getting Started">Getting Started</a><ul class="nav">
+<li><a href="#Makefile" title="Makefile">Makefile</a></li>
+<li><a href="#Roadmap" title="Roadmap">Roadmap</a></li>
+</ul>
+</li>
+<li><a href="#Parsing-the-Command-Line" title="Parsing the Command Line">Parsing the Command Line</a><ul class="nav">
+<li><a href="#Invalid-Command-Line-Input" title="Invalid Command-Line Input">Invalid Command-Line Input</a></li>
+</ul>
+</li>
+<li><a href="#Executing-Shell-Commands" title="Executing Shell Commands">Executing Shell Commands</a><ul class="nav">
+<li><a href="#Built-In-Shell-Commands" title="Built-In Shell Commands">Built-In Shell Commands</a></li>
+<li><a href="#UNIX-System-Calls-for-Built-In-Functions" title="UNIX System Calls for Built-In Functions">UNIX System Calls for Built-In Functions</a></li>
+</ul>
+</li>
+<li><a href="#Executing-a-Program" title="Executing a Program">Executing a Program</a><ul class="nav">
+<li><a href="#fork" title="fork()">fork()</a></li>
+<li><a href="#execv" title="execv()">execv()</a></li>
+<li><a href="#wait" title="wait()">wait()</a></li>
+</ul>
+</li>
+<li><a href="#Files-File-Descriptors-Terminal-IO" title="Files, File Descriptors, Terminal I/O">Files, File Descriptors, Terminal I/O</a><ul class="nav">
+<li><a href="#open" title="open()">open()</a></li>
+<li><a href="#close" title="close()">close()</a></li>
+<li><a href="#read" title="read()">read()</a></li>
+<li><a href="#write" title="write()">write()</a></li>
+<li><a href="#printf" title="printf()">printf()</a></li>
+</ul>
+</li>
+<li><a href="#Prompt-Format" title="Prompt Format">Prompt Format</a></li>
+<li><a href="#Input-and-Output-Redirection" title="Input and Output Redirection">Input and Output Redirection</a><ul class="nav">
+<li><a href="#File-Redirection" title="File Redirection">File Redirection</a></li>
+<li><a href="#Redirecting-a-File-Descriptor" title="Redirecting a File Descriptor">Redirecting a File Descriptor</a></li>
+</ul>
+</li>
+<li><a href="#Use-of-Library-Functions" title="Use of Library Functions">Use of Library Functions</a><ul class="nav">
+<li><a href="#Error-Handling" title="Error Handling">Error Handling</a></li>
+</ul>
+</li>
+<li><a href="#Support" title="Support">Support</a><ul class="nav">
+<li><a href="#Demo" title="Demo">Demo</a></li>
+<li><a href="#Tester" title="Tester">Tester</a></li>
+<li><a href="#which" title="which">which</a></li>
+<li><a href="#Clean-Up" title="Clean Up">Clean Up</a></li>
+</ul>
+</li>
+<li><a href="#GDB-Tips-for-Shell-1" title="GDB Tips for Shell 1">GDB Tips for Shell 1</a><ul class="nav">
+<li><a href="#Following-Child-Processes" title="Following Child Processes">Following Child Processes</a></li>
+<li><a href="#Examining-Memory-in-GDB" title="Examining Memory in GDB">Examining Memory in GDB</a></li>
+</ul>
+</li>
+<li><a href="#Grading" title="Grading">Grading</a></li>
+<li><a href="#Handing-In" title="Handing In">Handing In</a></li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
+        <div class="toc"><ul class="nav">
+<li><a href="#Shell-1-C-Shell" title="Shell 1 (C-Shell)">Shell 1 (C-Shell)</a><ul class="nav">
+<li><a href="#Due-Monday-October-28-2019-at-1159pm" title="Due: Monday, October 28, 2019 at 11:59pm">Due: Monday, October 28, 2019 at 11:59pm</a></li>
+</ul>
+</li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li class=""><a href="#Assignment-Outline" title="Assignment Outline">Assignment Outline</a><ul class="nav">
+<li class=""><a href="#Minimum-Requirements-for-Shell-2" title="Minimum Requirements for Shell 2">Minimum Requirements for Shell 2</a></li>
+</ul>
+</li>
+<li><a href="#Getting-Started" title="Getting Started">Getting Started</a><ul class="nav">
+<li><a href="#Makefile" title="Makefile">Makefile</a></li>
+<li><a href="#Roadmap" title="Roadmap">Roadmap</a></li>
+</ul>
+</li>
+<li><a href="#Parsing-the-Command-Line" title="Parsing the Command Line">Parsing the Command Line</a><ul class="nav">
+<li><a href="#Invalid-Command-Line-Input" title="Invalid Command-Line Input">Invalid Command-Line Input</a></li>
+</ul>
+</li>
+<li><a href="#Executing-Shell-Commands" title="Executing Shell Commands">Executing Shell Commands</a><ul class="nav">
+<li><a href="#Built-In-Shell-Commands" title="Built-In Shell Commands">Built-In Shell Commands</a></li>
+<li><a href="#UNIX-System-Calls-for-Built-In-Functions" title="UNIX System Calls for Built-In Functions">UNIX System Calls for Built-In Functions</a></li>
+</ul>
+</li>
+<li><a href="#Executing-a-Program" title="Executing a Program">Executing a Program</a><ul class="nav">
+<li><a href="#fork" title="fork()">fork()</a></li>
+<li><a href="#execv" title="execv()">execv()</a></li>
+<li><a href="#wait" title="wait()">wait()</a></li>
+</ul>
+</li>
+<li><a href="#Files-File-Descriptors-Terminal-IO" title="Files, File Descriptors, Terminal I/O">Files, File Descriptors, Terminal I/O</a><ul class="nav">
+<li><a href="#open" title="open()">open()</a></li>
+<li><a href="#close" title="close()">close()</a></li>
+<li><a href="#read" title="read()">read()</a></li>
+<li><a href="#write" title="write()">write()</a></li>
+<li><a href="#printf" title="printf()">printf()</a></li>
+</ul>
+</li>
+<li><a href="#Prompt-Format" title="Prompt Format">Prompt Format</a></li>
+<li><a href="#Input-and-Output-Redirection" title="Input and Output Redirection">Input and Output Redirection</a><ul class="nav">
+<li><a href="#File-Redirection" title="File Redirection">File Redirection</a></li>
+<li><a href="#Redirecting-a-File-Descriptor" title="Redirecting a File Descriptor">Redirecting a File Descriptor</a></li>
+</ul>
+</li>
+<li><a href="#Use-of-Library-Functions" title="Use of Library Functions">Use of Library Functions</a><ul class="nav">
+<li><a href="#Error-Handling" title="Error Handling">Error Handling</a></li>
+</ul>
+</li>
+<li><a href="#Support" title="Support">Support</a><ul class="nav">
+<li><a href="#Demo" title="Demo">Demo</a></li>
+<li><a href="#Tester" title="Tester">Tester</a></li>
+<li><a href="#which" title="which">which</a></li>
+<li><a href="#Clean-Up" title="Clean Up">Clean Up</a></li>
+</ul>
+</li>
+<li><a href="#GDB-Tips-for-Shell-1" title="GDB Tips for Shell 1">GDB Tips for Shell 1</a><ul class="nav">
+<li><a href="#Following-Child-Processes" title="Following Child Processes">Following Child Processes</a></li>
+<li><a href="#Examining-Memory-in-GDB" title="Examining Memory in GDB">Examining Memory in GDB</a></li>
+</ul>
+</li>
+<li><a href="#Grading" title="Grading">Grading</a></li>
+<li><a href="#Handing-In" title="Handing In">Handing In</a></li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>

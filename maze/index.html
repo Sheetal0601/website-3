@@ -1,0 +1,508 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        Maze
+    </title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @charset "UTF-8";@import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd,.popover kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram{text-align:center;background-color:inherit;border-radius:0;white-space:inherit}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.MJX_Assistive_MathML{display:none}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;padding:0 15px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc-label{opacity:.3;background-color:#ccc;border:none;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:23px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child > ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif}html[lang^=ja] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html .markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html .markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html .markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html[lang^=ja] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html[lang=zh-tw] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html[lang=zh-cn] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}html .ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html .ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html .ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:3px;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:cover}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.ui-published-note{color:#337ab7}.ui-published-note .fa{font-size:20px;vertical-align:top}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;letter-spacing:.025em}.focus,:focus{outline:none!important}::-moz-focus-inner{border:0!important}body{font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] body{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}abbr[data-original-title],abbr[title]{cursor:help}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true" style="position: relative;"><h1 id="Maze"><a class="anchor hidden-xs" href="#Maze" title="Maze"><span class="octicon octicon-link"></span></a>Maze</h1><h3 id="Due-Wednesday-September-18-2019-at-1159pm"><a class="anchor hidden-xs" href="#Due-Wednesday-September-18-2019-at-1159pm" title="Due-Wednesday-September-18-2019-at-1159pm"><span class="octicon octicon-link"></span></a>Due: Wednesday, September 18, 2019 at 11:59pm</h3><p>(This is our very first native web handout, so we would really appreicate your <a href="https://docs.google.com/forms/d/e/1FAIpQLSc9mJ1-9vQlYcDRtWemTYht-oHAUOpuyHXYmcUYcMlrEVH13g/viewform" target="_blank" rel="noopener">feedback</a>!)</p><p><strong>Note:</strong> <em>Please make sure you read the handout all the way through before getting started or going to hours!</em></p><h1 id="Introduction"><a class="anchor hidden-xs" href="#Introduction" title="Introduction"><span class="octicon octicon-link"></span></a>Introduction</h1><p>Oh jeepers! While Tom was scoping the deep waters s-Pacifically for colorful <a href="https://www.grammarly.com/blog/octopi-octopuses/" target="_blank" rel="noopener">octopuses</a> to photograph for his underwater photo collection, he encountered a ghastly C-monster! In order to escape, Tom must create a maze of kelp to stump the C-monster and swim away to safety. Complete this assignment and help Tom flee the C-monster. Shrimply put, his life is in your hands!</p><h1 id="Assignment"><a class="anchor hidden-xs" href="#Assignment" title="Assignment"><span class="octicon octicon-link"></span></a>Assignment</h1><p>This C programming assignment contains two parts: first you will write a program <code>generator</code>, which generates mazes; then you will write a program <code>solver</code>, which solves those mazes.<br>
+To get started, run:</p><pre><code>cs0330_install maze
+</code></pre><p>This will copy the stencil for this project into <code>∼/course/cs0330/maze</code>.</p><p><strong>Note</strong>: <em>You might find it useful to run and test bits of code in an</em> <a href="https://repl.it/languages/c" target="_blank" rel="noopener">online C compiler</a>. <em>This is super helpful to make sure each part of your code does what you think it’s doing. Use it!</em></p><h1 id="Stencil"><a class="anchor hidden-xs" href="#Stencil" title="Stencil"><span class="octicon octicon-link"></span></a>Stencil</h1><p>You do <em>not</em> need to modify <code>generator.h</code> or <code>solver.h</code>. You will need to modify <code>generator.c</code>, <code>solver.c</code>, <code>common.c</code>, and <code>common.h</code>. We recommend implementing the functions (and structs) in the following order:</p><p><strong>Start with <code>common.h</code>:</strong></p><ol>
+<li><code>maze_room</code> struct</li>
+</ol><p><strong>Next in <code>common.c</code>:</strong></p><ol start="2">
+<li><code>initialize_maze</code> function</li>
+<li><code>is_in_range</code> function</li>
+<li><code>get_neighbor</code> function</li>
+</ol><p><strong>Then in <code>generator.c</code>:</strong></p><ol start="5">
+<li><code>get_opposite_dir</code> function</li>
+<li><code>shuffle_array</code> function</li>
+<li><code>drunken_walk</code> function</li>
+<li><code>encode_room</code> function</li>
+<li><code>encode_maze</code> function</li>
+<li><code>main</code> function</li>
+</ol><p><strong>Finally in <code>solver.c</code>:</strong></p><ol start="11">
+<li><code>create_room_connections</code> function</li>
+<li><code>decode_maze</code> function</li>
+<li><code>dfs</code> function</li>
+<li><code>print_pruned_path</code> function</li>
+<li><code>main</code> function</li>
+</ol><p><strong>Note</strong>: <em>This order is simply a recommendation. Feel free to implement these functions in whatever order you find most intuitive!</em></p><h1 id="Maze-Structure"><a class="anchor hidden-xs" href="#Maze-Structure" title="Maze-Structure"><span class="octicon octicon-link"></span></a>Maze Structure</h1><p>In the Life lab, you learned how to index into a one-dimensional array to represent a two-dimensional array. In this project, however, we will be representing mazes as actual two-dimensional arrays.</p><p>Room indices start as <code>(0,0)</code> at the top left corner, and grow as you move down and to the right. This means the lower-right corner of a <strong>10 × 25</strong> maze would have coordinates <code>(9,24)</code>.</p><p>Each room will have either a <strong>wall</strong> (stored as a <code>1</code>) or an <strong>opening</strong> (stored as a <code>0</code>) for each possible direction (North, South, West, East). Connections should be consistent between rooms, and rooms on the edges should always have a wall in that direction (or two walls, in the case of corners).</p><p><img src="https://i.imgur.com/VAaAxK8.png" alt=""></p><p>You <strong>must</strong> use a <strong>2D array</strong> to represent your maze. The stencil declares maze arrays as <code>struct maze_room maze[num_rows][num_cols]</code>. This shows up in the signature of each function, so be sure to build your maze array in the same way. <strong>Always make sure the first index is the row, and the second index is the column.</strong></p><p>For each room, you will need to keep track of the following:</p><ul>
+<li>the <strong>row</strong> and <strong>column</strong> of the room.</li>
+<li>whether or not the room has been visited.</li>
+<li>for each connection of the room, whether that connection is a wall, opening, or is uninitialized.</li>
+</ul><p><strong>Make sure you initialize all values.</strong></p><p><strong>Note:</strong> <em>You may notice there is already a <code>maze_room *next</code> field in the <code>maze</code> struct. This will only become relevant when you are implementing your solver, so don’t pay attention to it for now.</em></p><h1 id="Generator"><a class="anchor hidden-xs" href="#Generator" title="Generator"><span class="octicon octicon-link"></span></a>Generator</h1><p>The first part of this project will be to generate a maze.</p><h3 id="Algorithm"><a class="anchor hidden-xs" href="#Algorithm" title="Algorithm"><span class="octicon octicon-link"></span></a>Algorithm</h3><p>There are a few ways to generate a maze, but the simplest uses the recursive <em>drunken-walk algorithm</em>. This algorithm chooses a random order in which to visit each room of the maze, and then creates walls based on that order.</p><p>This algorithm will guarantee there is a path from any room to any other room. The reason for this is because any room it encounters which it hasn’t visited will be given a connection to the previous room. No room will ever be “blocked off” from the chain of visited rooms, so all rooms will be accessible from each other.</p><p><strong>Pseudocode:</strong></p><pre><code>drunken_walk(row, col):
+    r = rooms[row][col]
+    set r.visited to true
+    for each direction dir in random order:
+        if (row + row_offset of dir, col + col_offset of dir) is out of bounds:
+            store a wall in r at direction dir
+        else:
+           neighbor = rooms[row + row_offset of dir][col + col_offset of dir]
+            if neighbor has not yet been visited:
+                store an opening in r at direction dir
+                drunken_walk(neighbor.row, neighbor.col)
+            else:
+                opposite_dir = the opposite direction of dir
+                if neighbor has an initialized value in direction opposite_dir:
+                    store that value in r at direction dir
+                else:
+                    store a wall in r at direction dir
+
+</code></pre><h3 id="Random-Number-Generation"><a class="anchor hidden-xs" href="#Random-Number-Generation" title="Random-Number-Generation"><span class="octicon octicon-link"></span></a>Random Number Generation</h3><p>To ensure that the maze generated by your program is different every time, you’ll need to use C’s <code>rand()</code> function, which takes no arguments and returns an integer between <code>0</code> and <code>RAND_MAX</code>. To get a random number between <code>0</code> and <code>n-1</code>, you can take <code>rand() % (n)</code>.</p><p>The <code>rand()</code> function is actually a <em>pseudorandom number generator</em>, meaning that it outputs a consistent sequence of values when given a particular seed value. By default, <code>rand()</code> has a seed value of <code>1</code>, so unless you change this, your program will generate the same sequence of random numbers each time it is run.</p><p>To change the seed value, include the line <code>srand(time(NULL))</code> at the beginning of your <code>main()</code> function.</p><p>To randomize the order of directions through which you will search, declare the directions in some fixed order in an array. Then the following algorithm can be used to shuffle that array in-place:</p><pre><code>shuffle_array(A[n]):
+    for i from 0 to n-1:
+        choose a random number r between i and n-1, inclusive
+        switch A[i] and A[r]
+</code></pre><p>This procedure produces all possible orderings with equal probability.</p><h1 id="Maze-Encoding-Decoding-and-Translating"><a class="anchor hidden-xs" href="#Maze-Encoding-Decoding-and-Translating" title="Maze-Encoding-Decoding-and-Translating"><span class="octicon octicon-link"></span></a>Maze Encoding, Decoding, and Translating</h1><h3 id="Encoding"><a class="anchor hidden-xs" href="#Encoding" title="Encoding"><span class="octicon octicon-link"></span></a>Encoding</h3><p>In order for you to save the mazes you generate you need some way to represent them in a file. (Your <code>generator</code> will be writing to this file, and your <code>solver</code> will be reading from it). Since each room has four connections, each of which can be in one of two states (wall or opening), there are <code>2^4 = 16</code> possible configurations a room can be in. Therefore, you will be using an number from <code>0</code> to <code>15</code> to represent each possible room connection configuration. We will call this number the <strong>room encoding</strong>.</p><p>We can use one bit to represent each connection (total of four), so we’ll be using the four lowest-order bits of an <code>int</code>. <em>(Note that an <code>int</code> is made up of 32 bits. We are only using 4 out of the 32 bits in the <code>int</code>, and</em> will be ignoring the 28 highest-order bits.)</p><p>Each of these four bits will represent a connection. Specifically,</p><ul>
+<li>the <em>highest-order</em> bit represents the <strong>east</strong> connection</li>
+<li>the <em>next-highest</em> bit represents the <strong>west</strong> connection</li>
+<li>the <em>next-lowest</em> bit represents the <strong>south</strong> connection</li>
+<li>the <em>lowest-order</em> bit represents the <strong>north</strong> connection</li>
+</ul><p>As an example, a room with walls to the east, west, and north, and an opening to the south would be represented as <code>1101</code> in binary, which is equal to <code>13</code> in decimal, so <code>13</code> would be its room encoding.</p><p><strong>Note:</strong> <em>Your maze MUST conform to this specification.</em></p><h3 id="Decoding"><a class="anchor hidden-xs" href="#Decoding" title="Decoding"><span class="octicon octicon-link"></span></a>Decoding</h3><p>Given a room encoding as an <code>int</code>, you will need to be able to extract the connections. This can be done using <a href="https://fresh2refresh.com/c-programming/c-operators-expressions/c-bit-wise-operators/" target="_blank" rel="noopener">bit-level operations</a>. The most relevant operator will be the bitwise <code>AND</code> (<code>&amp;</code>), which compares each bit of the two operands. If both bits are <code>1</code>, then the corresponding resultant bit is set to <code>1</code>. Otherwise, it is set to <code>0</code>. Some examples are:</p><p><img src="https://i.imgur.com/s8WVTKY.png" alt=""></p><p>We can use the <code>&amp;</code> operator to extract the value of a particular bit from a room encoding by using a <em>bit mask</em>, or an integer whose binary representation consists entirely of zeros except for a particular bit (or bits). Some examples include <code>4</code> (<code>0100</code>) and <code>1</code> (<code>0001</code>).</p><p>To check whether the <code>i</code>th bit of a value is set (zero-indexing), you can just <code>&amp;</code> it with <code>2^i</code>. For example,</p><pre><code class="C hljs"><span class="hljs-keyword">if</span> (x &amp; 4) {
+    <span class="hljs-built_in">printf</span>(<span class="hljs-string">"third bit is set"</span>)
+}
+</code></pre><h3 id="Translating-Between-Representations"><a class="anchor hidden-xs" href="#Translating-Between-Representations" title="Translating-Between-Representations"><span class="octicon octicon-link"></span></a>Translating Between Representations</h3><p>Your <code>generator</code> will be writing the encoded maze to a file, and your <code>solver</code> will be reading it. We have chosen to write each room encoding in <a href="https://simple.wikipedia.org/wiki/Hexadecimal_numeral_system" target="_blank" rel="noopener">hexadecimal</a>, since the numbers <code>0</code> through <code>15</code> are all one character long in hex. Here is an example of what an encoded maze will look like:</p><pre><code>597333331395397313333313b
+c6339595adccd639633b59639
+cd53286a70ac619c5333a639c
+c4a59e5396969cc6ad51b53ac
+ce5a632bc5a5ac61b4ac5a738
+432339ddcc5a5adc5ad6a5958
+cd5396accccdc58cc5239c6ac
+cccd633accc4aec6a639cc59c
+68c43339cccc5949719cc6acc
+7a6a7332a6a6a6a63a6a633ae
+</code></pre><p>We have provided for you the functions responsible for reading and writing the encoded maze to and from a file (<code>write_encoded_maze_to_file</code> and <code>read_encoded_maze_from_file</code> respectively). You are responsible for correctly encoding the maze before calling <code>write_encoded_maze_to_file</code>, and correctly decoding the encoded maze returned by <code>read_encoded_maze_from_file</code>.</p><p>To debug, we encourage you to try out <strong>very small mazes first</strong>, and try using the encoded maze to <strong>draw it by hand</strong>!</p><p><strong>Note</strong>: <em>We encourage you to read over each of these functions we provided to see how we are reading and writing from the files!</em></p><h1 id="Solver"><a class="anchor hidden-xs" href="#Solver" title="Solver"><span class="octicon octicon-link"></span></a>Solver</h1><p>The second part of this project is to write a solver that will solve the mazes the you (or we) generate. Please make sure your generator works before starting on this section. (see <a href="#Support">Support</a> section)</p><h3 id="Algorithm1"><a class="anchor hidden-xs" href="#Algorithm1" title="Algorithm1"><span class="octicon octicon-link"></span></a>Algorithm</h3><p>Your program should employ a <em>depth-first search</em>. Such a search begins at the maze’s start room and explores adjacent, accessible rooms recursively.</p><p>Beginning with the indicated room, this algorithm repeatedly chooses a path from each room and follows that path until it reaches a dead end, at which point it backtracks and tries a new path. This process continues until all paths have been explored or the destination is found. The following is pseudocode for this algorithm.</p><pre><code>dfs(row, col):
+    if (row, col) are the coordinates of the goal
+        return true
+    mark the room at [row][col] as visited
+    for each direction dir:
+        neighbor = rooms[row + row_offset of dir][col + col_offset of dir]
+        if the connection in direction dir is open and neighbor is unvisited:
+            if dfs(neighbor.row, neighbor.col) is true
+                return true
+    /* if the program reaches this point then each neighbor’s branch
+        has been explored, and none have found the goal. */
+    return false
+</code></pre><h3 id="Solver-Output"><a class="anchor hidden-xs" href="#Solver-Output" title="Solver-Output"><span class="octicon octicon-link"></span></a>Solver Output</h3><p>Your program should print a list of rooms to the given output file. The room coordinates should be formatted in <code>&lt;row&gt;, &lt;col&gt;</code> format when printed to the solution file.</p><p>To write to a file, use <code>fprintf</code>:</p><pre><code class="C hljs">fprintf(FILE *file, <span class="hljs-keyword">char</span> *content)
+</code></pre><p>In the <code>fprintf</code> function, <code>file</code> is a pointer to the file where we want to write, and <code>content</code> is the string (<code>char</code> pointer) that we want to write.</p><p>Here’s an example of what the first several rows of your solution file might look like.</p><pre><code>PRUNED
+0, 0
+1, 0
+1, 1
+1, 2
+2, 2
+</code></pre><p>We expect your solver to produce two different modes of output:</p><ul>
+<li>
+<p><strong>Pruned Mode:</strong> Your program outputs the coordinates of only the final route from beginning to end. Your program should first print the line “<strong>PRUNED</strong>”. The program should then print the coordinates of each room on the solution path as described earlier.</p>
+<p>To do this, build a list of rooms as you search, and print out each room in the list when you reach the destination room. You can accomplish this using pointers! Use the provided <code>next</code> pointers in your room structs to maintain a linked list of rooms - when you move from room A to room B, set room A’s pointer to room B.</p>
+</li>
+<li>
+<p><strong>Full Mode:</strong> Your program outputs the entire path traversed up until the goal is reached. Your program should first print the line “<strong>FULL</strong>”. The program should then print each room’s coordinates when first visiting that room, and after each recursive call that returns false. This will print the path from start to finish, including “backtracking” after dead ends.</p>
+</li>
+</ul><p><strong>Note:</strong> <em>Depending on how your solver algorithm searches the maze, there can be multiple valid <strong>FULL</strong> solutions.</em></p><p>The choice should be made when your program is compiled. This is done using <em>preprocessor macros</em>. Macros are defined using the <strong>gcc</strong> compiler flag <code>-D&lt;macro&gt;</code>, which defines <code>&lt;macro&gt;</code> for the preprocessor. For example, to add the macro <code>PIZZA</code> to your program, add the flag <code>-DPIZZA</code>. In your Makefile, you’ll see the flag <code>-DFULL</code> in the command for the <code>solver_full</code> target, which defines the macro <code>FULL</code> for that target.</p><p>To write code that will execute only when a specific macro is defined, refer to the example below:</p><pre><code class="C hljs"><span class="hljs-meta">#</span><span class="bash">ifdef FULL</span>
+printf(&lt;something&gt;);
+<span class="hljs-meta">#</span><span class="bash"><span class="hljs-keyword">else</span></span>
+printf(&lt;something else&gt;);
+<span class="hljs-meta">#</span><span class="bash">endif</span>
+</code></pre><p>The above code fragment executes the <code>printf(&lt;something&gt;)</code> statement only if the macro <code>FULL</code> is defined, and executes the <code>printf(&lt;something else&gt;)</code> statement otherwise. You can also use the macro <code>#ifndef &lt;macro&gt;</code> to execute code only if <code>&lt;macro&gt;</code> is not defined.</p><p>Your program should print the entire search if a macro <code>FULL</code> is defined and print only the path to the exit otherwise. Rooms should be printed with format <code>&lt;row&gt;, &lt;col&gt;</code> on its own line with no parentheses with the upper-left corner of the maze corresponding to coordinate <code>(0, 0)</code>. If the start and end rooms happen to be the same, your output should contain the room only once.</p><h1 id="Input-and-Output"><a class="anchor hidden-xs" href="#Input-and-Output" title="Input-and-Output"><span class="octicon octicon-link"></span></a>Input and Output</h1><p>In this assignment, you will need to work with files to represent and solve your mazes. The C <code>&lt;stdio.h&gt;</code> library contains several definitions that enable you to easily write to or read from files. Included in these definitions is a <code>FILE</code> struct, which represents a file within a C program.</p><h3 id="Opening-a-File"><a class="anchor hidden-xs" href="#Opening-a-File" title="Opening-a-File"><span class="octicon octicon-link"></span></a>Opening a File</h3><p>To use files (reading, writing, etc), you need to first open it. The <code>fopen</code> function opens a file, returning a pointer to a <code>FILE</code> struct that corresponds to the desired file.</p><pre><code class="C hljs">FILE *fopen(<span class="hljs-keyword">char</span> *filename, <span class="hljs-keyword">char</span> *mode)
+</code></pre><p>The desired file is indicated by <code>filename</code>. The <code>mode</code> argument refers to how the file will be used; if you intend to write to the file, this value should be <code>w</code>, and if you intend to read from the file, it should be <code>r</code>. If the desired file does not exist it will be created. If an error occurs, <code>NULL</code> is returned.</p><h3 id="Writing-to-a-File"><a class="anchor hidden-xs" href="#Writing-to-a-File" title="Writing-to-a-File"><span class="octicon octicon-link"></span></a>Writing to a File</h3><p>In fact, you can write data to any file (not just standard error) using the <code>fprintf</code> function. This function works in very much the same way as <code>printf</code>.</p><pre><code class="C hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fprintf</span>(<span class="hljs-params">FILE *stream, <span class="hljs-keyword">char</span> *format, ...</span>)
+</span></code></pre><p>The only difference is that <code>fprintf</code> takes an additional argument: the <code>FILE *</code> that you obtained with <code>fopen</code>.</p><h3 id="Closing-a-File"><a class="anchor hidden-xs" href="#Closing-a-File" title="Closing-a-File"><span class="octicon octicon-link"></span></a>Closing a File</h3><p>After your program has finished writing to or reading from a file, it should close that file. Do this with the function <code>fclose</code>.</p><pre><code class="C hljs"><span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">fclose</span>(<span class="hljs-params">FILE *fp</span>) 
+</span></code></pre><p>This function returns <code>0</code> if no error occurred and <code>EOF</code> (a negative value) otherwise.</p><h1 id="Error-Checking"><a class="anchor hidden-xs" href="#Error-Checking" title="Error-Checking"><span class="octicon octicon-link"></span></a>Error Checking</h1><p>Throughout your code you will be using library calls, like <code>fopen</code>, <code>fprintf</code>, and <code>fclose</code>. These functions may fail, and may return an error. You are expected to check for errors every time you make a library call. When a library call returns an error, use <code>fprintf</code> to write an error message to <code>stderr</code>, and then stop program execution by executing <code>return 1</code> from <code>main()</code>.</p><pre><code class="C hljs"><span class="hljs-keyword">if</span> (fclose(f)) {
+    fprintf(<span class="hljs-built_in">stderr</span>, <span class="hljs-string">"Error closing file!\n"</span>);
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+}
+</code></pre><p>Most functions will return a certain value to denote an error. Find out what those values are with <code>man &lt;function&gt;</code>, or looking it up in official online documentation. Your <code>main()</code> function should return <code>0</code> if it completed execution normally, or <code>1</code> if it exited on encountering an error.</p><p><strong>Note:</strong> <em>If you are calling <code>fprintf</code> to write to <code>stderr</code>, you do not need to error check it.</em></p><h1 id="Compiling-and-Running"><a class="anchor hidden-xs" href="#Compiling-and-Running" title="Compiling-and-Running"><span class="octicon octicon-link"></span></a>Compiling and Running</h1><h3 id="Compiling"><a class="anchor hidden-xs" href="#Compiling" title="Compiling"><span class="octicon octicon-link"></span></a>Compiling</h3><p>You have been provided a Makefile, a text file that contains scripts for compiling, running, or cleaning up projects (for example). In order to test the first half of the assignment, you will only need <code>generator</code> and <code>clean</code>.</p><p>The <code>make</code> command only builds files that have been modified since the last build and allows you to split up your build process (e.g. splitting up <code>generator</code> and <code>solver</code> binaries to be built).</p><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>make &lt;target&gt;</code></td>
+<td>Builds a particular target. If no target is specified, it will build the first target (in this case, the target <code>all</code>).</td>
+</tr>
+<tr>
+<td><code>make clean</code></td>
+<td>Removes any previously built targets.</td>
+</tr>
+<tr>
+<td><code>make generator</code></td>
+<td>Builds your <code>generator</code> program.</td>
+</tr>
+<tr>
+<td><code>make solver</code></td>
+<td>Builds your <code>solver</code> program with no macros defined (i.e. the program should print pruned output).</td>
+</tr>
+<tr>
+<td><code>make solver_full</code></td>
+<td>Builds your <code>solver</code> program with the <code>FULL</code> macro defined (i.e. the program should print its full exploration path).</td>
+</tr>
+<tr>
+<td><code>make all</code> (or just <code>make</code>)</td>
+<td>Builds EVERYTHING (your <code>generator</code>, <code>solver</code>, and <code>solver_full</code> programs)</td>
+</tr>
+<tr>
+<td><code>make clean all</code></td>
+<td>Shorthand for running  <code>make clean</code> followed by <code>make all</code></td>
+</tr>
+</tbody>
+</table><h3 id="Running"><a class="anchor hidden-xs" href="#Running" title="Running"><span class="octicon octicon-link"></span></a>Running</h3><p>Once you have compiled the generator portion of the project, you can run it with the following commands:</p><pre><code>./generator &lt;output maze file&gt; &lt;rows&gt; &lt;cols&gt;
+</code></pre><pre><code>./solver &lt;input maze file&gt; &lt;rows&gt; &lt;cols&gt; &lt;output solution file&gt; &lt;starting row&gt; &lt;starting col&gt; &lt;ending row&gt; &lt;ending col&gt;
+</code></pre><pre><code>./solver_full &lt;input maze file&gt; &lt;rows&gt; &lt;cols&gt; &lt;output solution file&gt; &lt;starting row&gt; &lt;starting col&gt; &lt;ending row&gt; &lt;ending col&gt;
+</code></pre><p><strong>Note:</strong> <em>Mazes that are very large may cuase segmentation faults, so we will not test your code with a maze of a size larger than 250 x 250.</em></p><h3 id="Support"><a class="anchor hidden-xs" href="#Support" title="Support"><span class="octicon octicon-link"></span></a>Support</h3><p>Type the command into your terminal without arguments to see what arguments you need to pass in.</p><table>
+<thead>
+<tr>
+<th>Command</th>
+<th>Function</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td><code>cs0330_maze_generator_demo</code></td>
+<td>Demonstrates the expected behavior of your <code>generator</code> program.</td>
+</tr>
+<tr>
+<td><code>cs0330_maze_solver_demo</code></td>
+<td>Demonstrates the expected behavior of your <code>solver</code> program.</td>
+</tr>
+<tr>
+<td><code>cs0330_maze_solver_full_demo</code></td>
+<td>Demonstrates the expected behavior of your <code>solver_full</code> program.</td>
+</tr>
+<tr>
+<td><code>cs0330_maze_validator</code></td>
+<td>This program will check your maze for errors, such as inconsistent or missing walls and inaccessible areas. <em>Please make sure to validate your generated maze before moving on.</em></td>
+</tr>
+</tbody>
+</table><h1 id="Grading"><a class="anchor hidden-xs" href="#Grading" title="Grading"><span class="octicon octicon-link"></span></a>Grading</h1><p>Your grade for this project will be calculated as follows:</p><table>
+<thead>
+<tr>
+<th>Section</th>
+<th style="text-align:center">Percentage</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>Generator</td>
+<td style="text-align:center">40%</td>
+</tr>
+<tr>
+<td>Solver</td>
+<td style="text-align:center">40%</td>
+</tr>
+<tr>
+<td>Error Handling</td>
+<td style="text-align:center">10%</td>
+</tr>
+<tr>
+<td>Style</td>
+<td style="text-align:center">10%</td>
+</tr>
+</tbody>
+</table><p>Both generator and solver will be graded based on Code Correctness (15 pts) and Functionality (25 pts).</p><ul>
+<li><strong>Code Correctness:</strong> no part of your code relies on undefined behavior, uninitialized values, or out-of-scope memory; your program compiles without errors or warnings. <em>Only <code>cs0330_maze_validator</code> will be used during grading.</em></li>
+<li><strong>Functionality:</strong> your code produces correct output, and does not crash for any reason. It does not terminate due to a segmentation fault or floating point exception.</li>
+<li><strong>Error Handling:</strong> your code performs error checking on its function inputs and outputs, and exits gracefully in all situations. No input to your generator or solver should cause a segmentation fault.</li>
+<li><strong>Style:</strong> your code should look nice! Use appropriate whitespace and indentation and well-named variables and functions. Your code should be reasonably factored, and functions should not be too long. Make sure your functions have header comments, and if they already do then don’t delete them!</li>
+</ul><p>Your programs should perform error checking on their input, with one exception: if your solver program successfully opens a maze file, you may assume that the file contents form a correctly-formatted maze. Your program should not crash for any reason; before you hand in your project, make sure that your program does not terminate due to a segmentation fault or floating point exception.</p><p>Consult the <a href="http://cs.brown.edu/courses/cs033/docs/guides/style.pdf" target="_blank" rel="noopener">Style Guide</a> for some pointers on C coding style. Note that you can run a style formatting script in order to make your code match some of the style specifications. To use the script, run the command</p><pre><code>cs0330_reformat &lt;file1&gt; &lt;file2&gt; 
+</code></pre><p>To reformat all <code>.c</code> and <code>.h</code> files in your current directory, you may run:</p><pre><code>cs0330_reformat *.c *.h
+</code></pre><p><strong>Note:</strong> <em>The reformat script should only be used on <code>.c</code> and <code>.h</code> files.</em></p><p>See the table below for guaranteed grade cutoffs. If you do not meet the threshold for a given letter grade, you may still receive that grade after Professor Doeppner applies a curve (you will only ever be curved up).</p><table>
+<thead>
+<tr>
+<th style="text-align:center">Grade</th>
+<th>Requirements</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td style="text-align:center">A</td>
+<td>Consistently generate valid mazes AND correct solutions (both FULL and PRUNED), and does not segfault under most circumstances.</td>
+</tr>
+<tr>
+<td style="text-align:center">B</td>
+<td>Consistently generate valid mazes AND correct solutions (at least one of FULL or PRUNED is correct), and does not segfault under most circumstances.</td>
+</tr>
+<tr>
+<td style="text-align:center">C</td>
+<td>Consistently generate valid mazes OR correct solutions (at least one of FULL or PRUNED is correct), and may often segfault.</td>
+</tr>
+</tbody>
+</table><h1 id="Handing-In"><a class="anchor hidden-xs" href="#Handing-In" title="Handing-In"><span class="octicon octicon-link"></span></a>Handing In</h1><p>To hand in your project, run the command</p><pre><code>cs0330_handin maze
+</code></pre><p>from your project working directory. You should hand in <strong>ALL FILES</strong> (<code>common.c</code>, <code>common.h</code>, <code>generator.c</code>, <code>generator.h</code>, <code>solver.c</code>, <code>solver.h</code>, along with any support code you may have written), a <code>Makefile</code>, and a <code>README</code>. Your <code>README</code> should describe the organization of your programs and any unresolved bugs.</p><p>If you wish to change your handin, you can do so by re-running the script. Only your most recent handin will be graded.</p><p><strong>Important note:</strong> In order to get grades back to the class in a timely manner, we will have to start grading before the final deadline to submit an assignment for any credit has passed (6 days after the on-time deadline). Since students may hand in multiple times, and we always grade the most recent handin, we need a way of knowing not to start grading students who are planning to hand in again later.</p><p><em>If you have already handed in your assignment, but plan to hand in again after the TAs start grading at noon on Saturday, September 21st, you must run <code>cs0330_grade_me_late</code> maze to inform us. You must run the script by noon on 9/21. <strong>If you run this script, you will get grades back later than other students.</strong></em></p><p>If you do not run this script, the TAs will proceed to grade whatever you have already handed in, and you will receive a grade report with the rest of the class that is based on the code you handed in before we started grading. It would be unfair to ask your UTAs to re-grade your new code after they’ve already put time and effort into grading your original handin.</p><p>Exercise caution when running this script: by running it, you forfeit the privilege of on-time feedback. If something changes, you can run the script with the <code>--undo</code> flag (before noon on 9/21) to tell us to grade you on-time and with the <code>--info</code> flag to check if you’re currently on the list for late grading.</p><p>These instructions apply to all projects unless otherwise stated on the handout; the deadline to run the script will be noon on the Saturday after each assignment is due.</p><h3 id="Happy-coding"><a class="anchor hidden-xs" href="#Happy-coding" title="Happy-coding"><span class="octicon octicon-link"></span></a>Happy coding!</h3></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li><a href="#Maze" title="Maze">Maze</a><ul class="nav">
+<li><a href="#Due-Wednesday-September-18-2019-at-1159pm" title="Due: Wednesday, September 18, 2019 at 11:59pm">Due: Wednesday, September 18, 2019 at 11:59pm</a></li>
+</ul>
+</li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li><a href="#Assignment" title="Assignment">Assignment</a></li>
+<li><a href="#Stencil" title="Stencil">Stencil</a></li>
+<li><a href="#Maze-Structure" title="Maze Structure">Maze Structure</a></li>
+<li><a href="#Generator" title="Generator">Generator</a><ul class="nav">
+<li><a href="#Algorithm" title="Algorithm">Algorithm</a></li>
+<li><a href="#Random-Number-Generation" title="Random Number Generation">Random Number Generation</a></li>
+</ul>
+</li>
+<li><a href="#Maze-Encoding-Decoding-and-Translating" title="Maze Encoding, Decoding, and Translating">Maze Encoding, Decoding, and Translating</a><ul class="nav">
+<li><a href="#Encoding" title="Encoding">Encoding</a></li>
+<li><a href="#Decoding" title="Decoding">Decoding</a></li>
+<li><a href="#Translating-Between-Representations" title="Translating Between Representations">Translating Between Representations</a></li>
+</ul>
+</li>
+<li><a href="#Solver" title="Solver">Solver</a><ul class="nav">
+<li><a href="#Algorithm1" title="Algorithm">Algorithm</a></li>
+<li><a href="#Solver-Output" title="Solver Output">Solver Output</a></li>
+</ul>
+</li>
+<li><a href="#Input-and-Output" title="Input and Output">Input and Output</a><ul class="nav">
+<li><a href="#Opening-a-File" title="Opening a File">Opening a File</a></li>
+<li><a href="#Writing-to-a-File" title="Writing to a File">Writing to a File</a></li>
+<li><a href="#Closing-a-File" title="Closing a File">Closing a File</a></li>
+</ul>
+</li>
+<li><a href="#Error-Checking" title="Error Checking">Error Checking</a></li>
+<li class=""><a href="#Compiling-and-Running" title="Compiling and Running">Compiling and Running</a><ul class="nav">
+<li><a href="#Compiling" title="Compiling">Compiling</a></li>
+<li class=""><a href="#Running" title="Running">Running</a></li>
+<li><a href="#Support" title="Support">Support</a></li>
+</ul>
+</li>
+<li><a href="#Grading" title="Grading">Grading</a></li>
+<li><a href="#Handing-In" title="Handing In">Handing In</a><ul class="nav">
+<li><a href="#Happy-coding" title="Happy coding!">Happy coding!</a></li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
+        <div class="toc"><ul class="nav">
+<li><a href="#Maze" title="Maze">Maze</a><ul class="nav">
+<li><a href="#Due-Wednesday-September-18-2019-at-1159pm" title="Due: Wednesday, September 18, 2019 at 11:59pm">Due: Wednesday, September 18, 2019 at 11:59pm</a></li>
+</ul>
+</li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li><a href="#Assignment" title="Assignment">Assignment</a></li>
+<li><a href="#Stencil" title="Stencil">Stencil</a></li>
+<li><a href="#Maze-Structure" title="Maze Structure">Maze Structure</a></li>
+<li><a href="#Generator" title="Generator">Generator</a><ul class="nav">
+<li><a href="#Algorithm" title="Algorithm">Algorithm</a></li>
+<li><a href="#Random-Number-Generation" title="Random Number Generation">Random Number Generation</a></li>
+</ul>
+</li>
+<li><a href="#Maze-Encoding-Decoding-and-Translating" title="Maze Encoding, Decoding, and Translating">Maze Encoding, Decoding, and Translating</a><ul class="nav">
+<li><a href="#Encoding" title="Encoding">Encoding</a></li>
+<li><a href="#Decoding" title="Decoding">Decoding</a></li>
+<li><a href="#Translating-Between-Representations" title="Translating Between Representations">Translating Between Representations</a></li>
+</ul>
+</li>
+<li><a href="#Solver" title="Solver">Solver</a><ul class="nav">
+<li><a href="#Algorithm1" title="Algorithm">Algorithm</a></li>
+<li><a href="#Solver-Output" title="Solver Output">Solver Output</a></li>
+</ul>
+</li>
+<li><a href="#Input-and-Output" title="Input and Output">Input and Output</a><ul class="nav">
+<li><a href="#Opening-a-File" title="Opening a File">Opening a File</a></li>
+<li><a href="#Writing-to-a-File" title="Writing to a File">Writing to a File</a></li>
+<li><a href="#Closing-a-File" title="Closing a File">Closing a File</a></li>
+</ul>
+</li>
+<li><a href="#Error-Checking" title="Error Checking">Error Checking</a></li>
+<li class=""><a href="#Compiling-and-Running" title="Compiling and Running">Compiling and Running</a><ul class="nav">
+<li><a href="#Compiling" title="Compiling">Compiling</a></li>
+<li class=""><a href="#Running" title="Running">Running</a></li>
+<li><a href="#Support" title="Support">Support</a></li>
+</ul>
+</li>
+<li><a href="#Grading" title="Grading">Grading</a></li>
+<li><a href="#Handing-In" title="Handing In">Handing In</a><ul class="nav">
+<li><a href="#Happy-coding" title="Happy coding!">Happy coding!</a></li>
+</ul>
+</li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>

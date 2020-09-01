@@ -1,0 +1,504 @@
+<!DOCTYPE html>
+<html lang="en">
+
+    <head>
+        <meta charset="utf-8">
+        <meta http-equiv="X-UA-Compatible" content="IE=edge">
+        <meta http-equiv="X-Clacks-Overhead" content="GNU Terry Pratchett" />
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <meta name="description" content="A website for CS0330 students at Brown University">
+        <meta name="author" content="CS0330 TA Staff">
+
+        <title> CS0330 | Shell 1 </title>
+
+        <!-- CSS -->
+        <link href="../css/webhandouts.css" rel="stylesheet">
+        <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+        <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+        <![endif]-->
+
+    </head>
+    <body id="page-top" data-spy="scroll" data-target=".navbar-fixed-top">
+      <h1>Shell 1</h1>
+        <div class="webhandout">
+<p>Due: October 28, 2019 at 11:59pm</p>
+</div>
+<button class="foldable">1 Introduction</button>
+<div class="content">
+<p>It’s almost Halloween, and you’re taking some costume inspiration from your favorite tongue-twister: &quot;she sells seashells by the seashore&quot;. Alas, once you arrive at the beach, you realise that you accidentally brought along your computer instead of your seashell-collecting gear. But you would hate for this to be a wasted trip. Maybe some C shells would do the trick…?</p>
+<p>In this 2-part assignment, you will be writing your own &quot;C&quot; shell. A shell is typically used to allow users to run other programs in a friendly environment, often offering features such as command history and job control. Shells are also interpreters, running programs written using the shell’s language (shell scripts).</p>
+<p>This assignment serves as an exercise in C string parsing and an introduction to system calls.</p>
+</div>
+<button class="foldable">2 Assignment Outline</button>
+<div class="content">
+<p>Your task is as follows: your shell must display a prompt and wait until the user types in a line of input. It must then do some text parsing on the input and take the appropriate action. For example, some input is passed on to built-in shell commands, while other inputs specify external programs to be executed by your shell.</p>
+<p>The built-in commands you will need to implement are:</p>
+<pre><code><ul> <li>cd &lt;dir&gt; : changes the current working directory. </li>
+
+<li>ln &lt;src&gt; &lt;dest&gt; : makes a hard link to a file. </li>
+
+<li>rm &lt;file&gt; : remove something from a directory. </li>
+
+<li>exit : quit the shell.</li></ul></code></pre>
+<p>Typically your shell should read from STDIN and write to STDOUT. However, the command line may contain input/output redirection tokens, in which case it must set up the appropriate files to deal with this.</p>
+<p>As you know, users are far from perfect; a large part of this assignment will be supporting good error-checking while running your shell.</p>
+<p><strong>When in doubt about how your shell should behave given a particular input, consult the demo discussed in section 7.1.</strong></p>
+<p>Install the project stencil by running</p>
+<p><code><strong>cs0330_install shell_1</strong></code></p>
+<p>We ~highly~ recommend going through the following checklist in order to get the most out of your C Shell experience and <strong>using gdb</strong> if/when you run into issues (check out the <a href="#heading=h.hr8xvyxq4wlx">GDB tips section</a>!):</p>
+<ul>
+<li><p>Ensure <a href="#heading=h.gl42j3h800he">Makefile</a> is up and running</p></li>
+<li><p>Read &amp; parse input as recommended in <a href="#heading=h.xh7g289m38l7">Parsing the Command Line</a></p></li>
+<li><p>Implement <a href="#heading=h.4i8bv2vdhq0v">built-in commands</a></p></li>
+<li><p>Handle child processes (get <a href="#heading=h.pmfstu1u0sjp">fork &amp; execv</a> working)</p></li>
+<li><p>Handle <a href="#heading=h.gaunev36wp9k">input/output redirection</a></p></li>
+<li><p>Implement <a href="#heading=h.tqgfookgk1to">error handling</a> for syscalls and bad user input</p></li>
+</ul>
+<h2>2.1 Minimum Requirements for Shell 2</h2>
+<p>Shell 1 is a project unto itself, but you will use most of your code for it again in next week’s project, Shell 2.</p>
+<p>For Shell 2, it is imperative that your code for Shell 1 can successfully <strong>fork</strong> and <strong>execv</strong> new child processes based on command-line input and the built-in <strong>cd</strong> command is functioning. Shell 2 does <em>not</em> require correct implementations of the built-in shell commands <strong>ln</strong>, <strong>rm</strong>, or <strong>exit</strong> or input/output redirection. In other words, you must <strong>complete at least the first 2 tasks on the checklist (and also the <code>cd</code> built-in)</strong> in the previous section before proceeding to Shell 2.</p>
+<p>Here are some things to be aware of:</p>
+<ul>
+<li><p>A baseline Shell 1 implementation will <em>not</em> be released for work on Shell 2. All of the code you write for these two assignments will be your own.</p></li>
+<li><p>Late days used on Shell 1 will <em>not</em> also apply to Shell 2.</p></li>
+</ul>
+</div>
+<button class="foldable">3 Getting started</button>
+<div class="content">
+<h2>3.1 Makefile</h2>
+<p>For this assignment, we have given you an outline for a Makefile that you can use to compile your program. This outline consists of a list of flags that we will use to compile your shell when grading. You are responsible for handling any warnings that these flags produce. The Makefile also includes the target names that we would like you to use, but it does not include rules for any targets, and running <strong>make</strong> with this stencil Makefile will not compile your shell.</p>
+<p>It is up to you to create a working Makefile for this assignment with what you learned from this week’s lab. <strong>We will be grading the Makefile you write on this assignment</strong>, mainly for functionality and conciseness. Use variables wherever necessary to reduce repetition, and specify dependencies correctly so make knows to recompile executables if they’ve changed since the last make. Refer to the <a href="http://cs.brown.edu/courses/csci0330/docs/labs/makefiles.pdf">Makefile lab handout</a> if you need help. <strong>Please make sure not to use SHELL as a variable name in your Makefile.</strong></p>
+<p>If you decide to create additional C files, you should make sure your Makefile correctly compiles them into a binary.</p>
+<h2>3.2 Roadmap</h2>
+<p>Now that you’ve got your Makefile working, here’s one way to start tackling the rest of Shell 1:</p>
+<ol>
+<li><p><strong>Parse the command line:</strong></p>
+<ol>
+<li><p>While how you parse user input is up to you, we have provided an example algorithm in <a href="#heading=h.xh7g289m38l7">Parsing the Command Line</a>.</p></li>
+<li><p>Note that you MUST use the <a href="#heading=h.ak9qghfo9dng">read</a><a href="#heading=h.ak9qghfo9dng">system call</a> to get user input (no <strong>scanf</strong>).</p></li>
+<li><p>Ensure that the program <a href="#heading=h.mgq4wysalbvf">can handle incorrect input</a>, with some potential cases to keep in mind:</p>
+<ol>
+<li><p>User can enter nothing and hit the return key (your terminal should simply ignore the input and start a new line in the terminal, as Linux systems do).</p></li>
+<li><p>User should enter a supported command if there are any non-whitespace text.</p></li>
+<li><p>User can enter redirection token at ANY point in a command (see 4 for details on redirection).</p></li>
+<li><p>User cannot use any more than one of the same redirect in one line (i.e. one input, one output).</p></li>
+<li><p>User can enter any amount of whitespace between tokens</p></li>
+</ol></li>
+</ol></li>
+<li><p><strong>Implementing cd, rm, ln, and exit:</strong></p>
+<ol>
+<li>For these, take a look at the chdir, link, and unlink commands (use man).</li>
+</ol></li>
+<li><p><strong>Handle Child Processes:</strong></p>
+<ol>
+<li><p>To handle any other process, you will need to create a new process using the <a href="#heading=h.t8q66avwdo3e">fork</a><a href="#heading=h.t8q66avwdo3e">system command</a>.</p>
+<ol>
+<li><p>This will create a new child process that is an exact replica of the parent process.</p></li>
+<li><p>Make sure that the parent process waits for the child to complete (i.e. using <a href="#heading=h.9tiqyflvvhut">the</a><a href="#heading=h.9tiqyflvvhut">wait</a><a href="#heading=h.9tiqyflvvhut">function</a>)</p></li>
+</ol></li>
+<li><p>From there, you can use <a href="#heading=h.s4dlg5e6306j">the</a><a href="#heading=h.s4dlg5e6306j">execv</a><a href="#heading=h.s4dlg5e6306j">function</a>. This will replace this newly created child process with the program of your choosing.</p>
+<ol>
+<li><p>The two arguments to execv will be the full path to the program you wish to execute and an array of arguments for that program.</p>
+<ol>
+<li>To get the full path to a program, you may want to use <a href="#heading=h.uqkq9q4adyqe">the</a><a href="#heading=h.uqkq9q4adyqe">which</a><a href="#heading=h.uqkq9q4adyqe">function</a>.</li>
+</ol></li>
+</ol></li>
+<li><p>NOTE: You do not need to implement fork, wait, execv, or which! Just use the pre-implemented versions.</p></li>
+</ol></li>
+<li><p><strong>Handle Input/Output Redirects:</strong></p>
+<ol>
+<li><p><a href="#heading=h.uabakmlyqwfp">File redirection</a> allows your shell to feed input to a user program from a file and direct its output into another file.</p></li>
+<li><p>There are three redirect symbols that your program will need to handle:</p>
+<ol>
+<li><p> &lt; <code>[path]</code> - Use file <code>[path]</code> as standard input</p></li>
+<li>
+<p> &gt; <code>[path]</code> - Use file <code>[path]</code> as standard output. If the file does not exist, it is created; otherwise, it is truncated to zero length (i.e. replaces the contents of the existing file).</p>
+</li>
+<li>
+<p> &gt;&gt; <code>[path]</code> - Use file <code>[path]</code> as standard output. If the file does not exist, it is created; otherwise, output is appended to the end of it.</p>
+</li>
+</ol></li>
+<li><p>Keep in mind that redirects are not guaranteed to appear in any particular order; A redirect can appear after or before a command.</p></li>
+</ol></li>
+<li><p><strong>System call error checking: </strong></p>
+<ol>
+<li><p>Almost all system calls return a value, which usually are used to determine if the system call was successful or not. You can use these values to do error checking on said calls.</p>
+<ol>
+<li>See the man pages for the respective commands for details on return values.</li>
+</ol></li>
+</ol></li>
+</ol>
+</div>
+<button class="foldable">4 Parsing the Command Line</button>
+<div class="content">
+<p>A significant part of your implementation will most likely be the command line parsing. Redirection symbols may appear anywhere on the command line, and the file name appears as the next word after the redirection symbol. <strong>The way you parse your commands is completely up to you</strong>, but the most straightforward approach is to use <code>strtok()</code>.</p>
+<p>Symbols and words can be separated by any amount and combination of spaces and tabs, which can also appear before the first token and after the last.</p>
+<p>When tokenizing the command line, the first word (which is not a redirection symbol) will be the command, and each subsequent word will be an argument to the command. You will want to remove all redirection tokens and store the remaining ones in a <code>char **</code> array for use with execv. Make sure that this array terminates with a null character for it to work with execv.</p>
+<p><strong>No input you could possibly come up with should crash your shell</strong>. You do not need to special case quotes (in most shells quotes would group several words into a single argument that contains white space). Make sure to check section 6 for the list of allowed built-in C functions you can use.</p>
+<h2>4.1 Invalid Command-Line Input</h2>
+<p>Be very careful to check for error conditions at all stages of command line parsing. When grading, we will run additional tests to check your code specifically for error handling on bad user input and will be deducting points if error messages aren’t printed. <strong>Refer to our demo if you are unsure what is valid vs. invalid input</strong>.</p>
+<p>Since the shell is controlled by a user, it is possible to receive bizarre input. For example, your shell should be able to handle all these cases (as well as many others):</p>
+<pre><code>33sh&gt; /bin/cat &lt; foo &lt; gub
+
+ERROR - Can’t have two input redirects on one line.
+
+33sh&gt; /bin/cat &lt;
+
+ERROR - No redirection file specified.
+
+33sh&gt; &gt; gub
+
+ERROR - No command.
+
+33sh&gt; &lt; bar /bin/cat
+
+OK - Redirection can appear anywhere in the input.
+
+33sh&gt; [TAB]/bin/ls &lt;[TAB] foo
+
+OK - Any amount of whitespace is acceptable.
+
+33sh&gt; /bin/bug -p1 -p2 foobar
+
+OK - Make sure parameters are parsed correctly. </code></pre>
+<p>You will not be held responsible if your input buffer is not big enough to handle user input. Use a large buffer length (e.g. 1024 bytes) and assume that the user will not enter more than that many characters.</p>
+<p>You may assume that redirection characters are surrounded by whitespace.</p>
+</div>
+<button class="foldable">5 Executing Shell Commands</button>
+<div class="content">
+<button class='foldable sub'>5.1 Built-In Shell Commands</button>
+<div class="content">
+<p>In addition to supporting the spawning of external programs, your shell will support a few built-in commands. When a user enters a built-in command into your shell, your shell should make the necessary system calls to handle the request and return control back to the user. The following is a list of the built-in commands your shell should provide.</p>
+<ul>
+<li><p>cd <Bash command file paths for command> : changes the current working directory.</p></li>
+<li><p>ln <src> <dest> : makes a hard link to a file.</p></li>
+<li><p>rm <file> : removes something from a directory.</p></li>
+<li><p>exit : quits the shell.</p></li>
+</ul>
+<p>Note that we are only looking for the basic behavior of these commands. You do not need to implement flags to these commands such as <code>rm -r</code> or <code>ln -s</code>. You also do not need to support multiple arguments to <code>rm</code>, multiple commands on a single line, or shortcut arguments such as <code>rm </code>* or <code>cd ~.</code> Your shell should print out a descriptive error message if the user enters a malformed command. <strong>For best performance with the testing script, your error message should match the one produced in the demo</strong>, although you will not be penalized if these differ slightly.</p>
+<h3>5.1.1 UNIX System Calls for Built-In Functions</h3>
+<p>To implement the built-in commands, you will need to understand the functionality of several UNIX system calls. You can read the manual for these commands by running the shell command &quot;<strong>man 2 <syscall></strong>&quot;. It is highly recommended that you read all the man pages for these syscalls before starting to implement built-in commands.</p>
+<pre><code>int chdir(const char *path);
+
+int link(const char *existing, const char *new);
+
+int unlink(const char *path); </code></pre>
+<p>Please note that redirecting a built-in command to its bash file is <strong>not</strong> a valid implementation. You must implement the functionality yourselves, using the syscalls mentioned above.</p>
+</div>
+<button class="foldable sub">5.2 Executing a Program</button>
+<div class='content'>
+<p>When a UNIX process executes another program, the process replaces itself with the new program entirely. As a result, in order to continue running, your shell must defer the task of executing another program to another process. Below is a list of system calls, functions, and shell commands useful to this project, related to executing a program:</p>
+<h3>5.2.1 fork()</h3>
+<pre><code>pid_t fork(void)</code></pre>
+<p>First, you’ll need to create a new process. This must be done using the system call <code><a href="http://man7.org/linux/man-pages/man2/fork.2.html">fork()</a></code>, which creates a new &quot;child&quot; process which is an exact replica of the “parent” (the process which executed the system call). This child process begins execution at the point where the call to <code>fork()</code> returns. <code>fork()</code> returns 0 to the child process, and the child’s process ID (abbreviated pid) to the parent.</p>
+<h3>5.2.2 execv()</h3>
+<pre><code>int execv(const char *filename, char *const argv[])</code></pre>
+<p>To actually execute a program, use the library function <code><a href="https://linux.die.net/man/3/execv">execv()</a></code>. Because <code>execv()</code> replaces the entire process image with that of the new program, this function never returns if it is successful.</p>
+<p>Its arguments include <strong>filename, </strong>the full path to the program to be executed, and <strong>argv</strong>, a null-terminated (NOTE: An array for which argv[argc] is NULL, if argc is the number of entries in argv.) argument vector. Note that <strong>argv[0]</strong> MUST be the binary name (the final path component of <strong>filepath</strong>), NOT the full path to the program (which means you will have to do some processing in constructing <strong>argv[0]</strong> from <strong>filename</strong>).</p>
+<p>As an example, the shell command <code>/bin/echo Hello world!</code> would have an argv that looks like this:</p>
+<pre><code>char *argv[4];
+
+argv[0] = &quot;echo&quot;;
+
+argv[1] = &quot;Hello&quot;;
+
+argv[2] = &quot;world!&quot;;
+
+argv[3] = NULL;</code></pre>
+<p>See the <a href="#heading=h.uqkq9q4adyqe">which</a> section to figure out how to get the full path to the program.</p>
+<p>Here is an example of forking and executing <code>/bin/ls</code>, with error checking:</p>
+<pre><code>if (!fork()) {
+
+    /* now in child process */
+
+    char *argv[] = {&quot;ls&quot;, NULL};
+
+    execv(&quot;/bin/ls&quot;, argv);
+
+    /* we won’t get here unless execv failed */
+
+    perror(&quot;execv&quot;);
+
+    /* hint: <a href="http://man7.org/linux/man-pages/man3/perror.3.html">[man perror]</a> */
+
+    exit(1);
+
+}
+
+/* parent process continues to run code out here */ </code></pre>
+<h3>5.2.3 wait()</h3>
+<pre><code>pid_t wait(int *status) </code></pre>
+<p>Your shell should wait for the executed command to finish before displaying a new prompt and reading further input. To do this, you can use the <code><a href="http://man7.org/linux/man-pages/man2/wait.2.html">wait()</a></code> system call, which suspends execution of the calling process until a child process changes state (such as by terminating). If the status argument to wait is non-zero, details about that change of state will be stored in the memory location addressed by status. You don’t need that information in this assignment - you should pass <code>wait</code> the null pointer (0), which will tell it not to store any data. Type <code>man 2 wait</code> into a terminal for further information.</p>
+</div>
+<button class="foldable sub">5.3 Files, File Descriptors, Terminal I/O</button>
+<div class="content">
+<p>You have previously read from and written to files using the <strong><code>FILE</code></strong> struct and functions such as <strong><code>fopen()</code></strong> and <strong><code>fclose()</code></strong>. This struct and these functions provide a high-level abstraction for how file input and output actually works, obscuring lower-level notions such as file descriptors and system calls. In this assignment, you will be performing input using file descriptors and system calls instead of the high-level abstraction of <strong><code>fopen()</code></strong> and <strong><code>fclose()</code></strong> - though we are allowing you to use <strong><code>printf()</code></strong> and <strong><code>fprintf()</code></strong> as you normally would for output.</p>
+<h3>5.3.1 File Descriptors</h3>
+<p>At a lower level, file input and output is performed using <em>file descriptors</em>. A file descriptor is simply an integer which the operating system maps to a file location. The kernel (AKA the core of the computer’s operating system) maintains a list of file descriptors and their file mappings for each process. Consequently, processes do not directly access files using <strong>FILE</strong> structs but rather through the kernel by using file descriptors and low-level system calls.</p>
+<p>Subprocesses inherit open files and their corresponding file descriptors from their parent process. As a result, processes started from within a normal UNIX shell inherit three open files: <strong><code>stdin</code>, <code>stdout</code></strong>, and <strong><code>stderr</code></strong>, which are assigned file descriptors <strong><code>0</code>, <code>1</code></strong>, and <strong><code>2</code></strong> respectively. (NOTE: The header file unistd.h defines macros STDIN_FILENO, STDOUT_FILENO, and STDERR_FILENO which correspond to those file descriptors. This is useful for making code more readable.) Since your shell will be run from within the system’s built-in shell, it inherits these file descriptors; processes executed within your shell will then also inherit them. As a result, whenever your shell or any process executed within it writes characters to file descriptor <strong>1</strong> (the descriptor corresponding to <strong>stdout</strong>), those characters will appear in the terminal window.</p>
+<h3>5.3.2 open()</h3>
+<pre><code>int open(const char *pathname, int flags, mode_t mode) </code></pre>
+<p>The <code>open()</code> system call opens a file for reading or writing, located at the relative (starting from the process working directory) or absolute (starting from the root directory, / ) pathname, and returns a new file descriptor which maps to that file.</p>
+<p>The other arguments for this system call are bit vectors which indicate how the file should be opened. In particular, <strong>flags</strong> indicates both status flags and access modes, allowing the user to determine the behavior of the new file descriptor. <strong>mode</strong> is used to determine the default permissions of the file if it must be created.</p>
+<p>We recommend looking at the man pages (<strong>man 2 open</strong>) for more information.</p>
+<p>File descriptors are opened lowest-first; that is, <strong>open()</strong> returns the lowest-numbered file descriptor available (i.e. currently not open) for the calling process. On an error, <strong>open()</strong> returns −1.</p>
+<h3>5.3.3 close()</h3>
+<pre><code>int close(int fd) </code></pre>
+<p><strong>close()</strong> closes an open file descriptor, which allows it to be reopened and reused later in the life of the calling process. If no other file descriptors of the calling process map to the same file, any system resources associated with that file are freed. <strong>close()</strong> returns 0 on success and −1 on error.</p>
+<h3>5.3.4 read()</h3>
+<pre><code>ssize_t read(int fd, void *buf, size_t count) </code></pre>
+<p><strong>read()</strong> reads up to <strong>count</strong> bytes from the given file descriptor (<strong>fd</strong>) into the buffer pointed to by <strong>buf</strong>. It returns the number of characters read and advances the file position by that many bytes, or returns −1 if an error occurred. <strong>Check and use this return value</strong>. It is otherwise impossible to safely use the buffer contents. Note that read <strong>does not null terminate the buffer</strong>.</p>
+<p><strong>read()</strong> waits for input: it does not return until there is data available for reading. When reading from standard input, <strong>read()</strong> returns when the user types <strong>enter</strong> or <strong>CTRL-D</strong>. These situations can be distinguished by examining the contents of the buffer: typing <strong>enter</strong> causes a new-line character (<strong>
+</strong>) to be written at the end of the line, whereas typing <strong>CTRL-D</strong> does not cause any special character to appear in the buffer. You are allowed to assume that an input command ends with <strong>
+, </strong>as the demo does.</p>
+<p>If a user types <strong>CTRL-D</strong> on a line by itself, <strong>read</strong> will return 0, indicating that no more data is available to be read—a condition called <em>end of file</em> (EOF). In this case, <strong>your shell should exit</strong>.</p>
+<h3>5.3.5 write()</h3>
+<pre><code>ssize_t write(int fd, const void *buf, size_t count) </code></pre>
+<p><strong>write()</strong> writes up to <strong>count</strong> bytes from the buffer pointed to by <strong>buf</strong> to the given file descriptor (<strong>fd</strong>). It returns the number of bytes successfully written, or −1 on an error.</p>
+<p>While this is the lowest level and safest system call we can use to write to STDOUT and STDERR, you are not required to use <strong>write()</strong> for output on this assignment but may instead use <strong>printf()</strong> and <strong>fprintf()</strong> to write to STDOUT and STDERR. You will, however, have to use <strong>read()</strong> to read input.</p>
+<h3>5.3.6 printf()</h3>
+<p><code>int printf(const char *format, …)</code></p>
+<p>You’re already familiar with <strong>printf() </strong>writing formatted output to STDOUT. The primary difference is that a file descriptor doesn’t needed to be specified when using <strong>printf()</strong>; its default file descriptor is STDOUT.</p>
+<p><strong>Note: </strong>if you’re using <strong>printf()</strong> to write a string that doesn’t end in a newline (hint: your prompt), you must use <strong>fflush(stdout)</strong> after <strong>printf()</strong> to actually write your output to the terminal.</p>
+</div>
+<button class="foldable sub">5.4 Prompt Format</button>
+<div class="content">
+<p>While the contents of your shell’s prompt are up to you, you must implement a particular feature in order to make your shell easier to grade. Specifically, you should surround the statement that prints your prompt with the C preprocessor directives <strong>#ifdef PROMPT</strong> and <strong>#endif</strong>, which will cause the compiler to include anything in between the two directives only when the <strong>PROMPT</strong> macro is defined.</p>
+<p>For example, if you print your prompt with the statement</p>
+<pre><code>printf(&quot;33sh&gt; &quot;);</code></pre> you would replace it with the following:
+<pre><code>
+#ifdef PROMPT
+
+if (printf(&quot;33sh&gt; &quot;) &lt; 0) {
+
+    /* handle a write error */
+
+}
+
+#endif</code></pre>
+<p><strong>Note: </strong>If you choose to use <strong>printf()</strong> to write your prompts, and not <strong>write()</strong>, there is an additional step you will have to take to get the prompt to show up in the terminal, because the prompt does not end in a newline. See the <a href="#heading=h.7c7rji6rgfq4">printf()</a><a href="#heading=h.7c7rji6rgfq4"> section</a> for more details.</p>
+<p>Your Makefile should compile two different versions of your shell program: <em>33sh</em>, which compiles with PROMPT defined, and <em>33noprompt</em>, which compiles without PROMPT defined. If you do not remember how to compile your program with a macro defined, refer back to the maze solver Makefile or the Makefiles lab.</p>
+<p>Any other user-defined writes to standard output (i.e. debugging printouts) from your shell should also be enclosed with the <strong>#ifdef</strong> <strong>PROMPT</strong> and <strong>#endif</strong> directives. Otherwise, the testing suite will not run correctly with your shell.</p>
+</div>
+<button class='foldable sub'>5.5 Input and Output Redirection</button>
+<div class='content'>
+<p>Most shells allow the user to redirect the input and output of a program, either into a file or through a <em>pipe</em> (a form of interprocess communication). For example, bash terminals allow you to send a program input from a file using &lt;, send output from a program to a file using &gt; or &gt;&gt;, and chain the output of a program to the input of another using |. <strong>Your shell will be responsible for redirecting the input and output of a program but not for chaining multiple programs together.</strong></p>
+<h3>5.5.1 File Redirection</h3>
+<p>File redirection allows your shell to feed input to a user program from a file and direct its output into another file. You do not need to support redirection for built-in commands. <strong>File redirection should be the last shell functionality you implement</strong>.</p>
+<p>The redirection symbols (‘&lt;’, ‘&gt;’, and ‘&gt;&gt;’) can appear anywhere within a command in any order. For instance, the command <strong>echo hello &gt; output.txt</strong> will write the results of <strong>echo hello</strong> to a new text file <strong>output.txt</strong>, and the command <strong>echo &gt; output.txt hello</strong> should do the same thing, even though the redirection symbol is in a different spot. You can visit the <a href="http://www.linfo.org/redirection.html">Linux’s Redirection Definition</a> page for specific examples and additional details of redirection.</p>
+<ul>
+<li><p>&lt; [path] - Use file [path] as standard input (file descriptor 0).</p></li>
+<li> &gt; [path] - Use file [path] as standard output (file descriptor 1). If the file does not exist, it is created; otherwise, it is truncated to zero length. (See the description of the O_CREAT and O_TRUNC flags in the open(2) man page.)
+</blockquote></li>
+<li> &gt;&gt; [path] - Use file [path] as standard output. If the file does not exist, it is created; otherwise, output is appended to the end of it. (See the description of the O_APPEND flag in the open(2) man page.) </li>
+</ul>
+<p>Your shell should also support error checking for input and output redirection. For example, if the shell fails to create the file to which output should be redirected, the shell must report this error and abort execution of the specified program. Additionally, it is illegal to redirect input or output twice (although it is perfectly legal to redirect input and redirect output). You can experiment with I/O redirection in the demo, which should serve as a model for the expected functionality of your shell.</p>
+<h3>5.5.2 Redirecting a File Descriptor</h3>
+<p>To make a program executed by your child process read input from or write output to a specific file, rather than use the default <strong>stdin</strong> and <strong>stdout</strong>, we have to redirect the <strong>stdin</strong> and <strong>stdout</strong> file descriptors to point to the specified input and output files. Luckily, the kernel’s default behavior provides an elegant solution to this problem: when a file is opened, the kernel returns the smallest file descriptor available, regardless of its traditional association. Thus, if we close file descriptor 1 (<strong>stdout</strong>) and then open a file on disk, that file will be assigned file descriptor 1. Then, when our program writes to file descriptor 1, it will be writing to the file we’ve opened rather than <strong>stdout</strong> (which traditionally corresponds to file descriptor 1 by default).</p>
+<p>For the purposes of this project, we won’t be concerned with restoring the original file descriptors for <strong>stdout</strong> and <strong>stdin</strong> in the child process as it won’t affect your shell. If you’re interested in the technically safer (but more complex) way to redirect files, check out the <code>dup()</code> and <code>dup2()</code> man pages.</p>
+</div>
+</div>
+<button class="foldable">6 Use of Library Functions</button>
+<div class="content">
+<p>You should use the <strong>read()</strong> system call to read from file descriptors <strong><code>STDIN_FILENO</code></strong> (a macro defined as 0), <strong><code>STDOUT_FILENO</code></strong> (1), and <strong><code>STDERR_FILENO</code></strong> (2), which correspond to the file streams for standard input, standard output, and standard error respectively. You should use the <strong>write() </strong>system call to write to <strong><code>STDOUT_FILENO</code></strong> or <strong><code>STDERR_FILENO</code></strong> OR the higher level non-system calls <code>printf()</code> (which doesn’t require a specified file descriptor) and <code>fprintf()</code>.</p>
+<p>You may use any syscall. Specifically, a system call is any function that can be accessed by using the shell command <strong>man 2 <function></strong>. Do not use floating point numbers. If you have any questions about functions that you are able to use, please post your question on Piazza.</p>
+<p>In order to avoid confusion, here is a list of allowed non-syscall functions. While use of some of these functions would be helpful in many implementations, <strong>it is by no means required</strong>.</p>
+<p><strong>Memory-Related:</strong></p>
+<table>
+  <tr>
+    <td>memset()</td>
+    <td>memmove()</td>
+    <td>memchr()</td>
+    <td>memcmp()</td>
+  </tr>
+  <tr>
+    <td>memcpy()</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<p><strong>Strings Manipulation:</strong></p>
+<table>
+  <tr>
+    <td>str(n)cat()</td>
+    <td>tolower()</td>
+    <td>strtol()</td>
+    <td>isalnum()</td>
+  </tr>
+  <tr>
+    <td>isalpha()</td>
+    <td>iscntrl()</td>
+    <td>isdigit()</td>
+    <td>islower()</td>
+  </tr>
+  <tr>
+    <td>isprint()</td>
+    <td>ispunct()</td>
+    <td>isspace()</td>
+    <td>isxdigit()</td>
+  </tr>
+  <tr>
+    <td>str(n)cat()</td>
+    <td>str(n)cmp()</td>
+    <td>str(n)cpy()</td>
+    <td>strtol()</td>
+  </tr>
+  <tr>
+    <td>isgraph()</td>
+    <td>isupper()</td>
+    <td>strlen()</td>
+    <td>strpbrk()</td>
+  </tr>
+  <tr>
+    <td>strstr()</td>
+    <td>strtok()</td>
+    <td>str(r)chr()</td>
+    <td>str(c)spn()</td>
+  </tr>
+  <tr>
+    <td>toupper()</td>
+    <td>atoi()</td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<p><strong>Error-Handling:</strong></p>
+<table>
+  <tr>
+    <td>perror()</td>
+    <td>assert()</td>
+    <td>strerror()</td>
+    <td></td>
+  </tr>
+</table>
+<p><strong>Output:</strong></p>
+<table>
+  <tr>
+    <td>fflush()</td>
+    <td>printf()</td>
+    <td>(v)s(n)printf()</td>
+    <td>fprintf()</td>
+  </tr>
+</table>
+<p><strong>Misc:</strong></p>
+<table>
+  <tr>
+    <td>exit()</td>
+    <td>execv()</td>
+    <td>opendir()</td>
+    <td>readdir()</td>
+  </tr>
+  <tr>
+    <td>closedir()</td>
+    <td></td>
+    <td></td>
+    <td></td>
+  </tr>
+</table>
+<h2>6.1 Error Handling</h2>
+<p>You are responsible for dealing with errors whenever you use the allowed system calls or <strong>printf/fprintf()</strong>. Any function that returns or sets an error value should also be error checked, such as <strong><code>execv()</code></strong> and <strong><code>wait()</code></strong>. As this could get repetitive, you may want to make helper functions that will handle error-checking for you for frequently-used functions such as <strong><code>printf()</code></strong>. As with Maze, you are not required to error-check <strong><code>fprintf()</code></strong> when it is used to print an error message.</p>
+</div>
+<button class="foldable">7 Support</button>
+<div class="content">
+<p>We are providing you with a demo shell program and an automated testing program to use as you work on this project.</p>
+<h2>7.1 Demo</h2>
+<p>We have provided a demo implementation of Shell 1 to show you the expected behavior of the program. It is located in <strong>/course/cs0330/bin/</strong> with the name <strong><code>cs0330_shell_1_demo</code></strong>. There is also a no prompt version of the demo which is in <strong><code>/course/cs0330/bin/</code></strong> with the name <strong><code>cs0330_noprompt_shell_1_demo</code></strong>. You do not need to give it any arguments to run. Make sure you create an implementation both with and without a prompt, as previously described.</p>
+<p>You should use the demo implementation as a reference for how edge cases you think of should be handled. The demo shell differs in some respects from the <code>bash</code> you know and love. <strong>Where they differ, emulate the demo rather than bash</strong> or another shell. For example, the <code>cd</code> command, when run without arguments in <code>bash</code>, changes directories to the user’s home directory. Since you will have no way of knowing the user’s home directory location, your <code>cd</code> implementation should emulate the demo’s behavior for this case.</p>
+<h2>7.2 Tester</h2>
+<p>We have provided a test suite and testing program to test your shell. There are about 40 tests in <strong><code>/course/cs0330/pub/shell_1</code></strong>. The tester program will run some input through your shell, and then compare the output of your shell to the expected output. Each of the tests that this script will run represents input that C Shell should handle, either printing out an appropriate error or the output of a command, depending on the test. To use this script, run</p>
+<p><strong><code>cs0330_shell_1_test -s 33noprompt -u /course/cs0330/pub/shell_1</code></strong></p>
+<p>You must run the tester with the &quot;no prompt&quot; version of your shell - the extra characters printed by the prompt version will cause the test suite to fail. Please also note that if your <strong>33noprompt</strong> executable is not in your current directory, you will need to provide the fully-qualified path to the executable.</p>
+<p>You can also run a single test by providing <code><strong>-t /course/cs0330/pub/shell_1/&lt;testname&gt;</strong></code> instead of the <strong><code>-u</code></strong> option.</p>
+<p>Each test is a directory containing an input file, and an output and error file corresponding to the expected output of <strong>stdout</strong> and <strong>stderr</strong> respectively. Note that while most tests have their output hardcoded in their <strong>output</strong> file, some have this file generated at run time by a script called <strong>setup</strong>, also in the same folder. This shouldn’t matter to you while working on this project, except if you are debugging an individual test failure where it would be useful to examine the expected outputs of the test. In these cases, make sure to look at <strong>setup</strong> so that you can see exactly how the output is constructed, if it differs from the hardcoded <strong>output</strong> file. When you run a test case, the <strong>setup</strong> is run first, and then commands in <strong>input</strong> are piped into your shell (the commands will run in your shell), and then the tester checks if the output from your shell matches the content of the <strong>output</strong>.</p>
+<p>The tester has some other options as well — run <strong><code>cs0330_shell_1_test -h</code></strong> to view.</p>
+<p>If every test seems to be failing, your shell is likely printing extra information to <strong>stdout</strong> and/or <strong>stderr</strong>. Use the <strong>-v</strong> (verbose) option to check which. Also, each test is run with a 3-second timeout. If that seems to be happening for all of your tests, then your shell may not exit when it reaches <strong>EOF</strong> (when <strong>read()</strong> returns 0). Please make sure that this happens, since otherwise no test will pass.</p>
+<p>The testing script provided is fairly comprehensive, but we strongly recommend you do additional testing.</p>
+<h3>7.2.1 which</h3>
+<p>For additional testing, you may find the which command helpful:</p>
+<pre><code>which &lt;program name&gt;</code></pre>
+<p>In order to execute a program in your shell, you will need that program’s full pathname. You will not be able to use only a shortcut, as you would in a bash terminal for programs such as <strong>ls, cat, xpdf, gedit,</strong> etc. To execute these programs from your shell, you must enter <strong>/bin/cat</strong>, <strong>/usr/bin/xpdf</strong>, <strong>/usr/bin/gedit</strong>, and so on. To find the full pathname for any arbitrary program, use <strong>which</strong>.</p>
+<p>Example usage:</p>
+<pre><code>$ which cat
+
+/bin/cat
+
+$ which gedit
+
+/usr/bin/gedit</code></pre>
+<p>For more information, see the <strong>man</strong> page for <strong>which</strong>. You can even use <strong>which</strong> in your shell, once you have determined its full path (type <strong>which which</strong> in a system terminal to find its full path)!</p>
+<p><strong>NOTE: </strong>You do not need to implement <strong>which </strong>for this assignment! It is described here as a resource to find full pathnames of programs that can be executed in your shell.</p>
+<h2>7.3 Clean Up</h2>
+<p>It is important that you run <strong><code>cs0330_cleanup_shell</code></strong> (located in <strong>/course/cs0330/bin</strong>) every so often when working on your shell project. This kills any zombie processes, which if left running will eat up the computer’s resources. This will be even more important when working on Shell 2.</p>
+</div>
+<button class="foldable">8 GDB Tips for C Shell</button>
+<div class="content">
+<p>As always, we recommend using GDB to help debug your project. Check out the <a href="http://cs.brown.edu/courses/csci0330/docs/guides/gdb.pdf">GDB cheatsheet</a> on the home page for more info!</p>
+<h2>8.1 Following Child Processes</h2>
+<p>When debugging your code to execute programs in C Shell it may be helpful to use GDB to verify that the programs are starting correctly. It’s important to note that by default, GDB won’t follow child processes started with <strong>fork()</strong>. This means that if you set a breakpoint on a line that executes in the forked process (i.e. to make sure the arguments to <strong>execv()</strong> are formatted correctly), GDB won’t break on that line.</p>
+<p>However, you can change this behavior by running the GDB command <strong>set follow-fork-mode child</strong>. This tells GDB to debug the child process after a fork, and leave the parent process to run unimpeded. After setting this, GDB will break on breakpoints you set within a forked process. For more information, run <strong>help set follow-fork-mode</strong> within GDB.</p>
+<h2>8.2 Examining Memory in GDB</h2>
+<p>As you work on your command parsing logic, it may be helpful to use GDB to peek at an area of memory in your program, for instance the input buffer as you work with it to parse out the necessary tokens.</p>
+<p>The simplest way of determining the value of a variable or expression in GDB is <strong>[p]rint <expression></strong>, but sometimes you will want more control over how memory is examined. In these situations, the <strong>x</strong> command may be helpful.</p>
+<p>The <strong>x</strong> command (short for &quot;examine&quot;) is used to view a portion of memory starting at a specified address using the syntax <strong>x/(number)(format) &lt;address&gt;</strong>. For example, if you want to examine the first 20 characters after a given address, use <strong>x/20c &lt;address&gt;</strong> . If instead you want to examine the first 3 strings after a given address (remember that a string continues until the null character is encountered), use <strong>x/3s &lt;address&gt;</strong>.</p>
+<p>Other useful format codes include <strong>d</strong> for an integer displayed in signed decimal, <strong>x</strong> for an integer displayed in hexadecimal, and <strong>t</strong> for an integer displayed in binary.</p>
+<p>Note that the amount of memory displayed varies depending on the size of the specified format. <strong>x/4c &lt;address&gt;</strong> will print the first 4 characters after the given address, examining exactly 4 bytes of memory. <strong>x/4d &lt;address&gt;</strong> will print the first 4 signed integers after the given address,</p>
+<p>however this will examine exactly 16 bytes of memory (assuming the machine uses 4 byte integers).</p>
+</div>
+<button class="foldable">9 Grading</button>
+<div class="content">
+<p>Your grade for the first part of the shell project will be determined by the following categories, in order of precedence:</p>
+<ul>
+<li><p><em>Functionality</em>: your shell should produce correct output.</p></li>
+<li><p><em>Code Correctness</em>: your Makefile should work and your code should compile without warnings. Your code should be free of memory leaks and system calls should be used correctly. You must abide by the restrictions on library functions imposed in <a href="#heading=h.qxbju1tjodxm">section 4</a>—you <em>will</em> be penalized for using disallowed functions.</p></li>
+<li><p><em>Error checking</em>: your shell should perform error checking on its input and display appropriate, informative error messages when any error occurs. Error messages should be written to standard error rather than standard output. Make sure you check the return value of each system call you use and <a href="#heading=h.tqgfookgk1to">handle errors accordingly</a>.</p></li>
+<li><p><em>Style</em>: your code will be evaluated for its style. Don’t forget to run the formatter before handing in!</p></li>
+</ul>
+</div>
+<button class="foldable">10 Handing In</button>
+<div class="content">
+<p>To summarize, here is a list of features that a fully functioning shell would support:</p>
+<ul>
+<li><p>Continuously reads input from the user until it receives <strong>EOF</strong> (Ctrl-D)</p></li>
+<li><p>Executes programs and passes the appropriate arguments to those programs</p></li>
+<li><p>Supports 4 built in commands (<strong>cd, rm, ln, exit</strong>)</p></li>
+<li><p>Supports 3 file redirection symbols (<strong>&lt;, &gt;, &gt;&gt;</strong>), including both input and output redirection in the same line.</p></li>
+<li><p>Extensive error checking</p></li>
+</ul>
+<p>Before handing in your project, be sure to run this script to reformat your code to be consistent with the style guidelines:</p>
+<p><strong><code>cs0330_reformat sh.c </code></strong></p>
+<p>You can also run this script on any other .h or .c files you have. Just be sure you don’t run it on other types of files, as this formatter is only meant for .c and .h files.</p>
+<p>To hand in the first part of your shell, run</p>
+<p><strong><code>cs0330_handin shell_1 </code></strong></p>
+<p>from your project working directory. You must at a minimum hand in all of your code, the Makefile used to compile your program, and a README documenting the structure of your program, any bugs you have in your code, any extra features you added, and how to compile it.</p>
+<p>If you wish to change your handin, you can do so by re-running the handin script.</p>
+<p><strong>Important note: </strong><em>If you have handed in but plan to hand in again after we start grading, in addition to running the regular handin script (</em><strong><code>cs0330_handin shell_1</code></strong><em>), you must run </em><strong><code>cs0330_grade_me_late shell_1</code></strong> <em>to inform us not to start grading you yet. You must run the script by the time we start grading on-time handins (11/3 at 2:00pm).</em></p>
+<p>If you do not run this script, the TAs will proceed to grade whatever you have already handed in, and you will receive a grade report with the rest of the class that is based on the code you handed in before we started grading.</p>
+<p>If something changes, you can run the script with the <strong>--undo</strong> flag (before the project deadline) to tell us to grade you on-time and with the <strong>--info</strong> flag to check if you’re currently on the list for late grading.</p>
+</div>
+</div>
+
+  <!-- Footer -->
+  <footer>
+  <div class="container text-center">
+      <p>
+      &copy; 2019 CS0330 TA Staff
+      <span class="spacing">|</span>
+
+      <a href="http://cs.brown.edu">Computer Science Department</a>
+      <span class="spacing">|</span>
+      <a href="http://brown.edu">Brown University</a>
+      </p>
+  </div>
+  </footer>
+
+  <!-- Javascript files -->
+  <script src="../js/jquery.js"></script>
+  <script src="../js/bootstrap.min.js"></script>
+  <script src="../js/jquery.easing.min.js"></script>
+  <script src="../js/cs33.js"></script>
+</div>
+</body>
+</html>

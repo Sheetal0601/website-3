@@ -1,0 +1,527 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        Buffer Overflow 
+    </title>
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @charset "UTF-8";@import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd,.popover kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram{text-align:center;background-color:inherit;border-radius:0;white-space:inherit}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.MJX_Assistive_MathML{display:none}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;padding:0 15px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc-label{opacity:.3;background-color:#ccc;border:none;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:23px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child > ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif}html[lang^=ja] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html .markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html .markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html .markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html[lang^=ja] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html[lang=zh-tw] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html[lang=zh-cn] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}html .ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html .ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html .ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:3px;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:cover}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.ui-published-note{color:#337ab7}.ui-published-note .fa{font-size:20px;vertical-align:top}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;letter-spacing:.025em}.focus,:focus{outline:none!important}::-moz-focus-inner{border:0!important}body{font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] body{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}abbr[data-original-title],abbr[title]{cursor:help}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true" style="position: relative;"><h1 id="Buffer-Overflow"><a class="anchor hidden-xs" href="#Buffer-Overflow" title="Buffer-Overflow"><span class="octicon octicon-link"></span></a>Buffer Overflow</h1><h3 id="Due-October-9-2019-at-1159pm"><a class="anchor hidden-xs" href="#Due-October-9-2019-at-1159pm" title="Due-October-9-2019-at-1159pm"><span class="octicon octicon-link"></span></a>Due: October 9, 2019 at 11:59pm</h3><p><strong>Note</strong>: <em>Please make sure you read the handout all the way through before getting started or going to hours!</em></p><h1 id="Introduction"><a class="anchor hidden-xs" href="#Introduction" title="Introduction"><span class="octicon octicon-link"></span></a>Introduction</h1><p>A gang of sea creatures in C-world have convened and decided that they want more from life than standing around looking pretty. They decide to plan a daring escape from C-world, with ambitions to make it big in the ocean. Octavius the Octopus, Susan the Shark, and Pretzel the Crab need your help to execute their escape without the C-world security guards catching them.</p><p>After brainstorming for a while, they decided that messing with C-World’s computer systems was the way to go, and came up with an elaborate plan after learning a little bit of x86-64 assembly and architecture.</p><h1 id="Assignment"><a class="anchor hidden-xs" href="#Assignment" title="Assignment"><span class="octicon octicon-link"></span></a>Assignment</h1><p>To install the project, run <code>cs0330_install buffer</code> from the command line. The script will create a directory called <code>~/course/cs0330/buffer/</code> in your home directory that contains the binaries needed for this assignment.</p><p>This assignment will help you develop a detailed understanding of <code>x86-64</code> calling conventions and stack organization. It involves applying a series of <em><code>buffer overflow attacks</code></em> on an executable file called <strong><code>buffer</code></strong>.</p><p>In this project, you will gain firsthand experience with one of the methods commonly used to exploit security weaknesses in operating systems and network servers. Our purpose is to help you learn about the runtime operation of programs and to understand the nature of this form of security weakness so that you can avoid it when you write system code. We do not condone the use of this or any other form of attack to gain unauthorized access to any system resources.</p><p>This assignment contains the following files:</p><p>• <strong><code>buffer</code></strong>: The buffer program you will attack.</p><p>• <strong><code>makecookie</code></strong>: Generates a “cookie” based on your userid.</p><p>• <strong><code>hex2raw</code></strong>: A utility to help convert between string formats.</p><p>Your task during this assignment is to use buffer overflow attacks to cause the <strong><code>buffer</code></strong> program to behave in unexpected ways.</p><h1 id="Understanding-Stack"><a class="anchor hidden-xs" href="#Understanding-Stack" title="Understanding-Stack"><span class="octicon octicon-link"></span></a>Understanding Stack</h1><p>Before we get into more assignment details, it is important that you understand how stack frames get set up in the <code>x86</code> architecture when functions are called. Below is a brief overview, but if you would like to get more information, we highly encourage you to review lecture materials and go to TA hours.</p><p>First of all, what is the stack? It is a region of memory that is used to store information about function calls. The stack consists of stack frames, where a stack frame is some amount of memory allocated for a function call, used to keep the information pertaining to that particular function invocation, such as local variables. Think one stack frame per one function call. Every time a function is called, we allocate a new stack frame, and every time a function exits, the stack frame for that call becomes available to use again.</p><p>Suppose we have nested invocations, like function <code>A</code> calling function <code>B</code>, which calls function <code>C</code>. Then, we first create a stack frame for <code>A</code>. Once <code>A</code> calls <code>B</code>, we make a stack frame for <code>B</code> on top of <code>A</code>’s stack frame. And lastly, we make a stack frame for <code>C</code> on top of that of <code>B</code>. Once <code>C</code> exits, we “<code>free</code>” its stack frame, and go back to <code>B</code>. Once <code>B</code> exits, we pop off the stack frame for <code>B</code>, and lastly, we free <code>A</code>’s frame. As you can see, the stack is managed in the <code>LIFO</code> order (last in, first out).</p><p>Let’s take a closer look at how a stack frame is managed. The base register, <em><code>rbp</code></em>, points to the base of the current stack frame, and the stack pointer, <em><code>rsp</code></em>, points to the top of the current stack frame. The stack can grow by decreasing the value of <em><code>rsp</code></em> (remember that the stack starts at a high memory address and grows downwards). Note that in <code>x86-64</code>, we usually do not use the base register. However, because we are compiling our programs with low optimization (with the <code>-O0</code> flag) to make the assignment easier to work through, <em><code>rbp</code></em> is still used in this assignment.</p><p>Here are two example functions in C:</p><pre><code>int callee(int a, int b) {
+
+	int newA = a + 2;
+
+	int newB = b + 3;
+
+	return newA + newB;
+}
+
+int caller() {
+
+	int a = 2;
+
+	int b = 3;
+
+	int c = callee(a, b);
+
+	printf("%d", c);
+}
+</code></pre><p>When the function <strong><code>caller</code></strong> calls the function <strong><code>callee</code></strong>, a new stack frame is prepared for the <code>callee</code>. First, it pushes a return address onto the stack. A return address is the address of the next instruction after coming back from <strong><code>callee</code></strong>, so in this case it would be the address of "<strong><code>printf(“%d", c);</code></strong>”.</p><p>The next step is pushing the value of <em><code>rbp</code></em>. Currently <em><code>rbp</code></em> stores the base address of <strong><code>caller</code></strong>’s stack frame. The reason why we do this step is because <em><code>rbp</code></em> now needs to store the base address of <strong><code>callee</code></strong>’s stack frame, but we need to somehow be able to get back the base address of <strong><code>caller</code></strong> again and go back to <strong><code>caller</code></strong>’s stack frame when <strong><code>callee</code></strong> is done. So we temporarily push this value on the stack so we can retrieve it later.</p><p>The stack now looks like the diagram below:</p><p><img src="https://i.imgur.com/NJJlnrT.png" alt=""></p><p>And lastly, in <code>x86-64</code>, arguments are passed through registers. Specifically, <em>rdi</em> is used to store the first argument (for <strong><code>callee</code></strong>, this would be the argument <strong><code>a</code></strong>), <em><code>rsi</code></em> for the second argument (the argument <strong><code>b</code></strong>), <em><code>rdx</code></em> for the third argument, so on and so forth.</p><p>Now, the stack grows as necessary to store local variables for <strong><code>callee</code></strong> (in this case, <strong><code>newA</code></strong> and <strong><code>newB</code></strong>). We perform the computation, and once we hit the return statement, the stack shrinks, and it pops the old <em><code>rbp</code></em> value we pushed onto the stack previously (so now rbp points to the base of <strong><code>caller</code></strong>’s stack frame). Lastly it pops off the return address, and goes back to the next instruction to execute in <strong><code>caller</code></strong>.</p><h1 id="Userids-and-Cookies"><a class="anchor hidden-xs" href="#Userids-and-Cookies" title="Userids-and-Cookies"><span class="octicon octicon-link"></span></a>Userids and Cookies</h1><p>Phases of this project will require a slightly different solution from each student. The correct solution will be based on your userid.</p><p>A <em><code>cookie</code></em> or <em><code>hash</code></em> is a string of eight hexadecimal digits generated from your userid in such a way that distinct userids will (with high probability) produce distinct cookies. You can generate your cookie with the <strong><code>makecookie</code></strong> program, giving your userid as the argument. For example:</p><p><code>./makecookie pretzel</code></p><p><code>0x5146a9cd</code></p><p>In three of your four buffer attacks, your objective will be to make your cookie show up in places where it ordinarily would not. In two of those three attacks, you will accomplish this by supplying machine code instructions to the buffer program.</p><p>A problem with doing so is that Linux does not allow data on the program stack to be executed as machine instructions in an attempt to avoid such attacks, and the C-World servers just happen to use Linux. However, Pretzel tricked the programmers that wrote libraries security into moving the stack to a different, executable memory location. This means that the instructions that you place on the stack can indeed be executed.</p><h1 id="The-buffer-Program"><a class="anchor hidden-xs" href="#The-buffer-Program" title="The-buffer-Program"><span class="octicon octicon-link"></span></a>The buffer Program</h1><p>The buffer program reads a string from standard input. It does so with the function getbuf defined below:</p><pre><code class="/* hljs">
+<span class="hljs-meta">#<span class="hljs-meta-keyword">define</span> NORMAL_BUFFER_SIZE 32</span>
+
+<span class="hljs-function"><span class="hljs-keyword">int</span> <span class="hljs-title">getbuf</span>(<span class="hljs-params"></span>) </span>{
+
+    <span class="hljs-keyword">char</span> buf[NORMAL_BUFFER_SIZE];
+
+    Gets(buf);
+
+    <span class="hljs-keyword">return</span> <span class="hljs-number">1</span>;
+
+} 
+</code></pre><p>The function <strong><code>Gets()</code></strong> is similar to the standard library function <strong><code>gets()</code></strong>—it reads a string from standard input (terminated by ‘<strong><code>\n</code></strong>’ or <strong><code>end-of-file</code></strong>) and stores it (along with a null terminator) at the specified destination. In this code, you can see that the destination is an array buf having sufficient space for 32 characters.</p><p><strong><code>Gets()</code></strong> (and <strong><code>gets()</code></strong>) grabs a string off the input stream and stores it into its destination address (in this case <code>buf</code>). However, <strong><code>Gets()</code></strong> has no way of determining whether <code>buf</code> is large enough to store the whole input. It simply copies the entire input string, possibly overrunning the bounds of the storage allocated at the destination.</p><p>If the string typed by the user to <strong><code>getbuf()</code></strong> is no more than 31 characters long (remember, it must store the null terminator as well), <strong><code>getbuf()</code></strong> will correctly return 1, as shown by the following execution example:</p><pre><code>./buffer -u pretzel
+
+Type string: I love CS 33.
+
+Oops: getbuf returned 0x1
+
+Typically an error occurs if a longer string is entered:
+
+./buffer -u pretzel
+
+Type string: It is easier to love this class when you are a TA.
+
+Ouch!: You caused a segmentation fault!
+</code></pre><p>As the error message indicates, overrunning the buffer typically causes the program state to be corrupted, leading to a memory access error. Your task is to be more clever with the strings you feed buffer so that it does more interesting things. These are called <em><code>exploit</code></em> strings.</p><p><strong><code>buffer</code></strong> takes several different command line arguments:</p><p><strong><code>-u userid</code>:</strong> Operate the program for the indicated userid (required argument).</p><p>-<strong><code>h</code>:</strong> Print list of possible command line arguments.</p><p>-<strong><code>n</code>:</strong> Operate in “<code>Nitro</code>” mode, as is used in Level 4 below.</p><p>At this point, you should think about the <code>x86-64</code> stack structure a bit and figure out what entries of the stack you will be targeting. You may also want to think about <em>exactly</em> why the last example created a segmentation fault, although this is less clear. Be aware that the buffer starts at the top of the stack (the lowest memory address in the stack) and grows towards the bottom (towards higher addresses).</p><p><img src="https://i.imgur.com/czLwxQX.png" alt=""></p><p>Your exploit strings will typically contain byte values that do not correspond to the ASCII values for printing characters. The program <strong><code>hex2raw</code></strong> can help you generate these raw strings. It takes as input a hex-formatted string. In this format, each byte value is represented by two hex digits. For example, the string “<strong><code>012345</code></strong>” could be entered in hex format as “<strong><code>30 31 32 33 34</code>35</strong>”. (Recall that the <code>ASCII</code> code for decimal digit <strong><code>d</code></strong> is <strong><code>0x3d</code></strong>.)</p><p>The hex characters you pass <strong><code>hex2raw</code></strong> should be separated by whitespace (blanks or newlines). We recommend separating different parts of your exploit string with newlines while you’re working on it. <strong><code>hex2raw</code></strong> also supports C-style block comments, so you can mark off sections of your exploit string. For example:</p><p><code>bf 66 7b 32 78 /* mov 	$0x78327b66,%edi */</code></p><p>Be sure to leave space around both the starting and ending comment strings ("<strong><code>/*</code></strong>" and “<strong><code>*/</code></strong>”) so they will be properly ignored.</p><p>If you generate a hex-formatted exploit string in the file <strong><code>exploit.txt</code></strong>, you can apply the raw string to <strong><code>buffer</code></strong>** **in several different ways:</p><ol>
+<li>You can set up a series of pipes to pass the string through <strong><code>hex2raw</code></strong>.</li>
+</ol><p><code>cat exploit.txt | ./hex2raw | ./buffer -u pretzel</code></p><ol start="2">
+<li>You can store the raw string in a file and use I/O redirection to supply it to <strong><code>buffer</code></strong>:</li>
+</ol><pre><code>./hex2raw &lt; exploit.txt &gt; exploit-raw.txt
+
+./buffer -u pretzel &lt; exploit-raw.txt
+</code></pre><p>This approach can also be used when running <strong><code>buffer</code></strong> from within <strong><code>gdb</code></strong>:</p><pre><code>gdb buffer
+
+(gdb) run -u pretzel &lt; exploit-raw.txt
+</code></pre><p><strong>Important points:</strong></p><p>• Your exploit string must not contain byte value <strong><code>0x0A</code></strong> at any intermediate position, since this is the <code>ASCII</code> code for newline (‘<strong><code>\n</code></strong>’). When <strong><code>Gets()</code></strong> encounters this byte, it will assume you intended to terminate the string.</p><p>• <strong><code>hex2raw</code></strong> expects two-digit hex values separated by a whitespace. So if you want to create a byte with a hex value of <code>0</code>, you need to specify <code>00</code>. To create the word <strong><code>0xDEADBEEF</code></strong> you should pass <strong><code>DE AD BE EF</code></strong> to <strong><code>hex2raw</code></strong>.</p><p>• The CS department machines are <em>little-endian</em>, which means that the least-significant byte of a word is read first. This means that you should enter addresses into your hex string in reverse order, e.g. <strong><code>17 42 04 08</code></strong> for address <strong><code>0x08044217</code></strong>.</p><p>• It is not acceptable to jump directly to the <strong><code>validate()</code></strong> function calls. The goal of this assignment is to understand the <code>x86-64</code> program stack by manipulating and exploiting it - jumping directly to <strong><code>validate()</code></strong> in each phase circumvents the need for any such understanding, and you will not receive credit for solutions that do this.</p><p>• Your exploit strings should not cause segmentation faults. The following output of the buffer program is not valid:</p><pre><code>Userid: pretzel
+
+Cookie: 0x12345678
+
+Type string: &lt;string&gt;
+
+BEEP BEEP!: getbuf returned 0x12345678
+
+VALID
+
+NICE JOB!
+
+Ouch!: You caused a segmentation fault!
+
+Better luck next time
+</code></pre><p>More generally, it is not sufficient to receive the <code>VALID NICE JOB!</code> confirmation. If your goal is to get the program to set or return a particular value, it must actually do this!</p><h1 id="Phases"><a class="anchor hidden-xs" href="#Phases" title="Phases"><span class="octicon octicon-link"></span></a>Phases</h1><p>This project consists of four phases of buffer overflow attacks. The manner of attack will be slightly different in each phase.</p><h2 id="Level-1-Turning-off-the-lights-24-pts"><a class="anchor hidden-xs" href="#Level-1-Turning-off-the-lights-24-pts" title="Level-1-Turning-off-the-lights-24-pts"><span class="octicon octicon-link"></span></a>Level 1: Turning off the lights (24 pts)</h2><p>Pretzel crawls out of his tank, and goes to unlatch Octavius and Susan’s tanks. But the lights are on, so security might see him. Pretzel needs you to turn the lights off! The function <strong><code>getbuf()</code></strong> is called within buffer by a function <strong><code>test_exploit()</code></strong> having the following C code:</p><pre><code>void test_exploit() {
+
+   	  int val;
+
+        /* Put canary on stack to detect possible corruption */
+
+        volatile int local = uniqueval();
+
+        val = getbuf();
+
+        /* Check for corrupted stack */
+
+        if (local != uniqueval()) {
+
+            printf("Sabotaged!: the stack has been corrupted\n");
+
+        }
+
+        
+
+  if (val == cookie) {
+
+            printf("BEEP BEEP!: getbuf returned 0x%x\n", val);
+
+            validate(4);
+
+        } else {
+
+            printf("Oops: getbuf returned 0x%x\n", val);
+
+        }
+
+}
+</code></pre><p>When <strong><code>getbuf()</code></strong> executes its return statement (line 5 of  <strong><code>getbuf()</code></strong>), the program ordinarily resumes execution within function <strong><code>test_exploit()</code></strong> (at line 7 of that function). We want to change this behavior.</p><p>Within the file <strong><code>buffer</code></strong>, there is a function <strong><code>lights_off()</code></strong> having the following C code:</p><pre><code>void lights_off()
+
+{
+
+printf("\"What?\": The lights are off!\n");
+
+validate(1);
+
+exit(0);
+
+}
+
+</code></pre><p>Your task is to get <strong><code>buffer</code></strong> to execute the code for <strong><code>lights_off()</code></strong> when <strong><code>getbuf()</code></strong> executes its return statement, rather than returning to <strong><code>test_exploit()</code></strong>. Note that your exploit string may also corrupt parts of the stack not directly related to this stage, but this will not cause a problem, since <strong><code>lights_off()</code></strong> causes the program to exit directly.</p><p>Some advice:</p><ul>
+<li>
+<p>Writing assembly code is <em>not</em> required for this level.</p>
+</li>
+<li>
+<p>All the information you need to devise your exploit string for this level can be determined by examining a disassembled version of <strong><code>buffer</code></strong>. <code>objdump -d buffer &gt; obj.txt</code> will disassemble the contents of the buffer executable to <strong><code>obj.txt</code></strong>. This file will then contain each function’s name, with all of its instructions and the addresses of those instructions.</p>
+</li>
+<li>
+<p>Be careful about byte ordering.</p>
+</li>
+<li>
+<p>You might want to use <strong><code>gdb</code></strong> to step the program through the last few instructions of getbuf to make sure it is doing the right thing.</p>
+</li>
+<li>
+<p>The placement of buf within the stack frame for <strong><code>getbuf()</code></strong> depends on which version of <code>gcc</code> was used to compile <strong><code>buffer</code></strong>, so you will have to read some assembly to figure out its true location.</p>
+</li>
+<li>
+<p><strong><code>si</code></strong> is a gdb command which you can use to step over a single x86-64 instruction. <strong>step</strong> and <strong>next</strong> won’t do this sometimes, but si never fails to do so. Use this command well.</p>
+</li>
+<li>
+<p><strong><code>ni</code></strong> is like <strong><code>si</code></strong>, but will execute calls as single instructions, rather than stepping into them.</p>
+</li>
+<li>
+<p>Put the hex-formatted exploit string for this level in a file named <strong><code>lights.txt</code></strong> (with any comments not in your <strong><code>README</code></strong>).</p>
+</li>
+</ul><h2 id="Level-2-Raising-the-Water-Level-24-pts"><a class="anchor hidden-xs" href="#Level-2-Raising-the-Water-Level-24-pts" title="Level-2-Raising-the-Water-Level-24-pts"><span class="octicon octicon-link"></span></a>Level 2: Raising the Water Level (24 pts)</h2><p>The trio realize that they won’t all be able to escape via land, so they decide to flood the C-world floor. To do this, they decide to raise the water level on all tanks in their room. They know that the water level for all the tanks is controlled by the central C-world computer. To make sure they can safely leave their tanks, Pretzel, Susan, and Octavius need you to raise the water level setting for their room! To do this, they have to open the four water valves in their room enough so that the water level is 20ft or higher.</p><p>Within the file <strong><code>buffer</code></strong> there is a function <strong><code>water_level()</code></strong> having the following C code:</p><pre><code>struct water_level{
+
+    int id;
+
+    int valves[4];
+
+};
+
+void water_level(struct water_level lvl)
+
+{
+
+    int total_lvl = find_level(lvl.valves);
+
+    if (lvl.id == cookie &amp;&amp; total_level &gt;= 20) {
+
+    printf("SUCCESS!: You raised the water level!({0x%x, %d})\n",
+
+      lvl.id, total_lvl);
+
+    validate(2);
+
+    } else {
+
+  printf("Water level change failed!: You called room({0x%x, %d})\n",
+
+      lvl.id, total_lvl);
+
+    }
+
+    exit(0);
+
+}
+</code></pre><p>Similar to Level 1, your task is to get <strong><code>buffer</code></strong> to execute the code for <strong><code>water_level()</code></strong> rather than returning to <strong><code>test_exploit()</code></strong>. In this example, though, you must make it look like your data is the argument to <strong><code>water_level()</code></strong>. How might this work?</p><p>Note that the program should not explicitly <em>call</em> <strong><code>water_level()</code></strong>—it will simply execute its code. This has important implications for where on the stack you want to place your cookie and other data. Just like in Level 1, writing assembly is not required for this level.</p><p>Put the hex-formatted exploit string for this level in a file named  water.txt (with any comments not in your <code>README</code>).</p><h2 id="Level-3-Get-them-out-of-there"><a class="anchor hidden-xs" href="#Level-3-Get-them-out-of-there" title="Level-3-Get-them-out-of-there"><span class="octicon octicon-link"></span></a>Level 3: Get them out of there!</h2><p>Now it is time to do what we came here for, get Pretzel, Susan, and Octavius out of there! This is going to be tricky because it must be done without C-world security detecting what’s happening or the plan will not work! So the program must not crash or have a premature exit.</p><p>Our preceding attacks have all caused the program to jump to the code for some other function, which then causes the program to exit. As a result, it was acceptable to use exploit strings that corrupt the stack. The most sophisticated form of buffer overflow attack causes the program to execute some exploit code that changes the program’s register/memory state, but makes the program return to the original calling function (<strong><code>test_exploit()</code></strong> in this case). The calling function is oblivious to the attack. This style of attack is tricky, though, since you must:</p><ol>
+<li>
+<p>get machine code onto the stack,</p>
+</li>
+<li>
+<p>set the return pointer to the start of this code, and</p>
+</li>
+<li>
+<p>undo any corruptions made to the stack state.</p>
+</li>
+</ol><p>Your job for this level is to supply an exploit string that will cause <strong><code>getbuf()</code></strong> to return your cookie back to <strong><code>test_exploit()</code></strong>, rather than the value 1. You can see in the code for <strong><code>test_exploit()</code></strong> that this will cause the program to go “<strong><code>BEEP BEEP!</code></strong>”. Your exploit code should set your cookie as the return value, restore any corrupted state, push the correct return location on the stack, and execute a ret instruction to really return to <strong><code>test_exploit()</code></strong>.</p><p>Some advice:</p><p>• You can use gdb to get the information you need to construct your exploit string. Set a breakpoint within <strong><code>getbuf()</code></strong> and run to this breakpoint. Determine parameters such as the saved return address.</p><p>• Determining the byte encoding of instruction sequences by hand is tedious and prone to errors. You can let tools do all of the work by writing an assembly code file containing the instructions and data you want to put on the stack. Assemble this file with gcc and disassemble it with <strong><code>objdump</code></strong>. You should be able to get the exact byte sequence that you will type at the prompt. An example of doing this is contained in section 6.</p><p>• Keep in mind that your exploit string depends on your machine, your compiler, and even your userid’s cookie. Do all of your work on the department machines, and make sure you include the proper userid on the command line to <strong><code>buffer</code></strong>.</p><p>Put the hex-formatted exploit string for this level in a file named escape.txt (with any comments not in your <code>README</code>).</p><h2 id="Level-4-Saving-all-the-animals-20-points"><a class="anchor hidden-xs" href="#Level-4-Saving-all-the-animals-20-points" title="Level-4-Saving-all-the-animals-20-points"><span class="octicon octicon-link"></span></a>Level 4: Saving all the animals (20 points)</h2><p>The trio have successfully escaped C-world, but they want to create a program that will help other ambitious sea animals escape on their own.</p><p>For this phase you’ll need to run the <strong><code>buffer</code></strong> program in “nitro mode” by using the <strong><code>-n</code></strong> command-line flag.</p><p>From one run to another, especially by different users, the exact stack positions used by a given procedure will vary. One reason for this variation is that the values of all environment variables are placed near the base of the stack when a program starts executing. Environment variables are stored as strings, requiring different amounts of storage depending on their values. Thus, the stack space allocated for a given user depends on the settings of his or her environment variables. Stack positions also differ when running a program under <strong><code>gdb</code></strong>, since <strong><code>gdb</code></strong> uses stack space for some of its own state.</p><p>In the code that calls <strong><code>getbuf()</code></strong>, we have incorporated features that stabilize the stack, so that the position of <strong><code>getbuf()</code></strong>’s stack frame will be consistent between runs. This made it possible for you to write an exploit string knowing the exact starting address of <strong><code>buf</code></strong>. If you tried to use such an exploit on a normal program, you would find that it works sometimes, but it causes segmentation faults at other times.</p><p>For this level, we have gone the opposite direction, making the stack positions even less stable than they normally are.</p><p>When you run <strong><code>buffer</code></strong> with the command line flag “<code>-n</code>,” it will run in “Nitro” mode. The program calls a slightly different function <strong><code>getbufn()</code></strong>:</p><pre><code>int getbufn() {
+
+    char buf[BUFFER_SIZE];
+
+    Gets(buf);
+
+    return 1;
+
+}
+</code></pre><p>This function is similar to <strong><code>getbuf()</code></strong>, except that it has a buffer of 512 characters. You will need this additional space to create a reliable exploit. The code that calls <strong><code>test_exploitn()</code></strong> (which calls <strong><code>getbufn()</code></strong>) first allocates a random amount of storage on the stack, such that if you sample the value of <strong><code>%rsp</code></strong> during two successive executions of <strong><code>test_exploitn()</code></strong> or <strong>`getbufn()’</strong>, you would find they differ by as much as 240. As a result, the addresses you used to solve previous phases may not work in this phase.</p><p>In addition, when run in Nitro mode, <strong><code>buffer</code></strong> requires you to supply your string 5 times, and it will execute <strong><code>getbufn()</code></strong> 5 times, each with a different stack offset. Your exploit string must make it return your cookie each of these times.</p><p>Your task is identical to the task for the level “Get them out of there!”. Once again, your job for this level is to supply an exploit string that will cause <strong><code>getbufn()</code></strong> to return your cookie back to test exploit, rather than the value 1. You can see in the code for test exploit that this will cause the program to go “<strong><code>Woo</code></strong>.” Your exploit code should set your cookie as the return value, restore any corrupted state, push the correct return location on the stack, and execute a ret instruction to really return to <strong><code>test_exploitn()</code></strong>.</p><p>Some Advice:</p><p>• You can use the program hex2raw to send multiple copies of your exploit string by providing it with the command-line argument -n. Using hex2raw with the command-line argument -n will send 5 copies of the exploit string provided. The command-line argument -n for buffer will execute the buffer program in “Nitro” mode which expects 5 exploit strings. If you have a single copy in the file animals.txt, then you can use the following command:</p><p><code>cat animals.txt | ./hex2raw -n | ./buffer -n -u pretzel</code></p><p>You must use the same string for all 5 executions of <strong><code>getbufn()</code></strong>.</p><p>• The trick for this phase is to make use of the nop instruction. It is encoded with a single byte (code <strong><code>0x90</code></strong>). By including a sequence of nop instructions before your exploit code, if the program jumps to any point in the sequence, it will "slide” along until it reaches the exploit code. Such a sequence of nops is known as a <em>nop sled</em>. More information about nop sleds can be found on page 262 of the CS:APP textbook.</p><p>Put the hex-formatted exploit string for this level in a file named animals.txt (with any comments not in your README).</p><h1 id="Generating-Machine-Code"><a class="anchor hidden-xs" href="#Generating-Machine-Code" title="Generating-Machine-Code"><span class="octicon octicon-link"></span></a>Generating Machine Code</h1><p>Using <strong>gcc</strong> as an assembler and objdump as a disassembler makes it convenient to generate the bytes for instruction sequences. For example, suppose we write a file <em>example.s</em> containing the following assembly code:</p><h1 id="Example-of-hand-generated-assembly-code"><a class="anchor hidden-xs" href="#Example-of-hand-generated-assembly-code" title="Example-of-hand-generated-assembly-code"><span class="octicon octicon-link"></span></a>Example of hand-generated assembly code</h1><pre><code>push $0xabcdef # Push value onto stack
+
+add $17,%eax # Add 17 to %eax
+
+.align 4 # Following will be aligned on multiple of 4
+
+.long 0xfedcba98 # A 4-byte constant
+
+The code can contain a mixture of instructions and data. Anything to the right of a ‘**#**’. character is a comment.
+
+We can now assemble and disassemble this file:
+
+$ gcc -c example.s
+
+$ objdump -d example.o &gt; example.d
+
+The generated file example.d contains the following lines
+
+0:	68 ef cd ab 00 		push	 $0xabcdef
+
+5: 	83 c0 11 			add 	$0x11,%eax
+
+8: 	98 				cwtl
+
+9: 	ba				.byte 0xba
+
+a: 	dc fe 			fdivr %st,%st(6)
+</code></pre><p>Each line shows a single instruction. The number on the left indicates the starting address (starting with 0), while the hex digits after the <code>':'</code>. character indicate the byte codes for the instruction. Thus, we can see that the instruction <strong><code>push $0xABCDEF</code></strong> has hex-formatted byte code <strong><code>68 ef cd ab 00</code></strong>.</p><p>Starting at address 8, the disassembler gets confused. It tries to interpret the bytes in the file example.o as instructions, but these bytes actually correspond to data. Note, however, that if we read off the 4 bytes starting at address 8 we get: <strong><code>98 ba dc fe</code></strong>. This is a byte-reversed version of the data word <strong><code>0xFEDCBA98</code></strong>. This byte reversal represents the proper way to supply the bytes as a string, since a little endian machine lists the least significant byte first.</p><p>Finally, we can read off the byte sequence for our code as:</p><pre><code>68 ef cd ab 00 83 c0 11 98 ba dc fe
+</code></pre><p>This string can then be passed through hex2raw to generate a proper input string we can give to buffer. Alternatively, we can edit example.d to look like this:</p><pre><code>68 ef cd ab 00 /* push $0xabcdef */
+
+83 c0 11 /* add $0x11,%eax */
+
+98
+
+ba dc fe
+</code></pre><p>which is also a valid input we can pass through <strong><code>hex2raw</code></strong> before sending it to buffer.</p><p>You can check the output of the <strong><code>hex2raw</code></strong> program by running its output through the hexdump program. This is a built-in Linux utility that outputs a human-readable hexadecimal representation of a file. For more information, run man hexdump.</p><h1 id="gdb"><a class="anchor hidden-xs" href="#gdb" title="gdb"><span class="octicon octicon-link"></span></a>gdb</h1><p>Here are some gdb commands that you may find helpful for this assignment:</p><p>• <strong>x/i $pc</strong> prints the current instruction.</p><p>• <strong>disassemble &lt;function&gt;</strong> prints each instruction (and its address) of &lt;function&gt;.</p><p>• <strong>info r</strong> prints the value contained in each register.</p><p>• <strong>x/48b</strong> prints 48 bytes of memory. <strong>x/48b </strong></p><address> prints the 48 bytes of memory after <address>.<p></p>
+<p>• tip: <strong>$esp</strong> is the address of the stack pointer!</p>
+<p>• tip: <strong>x/48xb</strong> will print 48 bytes of memory in hex</p>
+<p>For more gdb commands, consult the <a href="https://cs.brown.edu/courses/csci0330/docs/guides/gdb_cheatsheet.pdf" target="_blank" rel="noopener">gdb </a><a href="https://cs.brown.edu/courses/csci0330/docs/guides/gdb_cheatsheet.pdf" target="_blank" rel="noopener">Cheatsheet</a> (available on the website and the assignment stencil).</p>
+<p>Set breakpoints frequently and use these commands if you get stuck. However, do not set a breakpoint on instructions which you have placed on the stack. Doing so may cause a null byte, <strong>0x00</strong>, to replace one of your instruction bytes, which will very likely ruin that instruction (and the ones following it).</p>
+
+<h1 id="README"><a class="anchor hidden-xs" href="#README" title="README"><span class="octicon octicon-link"></span></a>README</h1>
+<p>You should have a <strong>very</strong> <strong>detailed</strong> explanation of each of your exploits in one of two places. Your first option is to write a <code>README</code> file (which is required to hand in anyway) in which you explain how each of your exploits works. Your second option is to use block comments (i.e. <code>/<em>…</em>/</code>) within each of your exploit text files to explain the exploit, and then hand in a <code>README</code> saying that you have done so. Ideally every block of your input string should be commented. If there is anything unclear about commenting please go to TA hours. Comments are a significant portion of your grade.</p>
+<h1 id="Grading"><a class="anchor hidden-xs" href="#Grading" title="Grading"><span class="octicon octicon-link"></span></a>Grading</h1>
+<p>You will receive points for successfully exploiting each level and for your explanation.</p>
+<p>• Level 1: Opening the tanks is worth <strong>24 points</strong> (explanation is <strong>4 points</strong>).</p>
+<p>• Level 2: Raising the water level is worth <strong>24 points</strong> (explanation is <strong>4 points</strong>).</p>
+<p>• Level 3: Getting them out of there is worth <strong>32 points</strong> (explanation is <strong>6 points</strong>).</p>
+<p>• Level 4: Saving all the animals is worth <strong>20 points</strong> (explanation is <strong>4 points</strong>).</p>
+<p>This assignment is worth 100 points total. A README or block comments within your exploit files are necessary for this assignment. You will be penalized if you do not explain your work.</p>
+<p>See the table below for guaranteed grade cutoffs. If you do not meet the threshold for a given letter grade, you may still receive that grade after Professor Doeppner applies a curve (you will only ever be curved up).</p>
+<table>
+  <tbody><tr>
+    <td>Grade</td>
+    <td>Requirements</td>
+  </tr>
+  <tr>
+    <td>A</td>
+    <td>Pass all 4 levels AND have reasonable explanations for all solutions (100 pts)</td>
+  </tr>
+  <tr>
+    <td>B</td>
+    <td>Pass the first 3 levels AND have reasonable explanations for all solutions (80 pts)</td>
+  </tr>
+  <tr>
+    <td>C</td>
+    <td>Pass the first 2 levels AND have reasonable explanations for all solutions (48 pts)</td>
+  </tr>
+  <tr>
+    <td>Failing</td>
+    <td>You can get your project checked off for a C up until the next project deadline</td>
+  </tr>
+</tbody></table>
+<h1 id="Handing-In"><a class="anchor hidden-xs" href="#Handing-In" title="Handing-In"><span class="octicon octicon-link"></span></a>Handing In</h1>
+<p>Your handin for this assignment should include at least a text file for each phase containing your input string for that phase, plus a <code>README</code> (there is no need to include the stencil files):</p>
+<p>• lights.txt</p>
+<p>• water.txt</p>
+<p>• escape.txt</p>
+<p>• animals.txt</p>
+<p>• README</p>
+<p>That is, the command</p>
+<p><code>cat &lt;phase&gt;.txt | ./hex2raw | ./buffer -u &lt;your login&gt;</code></p>
+<p>and</p>
+<p><code>cat animals.txt | ./hex2raw -n | ./buffer -n -u &lt;your login&gt;</code></p>
+<p>should solve the indicated phase (the autograder runs these commands). Be sure to create these files after you solve each phase so that you don’t have to re-solve any of them.</p>
+<p>To hand in your solutions, run</p>
+<p><code>cs0330_handin buffer</code></p>
+<p>from your project working directory.</p>
+<p>If you wish to change your handin, you can do so by re-running the handin script. Only your most recent handin will be graded.</p>
+<p><strong>Important note:</strong> <em>If you have already handed in your assignment, but plan to hand in again after the TAs start grading at noon on Saturday, October 12th, in addition to running the regular handin script (<code>cs0330handin buffer</code>), you must run <code>cs0330grademelate</code> buffer to inform us not to start grading you yet. You must run the script by noon on 10/12. If you run this script, you will get grades back later than other students.</em></p>
+<p>If you do not run this script, the TAs will proceed to grade whatever you have already handed in, and you will receive a grade report with the rest of the class that is based on the code you handed in before we started grading.</p>
+<p>If something changes, you can run the script with the <strong><code>--undo</code></strong> flag (before noon on 10/12) to tell us to grade you on-time and with the <strong><code>--info</code></strong> flag to check if you’re currently on the list for late grading.</p>
+<p><em>These instructions apply to all projects unless otherwise stated on the handout.</em></p>
+</address></address></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc">
+                <ul class="nav">
+                    <li class=""><a href="#Buffer-Overflow" title="Buffer Overflow">Buffer Overflow</a></li>
+                    <li class=""><a href="#Introduction" title="Introduction">Introduction</a></li>
+                    <li><a href="#Assignment" title="Assignment">Assignment</a></li>
+                    <li><a href="#Understanding-Stack" title="Understanding Stack">Understanding Stack</a></li>
+                    <li><a href="#Userids-and-Cookies" title="Userids and Cookies">Userids and Cookies</a></li>
+                    <li><a href="#The-buffer-Program" title="The buffer Program">The buffer Program</a></li>
+                    <li><a href="#Phases" title="Phases">Phases</a>
+                        <ul class="nav">
+                            <li><a href="#Level-1-Turning-off-the-lights-24-pts" title="Level 1: Turning off the lights (24 pts)">Level 1: Turning off the lights (24 pts)</a></li>
+                            <li><a href="#Level-2-Raising-the-Water-Level-24-pts" title="Level 2: Raising the Water Level (24 pts)">Level 2: Raising the Water Level (24 pts)</a></li>
+                            <li><a href="#Level-3-Get-them-out-of-there" title="Level 3: Get them out of there!">Level 3: Get them out of there!</a></li>
+                            <li><a href="#Level-4-Saving-all-the-animals-20-points" title="Level 4: Saving all the animals (20 points)">Level 4: Saving all the animals (20 points)</a></li>
+                        </ul>
+                    </li>
+                    <li><a href="#Generating-Machine-Code" title="Generating Machine Code">Generating Machine Code</a></li>
+                    <li><a href="#gdb" title="gdb">gdb</a></li>
+                    <li><a href="#README" title="README">README</a></li>
+                    <li><a href="#Grading" title="Grading">Grading</a></li>
+                    <li><a href="#Handing-In" title="Handing In">Handing In</a></li>
+                </ul>
+                </div>
+                <div class="toc-menu">
+                    <a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a>
+                </div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
+        <div class="toc"><ul class="nav">
+<li class=""><a href="#Buffer-Overflow" title="Buffer Overflow">Buffer Overflow</a><ul class="nav"></li>
+<li class=""><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li><a href="#Assignment" title="Assignment">Assignment</a></li>
+<li><a href="#Understanding-Stack" title="Understanding Stack">Understanding Stack</a></li>
+<li><a href="#Userids-and-Cookies" title="Userids and Cookies">Userids and Cookies</a></li>
+<li><a href="#The-buffer-Program" title="The buffer Program">The buffer Program</a></li>
+<li><a href="#Phases" title="Phases">Phases</a><ul class="nav">
+<li><a href="#Level-1-Turning-off-the-lights-24-pts" title="Level 1: Turning off the lights (24 pts)">Level 1: Turning off the lights (24 pts)</a></li>
+<li><a href="#Level-2-Raising-the-Water-Level-24-pts" title="Level 2: Raising the Water Level (24 pts)">Level 2: Raising the Water Level (24 pts)</a></li>
+<li><a href="#Level-3-Get-them-out-of-there" title="Level 3: Get them out of there!">Level 3: Get them out of there!</a></li>
+<li><a href="#Level-4-Saving-all-the-animals-20-points" title="Level 4: Saving all the animals (20 points)">Level 4: Saving all the animals (20 points)</a></li>
+</ul>
+</li>
+<li><a href="#Generating-Machine-Code" title="Generating Machine Code">Generating Machine Code</a></li>
+<li><a href="#Example-of-hand-generated-assembly-code" title="Example of hand-generated assembly code">Example of hand-generated assembly code</a></li>
+<li><a href="#gdb" title="gdb">gdb</a></li>
+<li><a href="#README" title="README">README</a></li>
+<li><a href="#Grading" title="Grading">Grading</a></li>
+<li><a href="#Handing-In" title="Handing In">Handing In</a></li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>

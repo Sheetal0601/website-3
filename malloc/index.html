@@ -1,0 +1,633 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black">
+    <meta name="mobile-web-app-capable" content="yes">
+    <title>
+        Malloc
+    </title>
+    <link rel="icon" type="image/png" href="https://img.pngio.com/stack-png-3-png-image-stack-png-512_512.png">
+    <link rel="apple-touch-icon" href="https://img.pngio.com/stack-png-3-png-image-stack-png-512_512.png">
+
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha256-916EbMg70RQy9LHiGkXzG8hSg9EdNy97GazNG/aiY1w=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css" integrity="sha256-eZrrJcwDc/3uDhsdt61sL2oOBY362qM3lon1gyExkL0=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/ionicons/2.0.1/css/ionicons.min.css" integrity="sha256-3iu9jgsy9TpTwXKb7bNQzqWekRX7pPK+2OLj3R922fo=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/octicons/3.5.0/octicons.min.css" integrity="sha256-QiWfLIsCT02Sdwkogf6YMiQlj4NE84MKkzEMkZnMGdg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/prism/1.5.1/themes/prism.min.css" integrity="sha256-vtR0hSWRc3Tb26iuN2oZHt3KRUomwTufNIf5/4oeCyg=" crossorigin="anonymous" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/emojify.js/1.1.0/css/basic/emojify.min.css" integrity="sha256-UOrvMOsSDSrW6szVLe8ZDZezBxh5IoIfgTwdNDgTjiU=" crossorigin="anonymous" />
+    <style>
+        @charset "UTF-8";@import url(https://fonts.googleapis.com/css?family=Roboto:300,300i,400,400i,500,500i|Source+Code+Pro:300,400,500|Source+Sans+Pro:300,300i,400,400i,600,600i|Source+Serif+Pro&subset=latin-ext);.hljs{display:block;background:#fff;padding:.5em;color:#333;overflow-x:auto}.hljs-comment,.hljs-meta{color:#969896}.hljs-emphasis,.hljs-quote,.hljs-string,.hljs-strong,.hljs-template-variable,.hljs-variable{color:#df5000}.hljs-keyword,.hljs-selector-tag,.hljs-type{color:#a71d5d}.hljs-attribute,.hljs-bullet,.hljs-literal,.hljs-number,.hljs-symbol{color:#0086b3}.hljs-built_in,.hljs-builtin-name{color:#005cc5}.hljs-name,.hljs-section{color:#63a35c}.hljs-tag{color:#333}.hljs-attr,.hljs-selector-attr,.hljs-selector-class,.hljs-selector-id,.hljs-selector-pseudo,.hljs-title{color:#795da3}.hljs-addition{color:#55a532;background-color:#eaffea}.hljs-deletion{color:#bd2c00;background-color:#ffecec}.hljs-link{text-decoration:underline}.markdown-body{font-size:16px;line-height:1.5;word-wrap:break-word}.markdown-body:after,.markdown-body:before{display:table;content:""}.markdown-body:after{clear:both}.markdown-body>:first-child{margin-top:0!important}.markdown-body>:last-child{margin-bottom:0!important}.markdown-body a:not([href]){color:inherit;text-decoration:none}.markdown-body .absent{color:#c00}.markdown-body .anchor{float:left;padding-right:4px;margin-left:-20px;line-height:1}.markdown-body .anchor:focus{outline:none}.markdown-body blockquote,.markdown-body dl,.markdown-body ol,.markdown-body p,.markdown-body pre,.markdown-body table,.markdown-body ul{margin-top:0;margin-bottom:16px}.markdown-body hr{height:.25em;padding:0;margin:24px 0;background-color:#e7e7e7;border:0}.markdown-body blockquote{font-size:16px;padding:0 1em;color:#777;border-left:.25em solid #ddd}.markdown-body blockquote>:first-child{margin-top:0}.markdown-body blockquote>:last-child{margin-bottom:0}.markdown-body kbd,.popover kbd{display:inline-block;padding:3px 5px;font-size:11px;line-height:10px;color:#555;vertical-align:middle;background-color:#fcfcfc;border:1px solid #ccc;border-bottom-color:#bbb;border-radius:3px;box-shadow:inset 0 -1px 0 #bbb}.markdown-body .loweralpha{list-style-type:lower-alpha}.markdown-body h1,.markdown-body h2,.markdown-body h3,.markdown-body h4,.markdown-body h5,.markdown-body h6{margin-top:24px;margin-bottom:16px;font-weight:600;line-height:1.25}.markdown-body h1 .octicon-link,.markdown-body h2 .octicon-link,.markdown-body h3 .octicon-link,.markdown-body h4 .octicon-link,.markdown-body h5 .octicon-link,.markdown-body h6 .octicon-link{color:#000;vertical-align:middle;visibility:hidden}.markdown-body h1:hover .anchor,.markdown-body h2:hover .anchor,.markdown-body h3:hover .anchor,.markdown-body h4:hover .anchor,.markdown-body h5:hover .anchor,.markdown-body h6:hover .anchor{text-decoration:none}.markdown-body h1:hover .anchor .octicon-link,.markdown-body h2:hover .anchor .octicon-link,.markdown-body h3:hover .anchor .octicon-link,.markdown-body h4:hover .anchor .octicon-link,.markdown-body h5:hover .anchor .octicon-link,.markdown-body h6:hover .anchor .octicon-link{visibility:visible}.markdown-body h1 code,.markdown-body h1 tt,.markdown-body h2 code,.markdown-body h2 tt,.markdown-body h3 code,.markdown-body h3 tt,.markdown-body h4 code,.markdown-body h4 tt,.markdown-body h5 code,.markdown-body h5 tt,.markdown-body h6 code,.markdown-body h6 tt{font-size:inherit}.markdown-body h1{font-size:2em}.markdown-body h1,.markdown-body h2{padding-bottom:.3em;border-bottom:1px solid #eee}.markdown-body h2{font-size:1.5em}.markdown-body h3{font-size:1.25em}.markdown-body h4{font-size:1em}.markdown-body h5{font-size:.875em}.markdown-body h6{font-size:.85em;color:#777}.markdown-body ol,.markdown-body ul{padding-left:2em}.markdown-body ol.no-list,.markdown-body ul.no-list{padding:0;list-style-type:none}.markdown-body ol ol,.markdown-body ol ul,.markdown-body ul ol,.markdown-body ul ul{margin-top:0;margin-bottom:0}.markdown-body li>p{margin-top:16px}.markdown-body li+li{margin-top:.25em}.markdown-body dl{padding:0}.markdown-body dl dt{padding:0;margin-top:16px;font-size:1em;font-style:italic;font-weight:700}.markdown-body dl dd{padding:0 16px;margin-bottom:16px}.markdown-body table{display:block;width:100%;overflow:auto;word-break:normal;word-break:keep-all}.markdown-body table th{font-weight:700}.markdown-body table td,.markdown-body table th{padding:6px 13px;border:1px solid #ddd}.markdown-body table tr{background-color:#fff;border-top:1px solid #ccc}.markdown-body table tr:nth-child(2n){background-color:#f8f8f8}.markdown-body img{max-width:100%;box-sizing:content-box;background-color:#fff}.markdown-body img[align=right]{padding-left:20px}.markdown-body img[align=left]{padding-right:20px}.markdown-body .emoji{max-width:none;vertical-align:text-top;background-color:transparent}.markdown-body span.frame{display:block;overflow:hidden}.markdown-body span.frame>span{display:block;float:left;width:auto;padding:7px;margin:13px 0 0;overflow:hidden;border:1px solid #ddd}.markdown-body span.frame span img{display:block;float:left}.markdown-body span.frame span span{display:block;padding:5px 0 0;clear:both;color:#333}.markdown-body span.align-center{display:block;overflow:hidden;clear:both}.markdown-body span.align-center>span{display:block;margin:13px auto 0;overflow:hidden;text-align:center}.markdown-body span.align-center span img{margin:0 auto;text-align:center}.markdown-body span.align-right{display:block;overflow:hidden;clear:both}.markdown-body span.align-right>span{display:block;margin:13px 0 0;overflow:hidden;text-align:right}.markdown-body span.align-right span img{margin:0;text-align:right}.markdown-body span.float-left{display:block;float:left;margin-right:13px;overflow:hidden}.markdown-body span.float-left span{margin:13px 0 0}.markdown-body span.float-right{display:block;float:right;margin-left:13px;overflow:hidden}.markdown-body span.float-right>span{display:block;margin:13px auto 0;overflow:hidden;text-align:right}.markdown-body code,.markdown-body tt{padding:0;padding-top:.2em;padding-bottom:.2em;margin:0;font-size:85%;background-color:rgba(0,0,0,.04);border-radius:3px}.markdown-body code:after,.markdown-body code:before,.markdown-body tt:after,.markdown-body tt:before{letter-spacing:-.2em;content:"\00a0"}.markdown-body code br,.markdown-body tt br{display:none}.markdown-body del code{text-decoration:inherit}.markdown-body pre{word-wrap:normal}.markdown-body pre>code{padding:0;margin:0;font-size:100%;word-break:normal;white-space:pre;background:transparent;border:0}.markdown-body .highlight{margin-bottom:16px}.markdown-body .highlight pre{margin-bottom:0;word-break:normal}.markdown-body .highlight pre,.markdown-body pre{padding:16px;overflow:auto;font-size:85%;line-height:1.45;background-color:#f7f7f7;border-radius:3px}.markdown-body pre code,.markdown-body pre tt{display:inline;max-width:auto;padding:0;margin:0;overflow:visible;line-height:inherit;word-wrap:normal;background-color:transparent;border:0}.markdown-body pre code:after,.markdown-body pre code:before,.markdown-body pre tt:after,.markdown-body pre tt:before{content:normal}.markdown-body .csv-data td,.markdown-body .csv-data th{padding:5px;overflow:hidden;font-size:12px;line-height:1;text-align:left;white-space:nowrap}.markdown-body .csv-data .blob-line-num{padding:10px 8px 9px;text-align:right;background:#fff;border:0}.markdown-body .csv-data tr{border-top:0}.markdown-body .csv-data th{font-weight:700;background:#f8f8f8;border-top:0}.news .alert .markdown-body blockquote{padding:0 0 0 40px;border:0 none}.activity-tab .news .alert .commits,.activity-tab .news .markdown-body blockquote{padding-left:0}.task-list-item{list-style-type:none}.task-list-item label{font-weight:400}.task-list-item.enabled label{cursor:pointer}.task-list-item+.task-list-item{margin-top:3px}.task-list-item-checkbox{float:left;margin:.31em 0 .2em -1.3em!important;vertical-align:middle;cursor:default!important}.markdown-body{padding-top:40px;padding-bottom:40px;max-width:758px;overflow:visible!important}.markdown-body .emoji{vertical-align:top}.markdown-body pre{border:inherit!important}.markdown-body code{color:inherit!important}.markdown-body pre code .wrapper{display:-moz-inline-flex;display:-ms-inline-flex;display:-o-inline-flex;display:inline-flex}.markdown-body pre code .gutter{float:left;overflow:hidden;-webkit-user-select:none;user-select:none}.markdown-body pre code .gutter.linenumber{text-align:right;position:relative;display:inline-block;cursor:default;z-index:4;padding:0 8px 0 0;min-width:20px;box-sizing:content-box;color:#afafaf!important;border-right:3px solid #6ce26c!important}.markdown-body pre code .gutter.linenumber>span:before{content:attr(data-linenumber)}.markdown-body pre code .code{float:left;margin:0 0 0 16px}.markdown-body .gist .line-numbers{border-left:none;border-top:none;border-bottom:none}.markdown-body .gist .line-data{border:none}.markdown-body .gist table{border-spacing:0;border-collapse:inherit!important}.markdown-body code[data-gist-id]{background:none;padding:0}.markdown-body code[data-gist-id]:after,.markdown-body code[data-gist-id]:before{content:""}.markdown-body code[data-gist-id] .blob-num{border:unset}.markdown-body code[data-gist-id] table{overflow:unset;margin-bottom:unset}.markdown-body code[data-gist-id] table tr{background:unset}.markdown-body[dir=rtl] pre{direction:ltr}.markdown-body[dir=rtl] code{direction:ltr;unicode-bidi:embed}.markdown-body .alert>p{margin-bottom:0}.markdown-body pre.abc,.markdown-body pre.flow-chart,.markdown-body pre.graphviz,.markdown-body pre.mermaid,.markdown-body pre.sequence-diagram{text-align:center;background-color:inherit;border-radius:0;white-space:inherit}.markdown-body pre.abc>code,.markdown-body pre.flow-chart>code,.markdown-body pre.graphviz>code,.markdown-body pre.mermaid>code,.markdown-body pre.sequence-diagram>code{text-align:left}.markdown-body pre.abc>svg,.markdown-body pre.flow-chart>svg,.markdown-body pre.graphviz>svg,.markdown-body pre.mermaid>svg,.markdown-body pre.sequence-diagram>svg{max-width:100%;height:100%}.markdown-body pre>code.wrap{white-space:pre-wrap;white-space:-moz-pre-wrap;white-space:-pre-wrap;white-space:-o-pre-wrap;word-wrap:break-word}.markdown-body .alert>p,.markdown-body .alert>ul{margin-bottom:0}.markdown-body summary{display:list-item}.markdown-body summary:focus{outline:none}.markdown-body details summary{cursor:pointer}.markdown-body details:not([open])>:not(summary){display:none}.markdown-body figure{margin:1em 40px}.markdown-body .mark,.markdown-body mark{background-color:#fff1a7}.vimeo,.youtube{cursor:pointer;display:table;text-align:center;background-position:50%;background-repeat:no-repeat;background-size:contain;background-color:#000;overflow:hidden}.vimeo,.youtube{position:relative;width:100%}.youtube{padding-bottom:56.25%}.vimeo img{width:100%;object-fit:contain;z-index:0}.youtube img{object-fit:cover;z-index:0}.vimeo iframe,.youtube iframe,.youtube img{width:100%;height:100%;position:absolute;top:0;left:0}.vimeo iframe,.youtube iframe{vertical-align:middle;z-index:1}.vimeo .icon,.youtube .icon{position:absolute;height:auto;width:auto;top:50%;left:50%;transform:translate(-50%,-50%);color:#fff;opacity:.3;transition:opacity .2s;z-index:0}.vimeo:hover .icon,.youtube:hover .icon{opacity:.6;transition:opacity .2s}.slideshare .inner,.speakerdeck .inner{position:relative;width:100%}.slideshare .inner iframe,.speakerdeck .inner iframe{position:absolute;top:0;bottom:0;left:0;right:0;width:100%;height:100%}.MJX_Assistive_MathML{display:none}.ui-infobar{position:relative;z-index:2;max-width:760px;margin:25px auto -25px;padding:0 15px;color:#777}.toc .invisable-node{list-style-type:none}.ui-toc{position:fixed;bottom:20px;z-index:998}.ui-toc-label{opacity:.3;background-color:#ccc;border:none;transition:opacity .2s}.ui-toc .open .ui-toc-label{opacity:1;color:#fff;transition:opacity .2s}.ui-toc-label:focus{opacity:.3;background-color:#ccc;color:#000}.ui-toc-label:hover{opacity:1;background-color:#ccc;transition:opacity .2s}.ui-toc-dropdown{margin-top:23px;margin-bottom:20px;padding-left:10px;padding-right:10px;max-width:45vw;width:25vw;max-height:70vh;overflow:auto;text-align:inherit}.ui-toc-dropdown>.toc{max-height:calc(70vh - 100px);overflow:auto}.ui-toc-dropdown[dir=rtl] .nav{padding-right:0;letter-spacing:.0029em}.ui-toc-dropdown a{overflow:hidden;text-overflow:ellipsis;white-space:pre}.ui-toc-dropdown .nav>li>a{display:block;padding:4px 20px;font-size:13px;font-weight:500;color:#767676}.ui-toc-dropdown .nav>li:first-child:last-child > ul,.ui-toc-dropdown .toc.expand ul{display:block}.ui-toc-dropdown .nav>li>a:focus,.ui-toc-dropdown .nav>li>a:hover{padding-left:19px;color:#000;text-decoration:none;background-color:transparent;border-left:1px solid #000}.ui-toc-dropdown[dir=rtl] .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav>li>a:hover{padding-right:19px;border-left:none;border-right:1px solid #000}.ui-toc-dropdown .nav>.active:focus>a,.ui-toc-dropdown .nav>.active:hover>a,.ui-toc-dropdown .nav>.active>a{padding-left:18px;font-weight:700;color:#000;background-color:transparent;border-left:2px solid #000}.ui-toc-dropdown[dir=rtl] .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav>.active>a{padding-right:18px;border-left:none;border-right:2px solid #000}.ui-toc-dropdown .nav .nav{display:none;padding-bottom:10px}.ui-toc-dropdown .nav>.active>ul{display:block}.ui-toc-dropdown .nav .nav>li>a{padding-top:1px;padding-bottom:1px;padding-left:30px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a{padding-right:30px}.ui-toc-dropdown .nav .nav>li>ul>li>a{padding-top:1px;padding-bottom:1px;padding-left:40px;font-size:12px;font-weight:400}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a{padding-right:40px}.ui-toc-dropdown .nav .nav>li>a:focus,.ui-toc-dropdown .nav .nav>li>a:hover{padding-left:29px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>a:hover{padding-right:29px}.ui-toc-dropdown .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown .nav .nav>li>ul>li>a:hover{padding-left:39px}.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:focus,.ui-toc-dropdown[dir=rtl] .nav .nav>li>ul>li>a:hover{padding-right:39px}.ui-toc-dropdown .nav .nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>a{padding-left:28px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>a{padding-right:28px}.ui-toc-dropdown .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown .nav .nav>.active>.nav>.active>a{padding-left:38px;font-weight:500}.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:focus>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active:hover>a,.ui-toc-dropdown[dir=rtl] .nav .nav>.active>.nav>.active>a{padding-right:38px}.markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,sans-serif}html[lang^=ja] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] .markdown-body{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html .markdown-body[lang^=ja]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html .markdown-body[lang=zh-tw]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html .markdown-body[lang=zh-cn]{font-family:-apple-system,BlinkMacSystemFont,Segoe UI,Helvetica Neue,Helvetica,Roboto,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}html[lang^=ja] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html[lang=zh-tw] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html[lang=zh-cn] .ui-toc-dropdown{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}html .ui-toc-dropdown[lang^=ja]{font-family:Source Sans Pro,Helvetica,Arial,Meiryo UI,MS PGothic,ＭＳ\ Ｐゴシック,sans-serif}html .ui-toc-dropdown[lang=zh-tw]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft JhengHei UI,微軟正黑UI,sans-serif}html .ui-toc-dropdown[lang=zh-cn]{font-family:Source Sans Pro,Helvetica,Arial,Microsoft YaHei UI,微软雅黑UI,sans-serif}.ui-affix-toc{position:fixed;top:0;max-width:15vw;max-height:70vh;overflow:auto}.back-to-top,.expand-toggle,.go-to-bottom{display:block;padding:4px 10px;margin-top:10px;margin-left:10px;font-size:12px;font-weight:500;color:#999}.back-to-top:focus,.back-to-top:hover,.expand-toggle:focus,.expand-toggle:hover,.go-to-bottom:focus,.go-to-bottom:hover{color:#563d7c;text-decoration:none}.back-to-top,.go-to-bottom{margin-top:0}.ui-user-icon{width:20px;height:20px;display:block;border-radius:3px;margin-top:2px;margin-bottom:2px;margin-right:5px;background-position:50%;background-repeat:no-repeat;background-size:cover}.ui-user-icon.small{width:18px;height:18px;display:inline-block;vertical-align:middle;margin:0 0 .2em}.ui-infobar>small>span{line-height:22px}.ui-infobar>small .dropdown{display:inline-block}.ui-infobar>small .dropdown a:focus,.ui-infobar>small .dropdown a:hover{text-decoration:none}.ui-published-note{color:#337ab7}.ui-published-note .fa{font-size:20px;vertical-align:top}.unselectable{-webkit-user-select:none;-o-user-select:none;user-select:none}@media print{blockquote,div,img,pre,table{page-break-inside:avoid!important}a[href]:after{font-size:12px!important}}.markdown-body.slides{position:relative;z-index:1;color:#222}.markdown-body.slides:before{content:"";display:block;position:absolute;top:0;left:0;right:0;bottom:0;z-index:-1;background-color:currentColor;box-shadow:0 0 0 50vw}.markdown-body.slides section[data-markdown]{position:relative;margin-bottom:1.5em;background-color:#fff;text-align:center}.markdown-body.slides section[data-markdown] code{text-align:left}.markdown-body.slides section[data-markdown]:before{content:"";display:block;padding-bottom:56.23%}.markdown-body.slides section[data-markdown]>div:first-child{position:absolute;top:50%;left:1em;right:1em;transform:translateY(-50%);max-height:100%;overflow:hidden}.markdown-body.slides section[data-markdown]>ul{display:inline-block}.markdown-body.slides>section>section+section:after{content:"";position:absolute;top:-1.5em;right:1em;height:1.5em;border:3px solid #777}body{font-smoothing:subpixel-antialiased!important;-webkit-font-smoothing:subpixel-antialiased!important;-moz-osx-font-smoothing:auto!important;text-shadow:0 0 1em transparent,1px 1px 1.2px rgba(0,0,0,.004);-webkit-overflow-scrolling:touch;letter-spacing:.025em}.focus,:focus{outline:none!important}::-moz-focus-inner{border:0!important}body{font-family:Source Sans Pro,Helvetica,Arial,sans-serif}html[lang^=ja] body{font-family:Source Sans Pro,Helvetica,Arial,Hiragino Kaku Gothic Pro,ヒラギノ角ゴ Pro W3,Osaka,Meiryo,メイリオ,MS Gothic,ＭＳ\ ゴシック,sans-serif}html[lang=zh-tw] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang TC,Microsoft JhengHei,微軟正黑,sans-serif}html[lang=zh-cn] body{font-family:Source Sans Pro,Helvetica,Arial,PingFang SC,Microsoft YaHei,微软雅黑,sans-serif}abbr[title]{border-bottom:none;text-decoration:underline;-webkit-text-decoration:underline dotted;text-decoration:underline dotted}abbr[data-original-title],abbr[title]{cursor:help}body.modal-open{overflow-y:auto;padding-right:0!important}
+    </style>
+    <!-- HTML5 shim and Respond.js for IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/html5shiv/3.7.3/html5shiv.min.js" integrity="sha256-3Jy/GbSLrg0o9y5Z5n1uw0qxZECH7C6OQpVBgNFYa0g=" crossorigin="anonymous"></script>
+    	<script src="https://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.min.js" integrity="sha256-g6iAfvZp+nDQ2TdTR/VVKJf3bGro4ub5fvWSWVRi2NE=" crossorigin="anonymous"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/es5-shim/4.5.9/es5-shim.min.js" integrity="sha256-8E4Is26QH0bD52WoQpcB+R/tcWQtpzlCojrybUd7Mxo=" crossorigin="anonymous"></script>
+    <![endif]-->
+</head>
+
+<body>
+    <div id="doc" class="markdown-body container-fluid comment-enabled" data-hard-breaks="true"><h1 id="Malloc"><a class="anchor hidden-xs" href="#Malloc" title="Malloc"><span class="octicon octicon-link"></span></a>Malloc</h1><h3 id="Due-Monday-November-25th-2019-at-1159pm"><a class="anchor hidden-xs" href="#Due-Monday-November-25th-2019-at-1159pm" title="Due-Monday-November-25th-2019-at-1159pm"><span class="octicon octicon-link"></span></a>Due: Monday, November 25th, 2019 at 11:59pm</h3><h1 id="Introduction"><a class="anchor hidden-xs" href="#Introduction" title="Introduction"><span class="octicon octicon-link"></span></a>Introduction</h1><p>With rising water temperatures due to global warming, the Great Barrier Reef has experienced high rates of coral bleaching. Thankfully, Tom has grown a large group of coral transplants to help repopulate the damaged sections. However, the coral growths are all different sizes and there are a limited number of them. In order to efficiently repopulate the reef, each section must be assigned an ideally sized coral growth. That is, we don’t want to put a small coral growth on a severely damaged section or a large coral growth on a mildly damaged section. Your task is to devise a system to help Tom allocate appropriately sized coral growths to each section of the reef.</p><h1 id="Before-getting-started…"><a class="anchor hidden-xs" href="#Before-getting-started…" title="Before-getting-started…"><span class="octicon octicon-link"></span></a>Before getting started…</h1><ul>
+<li>Make sure you are familiar with the new rules and expectations for <a href="https://piazza.com/class/jzrmd5hspkj3fx?cid=3162" target="_blank" rel="noopener">Piazza</a> and <a href="https://piazza.com/class/jzrmd5hspkj3fx?cid=3263" target="_blank" rel="noopener">TA hours</a>!</li>
+<li>If you have any feedback for the assignment (or the course in general), please use <a href="https://forms.gle/k3xhFEHTHXqHSFh36" target="_blank" rel="noopener">this anonymous form</a>.</li>
+<li>Malloc is the last project you can use late days on, unless you have SEAs accommodations or extensions from the professor.</li>
+<li>The main challenge for this project is conceptually understanding how memory allocation management works. Take advantage of our conceptual hours! For many of you, your bugs will come from programming mistakes. Knowing exactly how you should be manipulating blocks of memory in different functions will significantly help you reduce your bugs AND catch your bugs.</li>
+</ul><h1 id="Assignment"><a class="anchor hidden-xs" href="#Assignment" title="Assignment"><span class="octicon octicon-link"></span></a>Assignment</h1><p>In this project you will be writing a dynamic storage allocator for C programs, i.e., your own version of the <strong>malloc()</strong>, <strong>free()</strong> and <strong>realloc()</strong> routines. You are tasked with implementing a <em>first-fit explicit-free-list dynamic memory allocator</em>. You must also write a heap-checking function <strong>mm_check_heap()</strong> that will allow you to print out the state of your heap. This function will be very helpful in debugging your project.</p><p>A first-fit explicit-free-list dynamic memory allocator maintains free blocks of memory in an <strong>explicit</strong> free list. <strong>Explicit</strong> means that each element in the list stores a next and previous pointer to the respective blocks. When memory is allocated, the first block in the free list of sufficient size is returned. Consult the lecture slides for more detailed information.</p><p>Begin by running <strong>cs0330_install malloc</strong> to set up your home directory for this project. While you are provided with several files, the only file you will be modifying and handing in is <strong>mm.c</strong>. (NOTE:  While there is nothing stopping you from modifying the other files, it is recommended that you elect not to do so, since these files provide you with feedback about your code which will later be used to provide you with a grade. ) You can use the <strong>mdriver.c</strong> program to evaluate the performance of your solution. Use the command <strong>make</strong> to generate the driver code and run it with the command <strong>./mdriver -V</strong>. We’ve also provided you with a REPL to allow you to test your implementation as you go.</p><h2 id="Specification"><a class="anchor hidden-xs" href="#Specification" title="Specification"><span class="octicon octicon-link"></span></a>Specification</h2><p>Your heap <em>must</em> be initialized with prologue and epilogue blocks, which you can store as global variables. These will act as ’dummy’ blocks to help eliminate edge cases like coalescing beyond the bounds of the heap and iterating over your heap. Since these should not be included in your free list, they do not need previous and next pointers, but remember to move the epilogue when extending the heap. Think about the special cases you would encounter when dealing with blocks at the ends of your heap, and how prologue and epilogue blocks could help you eliminate these cases.</p><p>Your dynamic memory allocator will consist of the following five functions, which are declared in <strong>mm.h</strong> and have skeleton definitions (which you will be completing) in <strong>mm.c</strong>.</p><ul>
+<li>
+<p>int mm_init(void);</p>
+</li>
+<li>
+<p>void *mm_malloc(size_t size);</p>
+</li>
+<li>
+<p>void mm_free(void *ptr);</p>
+</li>
+<li>
+<p>void *mm_realloc(void *ptr, size_t size);</p>
+</li>
+<li>
+<p>int mm_check_heap(void);</p>
+</li>
+<li>
+<p><strong>mm_init()</strong>: <strong>mdriver</strong> calls <strong>mm_init()</strong> to perform any necessary initializations, such as allocating the prologue and epilogue blocks and the initial heap area. The return value should be -1 if there was a problem in performing the initialization, otherwise the return value should be 0. Make sure to initialize <strong>flist_first</strong> in <strong>mm_init()</strong>, otherwise there are strange errors when running multiple traces.</p>
+</li>
+<li>
+<p><strong>mm_malloc()</strong>: The <strong>mm_malloc()</strong> routine returns a pointer to an allocated block’s payload of at least size bytes. The entire block, which should also include the header and footer, which are each 8 bytes long, should lie within the heap region and should not overlap with any other block.</p>
+</li>
+</ul><div style="text-align:center">
+    <img src="https://i.imgur.com/Pf0sR30.png" width="250">
+</div><p>We will be comparing your implementation to the version of <strong>malloc()</strong> supplied in the standard C library (<strong>libc</strong>). Since the <strong>libc</strong> malloc always returns payload pointers that are aligned to 8 bytes, your malloc implementation should likewise always return 8-byte aligned pointers. You can use the align function at the top of <strong>mm.c</strong> to ensure this. Since you are implementing a first-fit allocator, your strategy for doing this should be to search through the free list for the first block of sufficient size, returning that block if it exists. If it does not exist, ask for more memory from the memory system using <strong>mem_sbrk</strong> (see the Support Routines section below) and return that instead. If a block of size zero is requested, NULL should be returned.</p><ul>
+<li>
+<p><strong>mm_free()</strong>: The <strong>mm_free()</strong> routine frees the block pointed to by <strong>ptr</strong>. It returns nothing. This routine is only guaranteed to work when the passed pointer (<strong>ptr</strong>) was returned by an earlier call to <strong>mm_malloc()</strong> or <strong>mm_realloc()</strong> and has not yet been freed. If <strong>NULL</strong> is passed, this function should do nothing. **mm_free() **should never be called on the prologue and epilogue blocks, blocks that are already free, or invalid pointers.</p>
+</li>
+<li>
+<p><strong>mm_realloc()</strong>: The <strong>mm_realloc()</strong> routine returns a pointer to an allocated region of <strong>at least size</strong> bytes with the following constraints.</p>
+<ul>
+<li>
+<p>if <strong>ptr</strong> is <strong>NULL</strong>, the call is equivalent to <strong>mm_malloc(size)</strong>;</p>
+</li>
+<li>
+<p>if <strong>size</strong> is equal to zero, the call is equivalent to <strong>mm_free(ptr)</strong>, and should return <strong>NULL</strong>.</p>
+</li>
+<li>
+<p>if <strong>ptr</strong> is not <strong>NULL</strong>, it must have been returned by an earlier call to <strong>mm_malloc()</strong> or <strong>mm_realloc()</strong>. <strong>mm_realloc()</strong> should then return a pointer to a block of memory of at least size bytes. This memory in this block must be equal to the original memory in the block pointed to by <strong>ptr</strong> up to the minimum of the new and old sizes. That is, if the original memory has a greater size than the size requested, the memory will be shortened to the new constraint. If the original memory has a smaller size, only the memory up to the original size should be equal. If the memory pointed to by <strong>ptr</strong> is moved, then <strong>ptr</strong> should be freed and the new memory location should be returned. If the routine needs to allocate memory and the memory cannot be allocated, the memory pointed to by <strong>ptr</strong> should not be changed, and the routine should return <strong>NULL</strong>.</p>
+</li>
+<li>
+<p>A non-naive implementation of <strong>realloc</strong> is required for full credit. The more efficient you make it, the more points you will get! Specifically, you cannot receive full credit for realloc without 45% utilization or higher.</p>
+</li>
+<li>
+<p>It is the responsibility of the programmer to not pass blocks that have already been freed to any other function, so you will not be expected to handle <strong>realloc()</strong> on a free block.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>mm_check_heap()</strong>: This function examines the state of the heap. Dynamic memory allocators can be very difficult to correctly and efficiently program and debug. Writing a heap checker that scans the heap and checks it for consistency will help immensely with debugging.</p>
+</li>
+</ul><p>Be sure to document your heap checker. If there are problems with your code, a heap checker will help your grader resolve some of those problems.</p><p>Be sure <strong>mm_check_heap()</strong> isn’t being called before you hand in your project, since this will drastically slow down your allocator’s performance. You can either remove any calls to <strong>mm_check_heap()</strong> or create a macro that will call <strong>mm_check_heap()</strong> when turned on. When there is an error, your heap checker should print information about your heap with an error message before exiting. It is up to you to decide how you’d like to do this, but if you use assert statements they can only be used within <strong>mm_check_heap()</strong>. Alternatively, you can use <strong>fprintf</strong> and <strong>exit(1)</strong>.</p><p><strong>Heap Checker Requirements:</strong></p><ul>
+<li>
+<p>Your heap checker must only print out when something is wrong with the heap. Otherwise, constantly printing out the state of the heap can result in an overwhelming amount of printing, which doesn’t help you debug (and make our grading harder).</p>
+</li>
+<li>
+<p>Your heap checker must address the following questions:</p>
+<ul>
+<li>
+<p>Is every block in the free list marked as free?</p>
+</li>
+<li>
+<p>Are all free blocks coalesced?</p>
+</li>
+<li>
+<p>Is every block in bounds of the heap?</p>
+</li>
+</ul>
+</li>
+<li>
+<p>At a minimum, your <strong>mm_check_heap()</strong> implementation should print the block address, block size, and type of heap error when an error in the heap is detected. We recommend liberally using assert statements to catch heap errors.</p>
+</li>
+</ul><p>Optional (but recommended) Checks:</p><ul>
+<li>
+<p>Check that every block that is free is in the free list. (This will make the heap checker slow, so factoring this check in a separate function is recommended)</p>
+<ul>
+<li>This will catch if any block in the heap is free and is not also included in the free list (all blocks in the free list can be accessed by iterating from <strong>flist_first</strong>)</li>
+</ul>
+</li>
+<li>
+<p>Check that the header and footers match</p>
+</li>
+<li>
+<p>Check that the blocks in your heap are aligned</p>
+</li>
+<li>
+<p>Check that the first block in the heap is the prologue and the last block is the epilogue</p>
+</li>
+</ul><h2 id="Support-Routines"><a class="anchor hidden-xs" href="#Support-Routines" title="Support-Routines"><span class="octicon octicon-link"></span></a>Support Routines</h2><p>The <strong>memlib.c</strong> package simulates the memory system for your dynamic memory allocator. You can invoke the following functions in <strong>memlib.c</strong>:</p><ul>
+<li>
+<p><strong>void *mem_sbrk(int incr)</strong>: Expands the heap by <strong>incr</strong> bytes, where <strong>incr</strong> is a positive non-zero integer and returns a generic pointer to the first byte of the newly allocated heap area. The semantics are identical to those of the Unix <strong>sbrk()</strong> function, except that <strong>mem_sbrk()</strong> accepts only a positive non-zero integer argument.</p>
+</li>
+<li>
+<p><strong>void *mem_heap_lo(void)</strong>: Returns a generic pointer to the first byte in the heap.</p>
+</li>
+<li>
+<p><strong>void *mem_heap_hi(void)</strong>: Returns a generic pointer to the last byte in the heap.</p>
+</li>
+<li>
+<p><strong>size_t mem_heapsize(void)</strong>: Returns the current size of the heap in bytes.</p>
+</li>
+<li>
+<p><strong>size_t mem_pagesize(void)</strong>: Returns the system’s page size in bytes (4K on Linux systems).</p>
+</li>
+</ul><p>The following functions are included in <strong>mminline.h</strong>. These are helpful abstractions of the logic used to do parts of what is necessary to implement the memory management functions described above. <strong>It is required to use these in your code for full credit.</strong></p><p><strong>Make sure you understand these functions before you start to code!</strong></p><ul>
+<li>
+<p><code>block_t *flist_first</code>: This is a pointer for the head of the free list.</p>
+</li>
+<li>
+<p><code>size_t block_allocated(block_t *b)</code>: Returns 1 if allocated, 0 if free.</p>
+</li>
+<li>
+<p><code>size_t block_end_allocated(block_t *b)</code>: Same as above, but checks at the end tag of the block.</p>
+</li>
+<li>
+<p><code>size_t block_size(block_t *b)</code>: Returns the size of the block.</p>
+</li>
+<li>
+<p><code>size_t block_end_size(block_t *b)</code>: Same as above, but uses the endtag of the block.</p>
+</li>
+<li>
+<p><code>void block_set_size(block_t *b, size_t size)</code>: Records the size of the block in both the beginning and end tags.</p>
+</li>
+<li>
+<p><code>void block_set_allocated(block_t *b, size_t allocated)</code>: Sets the allocated flags of the block, at both the beginning and the end tags. This must be done after the size has been set.</p>
+</li>
+<li>
+<p><code>void block_set_size_and_allocated(block_t *b, size_t size, int allocated)</code>: A convenience function to set the size and allocation of a block in one call.</p>
+</li>
+<li>
+<p><code>size_t block_prev_allocated(block_t *b)</code>: Returns 1 if the previous block is allocated, 0 otherwise.</p>
+</li>
+<li>
+<p><code>size_t block_prev_size(block_t *b)</code>: Returns the size of the previous block</p>
+</li>
+<li>
+<p><code>block_t *block_prev(block_t *b)</code>: Returns a pointer to the previous block.</p>
+</li>
+<li>
+<p><code>block_t *block_next(block_t *b)</code>: Returns a pointer to the next block.</p>
+</li>
+<li>
+<p><code>size_t block_next_allocated(block t *b)</code>: Returns 1 if the next block is allocated, 0 otherwise.</p>
+</li>
+<li>
+<p><code>block_t *payload_to_block(void *payload)</code>: Given a pointer to the payload, returns a pointer to the block.</p>
+</li>
+<li>
+<p><code>size_t block_next_size(block t *b)</code>: Returns the size of the next block.</p>
+</li>
+<li>
+<p><code>block_t *block_next_free(block t *b)</code>: Returns a pointer to the next free block in the free list.</p>
+</li>
+<li>
+<p><code>void block_set_next_free(block t *b, block t next)</code>: Sets the pointer to the next free block.</p>
+</li>
+<li>
+<p><code>block_t *block_prev_free(block t *b)</code>: Returns a pointer to the previous free block in the free list.</p>
+</li>
+<li>
+<p><code>void block_set_prev_free(block t *b, block t prev)</code>: Sets the pointer to the previous free block.</p>
+</li>
+<li>
+<p><code>void pull_free_block(block t *fb)</code>: Pulls a block from the (circularly doubly linked) free list.</p>
+</li>
+<li>
+<p><code>void insert_free_block(block t *fb)</code>: Inserts block into the (circularly doubly linked) free list.</p>
+</li>
+</ul><h1 id="The-Trace-driven-Driver-Program-mdriver"><a class="anchor hidden-xs" href="#The-Trace-driven-Driver-Program-mdriver" title="The-Trace-driven-Driver-Program-mdriver"><span class="octicon octicon-link"></span></a>The Trace-driven Driver Program (mdriver)</h1><p>The driver program <strong>mdriver.c</strong> tests your <strong>mm.c</strong> package for correctness, space utilization, and throughput. The driver program is controlled by a set of trace files which you can find in</p><p><strong>/course/cs0330/pub/malloc/traces</strong>.</p><p>You can read and test files in this directory, though you do not necessarily need to run them apart from through <strong>mdriver.c</strong>. Before each trace, <strong>mm_init()</strong> is called, so use <strong>mm_init()</strong> to initialize anything that you use. Each trace file contains a sequence of allocate, reallocate, and free directions that instruct the driver to call your <strong>mm_malloc()</strong>, <strong>mm_realloc()</strong>, and <strong>mm_free()</strong> routines in some sequence. The driver and the trace files are the same ones we will use when we grade your handin <strong>mm.c</strong> file. It may be helpful for you to look at these. The driver <strong>mdriver.c</strong> accepts the following command line arguments:</p><ul>
+<li>
+<p><strong>-t &lt;tracedir&gt;</strong>: Look for the default trace files in directory <strong>tracedir/</strong> instead of the default directory defined in config.h.</p>
+</li>
+<li>
+<p><strong>-f &lt;tracefile&gt;</strong>: Use one particular tracefile for testing instead of the default set of tracefiles.</p>
+</li>
+<li>
+<p><strong>-h</strong>: Print a summary of the command line arguments.</p>
+</li>
+<li>
+<p><strong>-l:</strong> Run and measure libc malloc in addition to the student’s malloc package.</p>
+</li>
+<li>
+<p><strong>-v</strong>: Verbose output. Prints a performance breakdown for each tracefile in a compact table.</p>
+</li>
+<li>
+<p><strong>-V</strong>: More verbose output. Prints additional diagnostic information as each trace file is processed. Useful during debugging for determining which trace file is causing your malloc package to fail.</p>
+</li>
+</ul><p><strong>Important</strong>: You should aim to get a <strong>yes</strong> for consistency for every trace. This is mandatory (but not sufficient) in order to receive full credit.</p><h1 id="Using-the-REPL"><a class="anchor hidden-xs" href="#Using-the-REPL" title="Using-the-REPL"><span class="octicon octicon-link"></span></a>Using the REPL</h1><p>In addition to the test suite, we have also provided a REPL that allows you to test any series of allocation commands against your solution. The REPL can be accessed via the command ./mdriver -r . Valid commands for the REPL and their syntax can be found by typing help into the REPL.</p><p>The REPL is initiated with references to 1024 unique block pointers you can use across commands. Each of these pointers can be accessed via its corresponding &lt;index&gt; number. (For instance, where in code you would call malloc(&amp;block, 1024), in the REPL, this can be achieved via malloc 0 1024 to allocate the block at index 0.) You can test your error checking by passing in -1 as the block index. This will execute the corresponding function as if a NULL pointer was passed in for the pointer parameter. Note that the index pointers only point to a valid block if the pointer has been malloc’d.</p><p>The print command prints the heap, including all blocks in it, allocated and free, from the prologue to the epilogue, along with some other information about the heap. You can also print information about a specific block in the REPL by calling print -b &lt;index&gt;.</p><p>If you have a specific case you’re trying to debug with the repl, to avoid typing in the same commands again and again, you can use *file redirection *like you did with Traps to feed the REPL commands. The syntax for running the REPL with a file as inputs is ./mdriver -r &lt; input.txt .</p><p>An example REPL interaction is as follows:</p><p>Welcome to the Malloc REPL. (Enter ‘help’ to see available commands.)</p><p><code>&gt; malloc 0 100</code></p><p><code>&gt; malloc 1 40</code></p><p><code>&gt; malloc 2 60</code></p><p><code>&gt; print</code></p><pre><code>heap size: 544
+
+prologue    	 block at 0x7f2aa37db010     size 16
+
+free block    	 block at 0x7f2aa37db020     size 256     Next: 0x7f2aa37db020
+
+block[2] allocated     block at 0x7f2aa37db120     size 80
+
+block[1] allocated     block at 0x7f2aa37db170     size 56
+
+block[0] allocated     block at 0x7f2aa37db1a8     size 120
+
+epilogue    	 block at 0x7f2aa37db220     size 16
+</code></pre><p><code>&gt; free 2</code></p><p><code>&gt; print</code></p><pre><code>heap size: 544
+
+prologue    	 block at 0x7f2aa37db010     size 16
+
+free block    	 block at 0x7f2aa37db020     size 336     Next: 0x7f2aa37db020
+
+block[1] allocated     block at 0x7f2aa37db170     size 56
+
+block[0] allocated     block at 0x7f2aa37db1a8     size 120
+
+epilogue    	 block at 0x7f2aa37db220     size 16
+</code></pre><p><code>&gt; free 0</code></p><p><code>&gt; realloc 1 100</code></p><p><code>&gt; print</code></p><pre><code>heap size: 544
+
+prologue    	 block at 0x7f2aa37db010     size 16
+
+free block    	 block at 0x7f2aa37db020     size 336     Next: 0x7f2aa37db020
+
+block[1] allocated     block at 0x7f2aa37db170     size 176
+
+epilogue    	 block at 0x7f2aa37db220     size 16
+</code></pre><p>The first 3 commands malloc 3 blocks, assigning them indices 0, 1, and 2. Printing the heap shows the 3 blocks as well as a free block of size 256. After freeing block 2, printing the heap again shows that it is coalesced with the free block. Next, block 0 is freed, clearing up space for expanding block 1 in the realloc command. In the last print, block 1 is extended into the space formerly used by block 0.</p><h1 id="Programming-Rules"><a class="anchor hidden-xs" href="#Programming-Rules" title="Programming-Rules"><span class="octicon octicon-link"></span></a>Programming Rules</h1><ul>
+<li>
+<p>You should not change any of the interfaces in <strong>mm.c</strong>.</p>
+</li>
+<li>
+<p>Do not invoke any memory-management related library calls or system calls. This forbids the use of <strong>malloc()</strong>, <strong>calloc()</strong>, <strong>free()</strong>, <strong>realloc()</strong>, <strong>sbrk()</strong>, <strong>brk()</strong> or any variants of these calls in your code.</p>
+</li>
+<li>
+<p>You are not allowed to define any global or static compound data structures such as arrays, trees, or lists in your <strong>mm.c</strong> program. However, you are allowed to declare global scalar variables such as integers, floats, and pointers in <strong>mm.c</strong>.</p>
+<ul>
+<li>There is a block struct defined in <strong>mm.h</strong>, which you must use for full credit. You may not allocate any structs in the global namespace (no global structures).</li>
+</ul>
+</li>
+<li>
+<p>For consistency with the <strong>libc</strong> <strong>malloc()</strong> package, which returns blocks aligned on 8-byte boundaries, your allocator must always return pointers that are aligned to 8-byte boundaries. The driver will enforce this requirement for you.</p>
+</li>
+<li>
+<p>Do not use <strong>mmap</strong> in your implementation of any of these functions!</p>
+</li>
+</ul><h1 id="GDB"><a class="anchor hidden-xs" href="#GDB" title="GDB"><span class="octicon octicon-link"></span></a>GDB</h1><p>Using GDB will make the debugging process for this project significantly easier and is highly recommended.</p><h2 id="Useful-Commands"><a class="anchor hidden-xs" href="#Useful-Commands" title="Useful-Commands"><span class="octicon octicon-link"></span></a>Useful Commands</h2><ul>
+<li>
+<p><strong>backtrace</strong> or <strong>bt</strong> is especially useful for tracking down assert failures (which raise the signal SIGABRT).</p>
+</li>
+<li>
+<p><strong>print</strong> or <strong>p</strong> evaluate and print out arbitrary expressions, such as:</p>
+<p><code>(gdb) p *block {size = 4088, payload = 0x7ffff6631078}</code></p>
+<p>or</p>
+<p><code>(gdb) p mm_check_heap() \$1 = 0</code></p>
+</li>
+</ul><p>Be aware that printing an expression may produce side effects.</p><ul>
+<li>
+<p><strong>break or b [if ]</strong> will pause execution on entering function name or before executing filename:line#. If filename is omitted, it defaults to the current file. If you include the optional if , gdb evaluates expr each time the breakpoint is reached, and only breaks if it evaluates to true. Be careful of exprs with side effects!</p>
+</li>
+<li>
+<p><strong>continue or c</strong> will resume execution of a program until it is stopped by error, by break point, or by finishing.</p>
+</li>
+<li>
+<p><strong>watch</strong> puts a watchpoint on expr. Whenever the value of expr changes, gdb will display the old and new values and pause execution of the program. For example, if you are trying to figure out where the size of a particular block b changes, you can use <strong>watch block size(b)</strong>. More details can be found here.</p>
+</li>
+<li>
+<p><strong>layout src</strong> displays your code and highlights the line you are currently on. Lines with breakpoints will have a ‘b+’ on the left.</p>
+</li>
+</ul><h1 id="Hints"><a class="anchor hidden-xs" href="#Hints" title="Hints"><span class="octicon octicon-link"></span></a>Hints</h1><ul>
+<li>
+<p>Disable optimizations when debugging. On line 2 of the makefile, set -O2 to -O0. This will make debugging easier by disabling optimizations like function inlining. <strong>Remember to re-enable optimizations before handing in!</strong></p>
+</li>
+<li>
+<p>Use gdb.</p>
+</li>
+<li>
+<p>Use the <strong>mdriver -f</strong> option. During initial development, using tiny trace files will simplify debugging and testing. We have included two such trace files (short1, 2-bal.rep) that you can use for initial debugging. We suggest you make your own!</p>
+</li>
+<li>
+<p>Use the <strong>mdriver -v</strong> and <strong>-V</strong> options. The <strong>-v</strong> option will give you a detailed summary for each trace file. The -V will also indicate when each trace file is read, which will help you isolate errors.</p>
+</li>
+<li>
+<p><strong>Read/Step through and understand the functions</strong> (NOTE:  Thoroughly understanding what each inline function does will save you a lot of headaches and extraneous code!) in <strong>mminline.h</strong>. Once you know how to manipulate blocks, you’ll be able to concentrate on the higher-level details of your implementation.</p>
+</li>
+<li>
+<p>Don’t forget to initialize <strong>flist_first</strong> to NULL in mm_init, otherwise some of the traces will behave strangely.</p>
+</li>
+<li>
+<p>You may want to consider using the <strong>memcpy()</strong> and <strong>memmove()</strong> syscalls for copying between two areas of memory. A key difference between the two is that <strong>memcpy()</strong> does not allow overlap between the two areas of memory, whereas <strong>memmove()</strong> does. Check the man pages for more detail (via <strong>man memcpy</strong> and <strong>man memmove</strong>)! If <strong>memcpy()</strong> is exhibiting strange behavior during <strong>realloc()</strong>, specifically look for what happens when <strong>dst</strong> and <strong>src</strong> overlap, and how to remedy this.</p>
+</li>
+<li>
+<p>Start early! This is generally good advice, but while this project does not necessarily require you to write a lot of code, figuring out what to write can be quite difficult. This project relies heavily on a conceptual understanding of the first-fit explicit-free list, so we strongly recommend reviewing the malloc lectures and coming to TA hours for conceptual help, as well as outlining what each function should do on a high level before starting to code.</p>
+</li>
+</ul><h1 id="Getting-Started"><a class="anchor hidden-xs" href="#Getting-Started" title="Getting-Started"><span class="octicon octicon-link"></span></a>Getting Started</h1><p><strong>Do your implementation in stages</strong>. We understand it is tempting to build everything before testing, but we promise you, it will make your debugging much easier if you test as you go. The first 8 traces in our test suite contain requests only to <strong>mm_malloc()</strong> and <strong>mm_free()</strong>, and should not require complete coalescing to pass. The next two traces contain only requests to <strong>mm_malloc()</strong> and <strong>mm_free()</strong>, but will not pass until your implementation coalesces blocks correctly. The last two traces additionally contain requests to <strong>mm_realloc()</strong>. The traces run by mdriver are defined by the TRACEFILES definition in the provided Makefile. At first, only the BASE TRACEFILES are enabled (the first 8 traces). When you are ready, enable the rest by uncommenting them in the Makefile.</p><p>Here is a strongly recommended roadmap:</p><ol>
+<li>
+<p><strong>mm_init</strong>: The first steps you should take is ensuring that mm_init is working as expected. After writing the function, you can test for this by running the malloc REPL and immediately calling print. This will attempt to print all the blocks in your heap. If your heap is set-up correctly, this should pass without any errors.</p>
+</li>
+<li>
+<p><strong>mm_check_heap</strong>: This will be necessary for debugging as you write mm_malloc and mm_free. You can write this method as you write mm_malloc and mm_free.</p>
+<p><strong>mm_malloc</strong>: Start by ensuring that you can malloc a single block of a normal size to the heap. Print the heap thereafter, and run your check_heap in the REPL to ensure that the list is still valid. From here, try adding more blocks of different sizes, running check_heap liberally.</p>
+<p><strong>mm_free</strong>: Start by ensuring that you can malloc a block, print the heap, free it, then print the heap again, inspecting the heap and checking that it’s valid along the way.</p>
+<p>Once you write the basic functionality of mm_malloc (without optimizations, such as coalescing) and mm_free, you should be able to pass the first 8 base trace files.</p>
+</li>
+<li>
+<p>Optimize <strong>mm_malloc</strong> and <strong>mm_free</strong> with coalescing. It will be easier for you debug coalescing if you add this optimization once you have the basic functionality working.</p>
+<p>At this point, try running the next two traces specifically for coalescing. Make sure to modify the Makefile and add the COALESCE_TRACEFILES flag so that the mdriver runs both base and coalescing trace files.</p>
+</li>
+<li>
+<p><strong>mm_realloc</strong>: Once you are finished with the above functions, you can start by just malloc’ing then realloc’ing a single block. Thereafter, it’s a matter of mixing malloc and free commands. Using the print command in the REPL, you can see where there are free blocks in your heap, and use that to call realloc in such a way that it will force coalescing. As always, check the heap thoroughly throughout.</p>
+<p>Once you implement mm_realloc, add the REALLOC_TRACEFILES flag in the Makefile to run the last two traces that additionally test your realloc! Slowly add in optimizations to reach the target performance.</p>
+</li>
+</ol><p>If you’re still confused on starting or are having trouble with the concepts, come to conceptual hours, and go through gearup slides!</p><h1 id="Working-from-Home"><a class="anchor hidden-xs" href="#Working-from-Home" title="Working-from-Home"><span class="octicon octicon-link"></span></a>Working from Home</h1><p>If you wish to do this project locally on a 64-bit Linux or Mac, first download your files and the tracefiles. Then open up your config.h and modify TRACEDIR to point to the location of the traces. Keep in mind, however, that it is your own responsibility to make sure your project works on the department machines before handing it in. Alternatively, you can use an ftp client like cyberduck to make working over ssh easier.</p><h1 id="Grading"><a class="anchor hidden-xs" href="#Grading" title="Grading"><span class="octicon octicon-link"></span></a>Grading</h1><p>If your letter grade is D, you will have a week after grades release to bump up your grade to C- by passing the base traces with consistent heap.</p><p>You <em>must</em> implement malloc with a first-fit explicit-free-list, and use the inline functions. Otherwise, even if you pass the traces, you will receive major point deductions.</p><p>Your grade will be calculated according to the following categories, in order of weight:</p><ul>
+<li>
+<p><strong>Code Correctness.</strong> You must hand in a 64-bit implementation that uses an explicit free-list. Otherwise, you will receive a major point deduction.</p>
+</li>
+<li>
+<p><strong>Functionality</strong></p>
+<ul>
+<li>
+<p>Heap consistency should be maintained across traces.</p>
+</li>
+<li>
+<p>You should aim for 90% utilization for the coalescing traces (use the -v flag) for <strong>full credit</strong>.</p>
+</li>
+<li>
+<p>Your heap checker should detect heap inconsistencies (see section 2.1).</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Style</strong></p>
+<ul>
+<li>
+<p>Your code should be decomposed into functions and avoid using global variables when possible.</p>
+</li>
+<li>
+<p>Your code should be readable, well-documented, and well-factored.</p>
+</li>
+<li>
+<p>You should provide a README file which documents the following:</p>
+<ul>
+<li>
+<p>a description of your strategy for maintaining compaction (i.e. how are you preventing your heap from turning into a bunch of tiny free blocks?)</p>
+</li>
+<li>
+<p>what your heap checker examines</p>
+</li>
+<li>
+<p>your <strong>mm_realloc()</strong> implementation strategy</p>
+</li>
+<li>
+<p>unresolved bugs with your program</p>
+</li>
+<li>
+<p>any other optimizations</p>
+</li>
+</ul>
+</li>
+<li>
+<p>Each function should have a header comment that describes what it does and how it does it.</p>
+</li>
+<li>
+<p>Consult the <a href="http://cs.brown.edu/courses/cs033/docs/guides/style.pdf" target="_blank" rel="noopener">C Style document</a> (which is on the website) for some pointers on C coding style. Note that you can run a style formatting script in order to make your code match some of the style specifications. To use the script, run the command<br>
+cs0330_reformat &lt;file1&gt; &lt;file2&gt; …<br>
+Check the style guide for more information.</p>
+</li>
+</ul>
+</li>
+<li>
+<p><strong>Performance:</strong> Two performance metrics will be used to evaluate your solution:</p>
+<ul>
+<li>
+<p><strong>Space utilization</strong>: The peak ratio between the aggregate amount of memory used by the driver (i.e., allocated via <strong>mm_malloc()</strong> or <strong>mm_realloc()</strong> but not yet freed via <strong>mm_free()</strong> and the size of the heap used by your allocator). The optimal ratio is 1. You should find good policies to minimize fragmentation in order to make this ratio as close as possible to the optimal. In order to get close to perfect utilization, you will have to find your own ways to use every last bit of space.</p>
+</li>
+<li>
+<p><strong>Throughput</strong>: The average number of operations completed per second. This is dependent on the optimizations you’ve implemented, which we grade based on your explanation in the README.</p>
+</li>
+</ul>
+</li>
+</ul><p>The driver program summarizes the performance of your allocator by computing a performance index, P, which is a weighted sum of the space utilization and throughput</p><p>where U is your space utilization, T is your throughput, and Tlibc is the estimated throughput of libc malloc on your system on the default traces. The performance index favors space utilization over throughput, with a default of w = 0.8. Observing that both memory and CPU cycles are expensive system resources, we adopt this formula to encourage balanced optimization of both memory utilization and throughput. Ideally, the performance index will reach P = w + (1 − w) = 1 or 100%. Since each metric will contribute at most w and 1−w to the performance index, respectively, you should not go to extremes to optimize either the memory utilization or the throughput only. Although there are no specific cutoffs, to receive a good score from the driver, you must achieve a balance between utilization and throughput.</p><h1 id="Handing-In"><a class="anchor hidden-xs" href="#Handing-In" title="Handing-In"><span class="octicon octicon-link"></span></a>Handing In</h1><p>To hand in your dynamic memory allocator, run</p><p><strong>cs0330_handin malloc</strong></p><p>from your project working directory. Make sure you hand in both your <strong>mm.c</strong> file and README. If you wish to change your handin, you can do so by re-running the handin script. Only your most recent handin will be graded.</p><p><strong>Important​ ​note:​</strong> ​If you have handed in but plan to hand in again after the TAs start grading, in addition to running the regular handin script, you must run <strong>cs0330_grade_me_late​ ​malloc</strong> to inform us not to start grading you yet. You must run the script by <strong>Monday, November 25th, 2019, at 11:59pm.</strong></p></div>
+    <div class="ui-toc dropup unselectable hidden-print" style="display:none;">
+        <div class="pull-right dropdown">
+            <a id="tocLabel" class="ui-toc-label btn btn-default" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false" title="Table of content">
+                <i class="fa fa-bars"></i>
+            </a>
+            <ul id="ui-toc" class="ui-toc-dropdown dropdown-menu" aria-labelledby="tocLabel">
+                <div class="toc"><ul class="nav">
+<li class=""><a href="#Malloc" title="Malloc">Malloc</a><ul class="nav">
+<li class="invisable-node"><ul class="nav">
+<li><a href="#Due-Monday-November-25th-2019-at-1159pm" title="Due: Monday, November 25th, 2019 at 11:59pm">Due: Monday, November 25th, 2019 at 11:59pm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li><a href="#Before-getting-started…" title="Before getting started…">Before getting started…</a></li>
+<li><a href="#Assignment" title="Assignment">Assignment</a><ul class="nav">
+<li><a href="#Specification" title="Specification">Specification</a></li>
+<li><a href="#Support-Routines" title="Support Routines">Support Routines</a></li>
+</ul>
+</li>
+<li><a href="#The-Trace-driven-Driver-Program-mdriver" title="The Trace-driven Driver Program (mdriver)">The Trace-driven Driver Program (mdriver)</a></li>
+<li><a href="#Using-the-REPL" title="Using the REPL">Using the REPL</a></li>
+<li><a href="#Programming-Rules" title="Programming Rules">Programming Rules</a></li>
+<li><a href="#GDB" title="GDB">GDB</a><ul class="nav">
+<li><a href="#Useful-Commands" title="Useful Commands">Useful Commands</a></li>
+</ul>
+</li>
+<li><a href="#Hints" title="Hints">Hints</a></li>
+<li><a href="#Getting-Started" title="Getting Started">Getting Started</a></li>
+<li><a href="#Working-from-Home" title="Working from Home">Working from Home</a></li>
+<li><a href="#Grading" title="Grading">Grading</a></li>
+<li><a href="#Handing-In" title="Handing In">Handing In</a></li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+            </ul>
+        </div>
+    </div>
+    <div id="ui-toc-affix" class="ui-affix-toc ui-toc-dropdown unselectable hidden-print" data-spy="affix" style="top:17px;display:none;" null null>
+        <div class="toc"><ul class="nav">
+<li class=""><a href="#Malloc" title="Malloc">Malloc</a><ul class="nav">
+<li class="invisable-node"><ul class="nav">
+<li><a href="#Due-Monday-November-25th-2019-at-1159pm" title="Due: Monday, November 25th, 2019 at 11:59pm">Due: Monday, November 25th, 2019 at 11:59pm</a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li><a href="#Introduction" title="Introduction">Introduction</a></li>
+<li><a href="#Before-getting-started…" title="Before getting started…">Before getting started…</a></li>
+<li><a href="#Assignment" title="Assignment">Assignment</a><ul class="nav">
+<li><a href="#Specification" title="Specification">Specification</a></li>
+<li><a href="#Support-Routines" title="Support Routines">Support Routines</a></li>
+</ul>
+</li>
+<li><a href="#The-Trace-driven-Driver-Program-mdriver" title="The Trace-driven Driver Program (mdriver)">The Trace-driven Driver Program (mdriver)</a></li>
+<li><a href="#Using-the-REPL" title="Using the REPL">Using the REPL</a></li>
+<li><a href="#Programming-Rules" title="Programming Rules">Programming Rules</a></li>
+<li><a href="#GDB" title="GDB">GDB</a><ul class="nav">
+<li><a href="#Useful-Commands" title="Useful Commands">Useful Commands</a></li>
+</ul>
+</li>
+<li><a href="#Hints" title="Hints">Hints</a></li>
+<li><a href="#Getting-Started" title="Getting Started">Getting Started</a></li>
+<li><a href="#Working-from-Home" title="Working from Home">Working from Home</a></li>
+<li><a href="#Grading" title="Grading">Grading</a></li>
+<li><a href="#Handing-In" title="Handing In">Handing In</a></li>
+</ul>
+</div><div class="toc-menu"><a class="expand-toggle" href="#">Expand all</a><a class="back-to-top" href="#">Back to top</a><a class="go-to-bottom" href="#">Go to bottom</a></div>
+    </div>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.1.1/jquery.min.js" integrity="sha256-hVVnYaiADRTO2PzUGmuLJr8BLUSjGIZsDYGmIJLv2b8=" crossorigin="anonymous"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/3.3.7/js/bootstrap.min.js" integrity="sha256-U5ZEeKfGNOja007MMD3YBI0A3OSZOQbeG6z2f2Y0hu8=" crossorigin="anonymous" defer></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gist-embed/2.6.0/gist-embed.min.js" integrity="sha256-KyF2D6xPIJUW5sUDSs93vWyZm+1RzIpKCexxElmxl8g=" crossorigin="anonymous" defer></script>
+    <script>
+        var markdown = $(".markdown-body");
+        //smooth all hash trigger scrolling
+        function smoothHashScroll() {
+            var hashElements = $("a[href^='#']").toArray();
+            for (var i = 0; i < hashElements.length; i++) {
+                var element = hashElements[i];
+                var $element = $(element);
+                var hash = element.hash;
+                if (hash) {
+                    $element.on('click', function (e) {
+                        // store hash
+                        var hash = this.hash;
+                        if ($(hash).length <= 0) return;
+                        // prevent default anchor click behavior
+                        e.preventDefault();
+                        // animate
+                        $('body, html').stop(true, true).animate({
+                            scrollTop: $(hash).offset().top
+                        }, 100, "linear", function () {
+                            // when done, add hash to url
+                            // (default click behaviour)
+                            window.location.hash = hash;
+                        });
+                    });
+                }
+            }
+        }
+
+        smoothHashScroll();
+        var toc = $('.ui-toc');
+        var tocAffix = $('.ui-affix-toc');
+        var tocDropdown = $('.ui-toc-dropdown');
+        //toc
+        tocDropdown.click(function (e) {
+            e.stopPropagation();
+        });
+
+        var enoughForAffixToc = true;
+
+        function generateScrollspy() {
+            $(document.body).scrollspy({
+                target: ''
+            });
+            $(document.body).scrollspy('refresh');
+            if (enoughForAffixToc) {
+                toc.hide();
+                tocAffix.show();
+            } else {
+                tocAffix.hide();
+                toc.show();
+            }
+            $(document.body).scroll();
+        }
+
+        function windowResize() {
+            //toc right
+            var paddingRight = parseFloat(markdown.css('padding-right'));
+            var right = ($(window).width() - (markdown.offset().left + markdown.outerWidth() - paddingRight));
+            toc.css('right', right + 'px');
+            //affix toc left
+            var newbool;
+            var rightMargin = (markdown.parent().outerWidth() - markdown.outerWidth()) / 2;
+            //for ipad or wider device
+            if (rightMargin >= 133) {
+                newbool = true;
+                var affixLeftMargin = (tocAffix.outerWidth() - tocAffix.width()) / 2;
+                var left = markdown.offset().left + markdown.outerWidth() - affixLeftMargin;
+                tocAffix.css('left', left + 'px');
+            } else {
+                newbool = false;
+            }
+            if (newbool != enoughForAffixToc) {
+                enoughForAffixToc = newbool;
+                generateScrollspy();
+            }
+        }
+        $(window).resize(function () {
+            windowResize();
+        });
+        $(document).ready(function () {
+            windowResize();
+            generateScrollspy();
+        });
+
+        //remove hash
+        function removeHash() {
+            window.location.hash = '';
+        }
+
+        var backtotop = $('.back-to-top');
+        var gotobottom = $('.go-to-bottom');
+
+        backtotop.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToTop)
+                scrollToTop();
+            removeHash();
+        });
+        gotobottom.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            if (scrollToBottom)
+                scrollToBottom();
+            removeHash();
+        });
+
+        var toggle = $('.expand-toggle');
+        var tocExpand = false;
+
+        checkExpandToggle();
+        toggle.click(function (e) {
+            e.preventDefault();
+            e.stopPropagation();
+            tocExpand = !tocExpand;
+            checkExpandToggle();
+        })
+
+        function checkExpandToggle () {
+            var toc = $('.ui-toc-dropdown .toc');
+            var toggle = $('.expand-toggle');
+            if (!tocExpand) {
+                toc.removeClass('expand');
+                toggle.text('Expand all');
+            } else {
+                toc.addClass('expand');
+                toggle.text('Collapse all');
+            }
+        }
+
+        function scrollToTop() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: 0
+            }, 100, "linear");
+        }
+
+        function scrollToBottom() {
+            $('body, html').stop(true, true).animate({
+                scrollTop: $(document.body)[0].scrollHeight
+            }, 100, "linear");
+        }
+    </script>
+</body>
+
+</html>
