@@ -166,11 +166,12 @@ td, th {
 }
 
 .info-box-opaque{
-    background-color: rgba(255,255,255, 0.25);
+    background-color: rgba(245, 245, 245, 0.95);
     display:flex;
     justify-content:center;
-    border-radius: 25px;
+    border-radius: 5px;
     padding: 30px;
+
 }
 
 #course-info h2 ,
@@ -420,6 +421,10 @@ footer a {
     }
 }
 
+#docs-and-guides{
+    background-image:url('../img/tj-background-stripe.jpg');
+    background-size:600px;
+}
 
 footer {
 	width: 100%;
