@@ -35,10 +35,6 @@ p {
         font-size: 17px;
         line-height: 1.6;
     }
-    #staff p {
-        margin: 0 0 10px;
-
-    }
 }
 
 blockquote, tagline {
@@ -218,6 +214,8 @@ td, th {
 
 #staff {
     background-color: lightgrey;
+    width: 100%;
+    align-items: center;
 }
 
 #staff h2 {
@@ -227,7 +225,6 @@ td, th {
 }
 
 #staff h4 {
-    margin: 35px;
     color: #111;
     color: #fff;
     font-family: "Montserrat", serif;
@@ -657,4 +654,73 @@ body {
     font-family: TraderJoes;
     color: #D21242;
     font-size:40px;
+}
+
+.staff-flexbox{
+    display: flex;
+    justify-content: center;
+    flex-flow: row wrap;
+    align-items: flex-start;
+
+    margin:auto;
+    padding: 0;
+}
+
+
+.ta-member{
+    margin: 2%;
+    display: block;
+    justify-content: center;
+    align-items: center;
+    width: 28%;
+}
+
+.ta-img{
+    justify-content: center;
+    align-items: center;
+}
+
+.ta-profile{
+    justify-content: center;
+    width: 85%;
+    display: block;
+    margin: auto;
+    border-radius: 5px;
+}
+
+.ta-item{
+    margin: auto;
+    justify-content: center;
+    width: 85%;
+    display: none;
+    border-radius: 5px;
+}
+
+.ta-img:hover .ta-profile {
+    display: none;
+  }
+  
+  .ta-img:hover .ta-item {
+    display: block;
+  }
+
+.ta-name{
+    text-align: center;
+    overflow: hidden;
+    font-size: 2vw;
+    margin-bottom: 5px;
+}
+
+.ta-login{
+    text-align: center;
+    margin-bottom: 0px;
+}
+
+.ta-pronouns{
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.ta-bio{
+    text-align: center;
 }
