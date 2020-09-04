@@ -234,8 +234,6 @@ td, th {
 }
 
 #staff p {
-    color: #333;
-    color: #fff;
     font-family: "Montserrat", serif;
 }
 
@@ -665,6 +663,7 @@ body {
     justify-content: center;
     flex-flow: row wrap;
     align-items: flex-start;
+    flex-wrap: wrap;
 
     margin:auto;
     padding: 0;
@@ -711,20 +710,29 @@ body {
 .ta-name{
     text-align: center;
     overflow: hidden;
-    font-size: 2vw;
+    font-size: 22px;
     margin-bottom: 5px;
+    color: #D21242;
 }
 
 .ta-login{
     text-align: center;
     margin-bottom: 0px;
+    color: #000000;
 }
 
 .ta-pronouns{
     text-align: center;
     margin-bottom: 15px;
+    color: #000000;
 }
 
 .ta-bio{
     text-align: center;
+    color: #000000;
 }
+@media screen and (max-width:768px) {
+    .ta-member{
+        width: 70%;
+    }
+  }
