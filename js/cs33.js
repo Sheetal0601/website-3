@@ -73,9 +73,9 @@ function changeImg(){
             } else if (fileName == "everything-bag-seas-no-bg") {
               document.getElementById("home-img").src = "img/Pb-Cups-No-Bg";
             } else if (fileName == "Pb-Cups-No-Bg") {
+              document.getElementById("home-img").src = "img/tt-watermelon-spread-resize.png";
+            } else if (fileName == "tt-watermelon-spread-resize.png") {
               document.getElementById("home-img").src = "img/TraderTomsCsFaded.png";
-            } else if (fileName == "Asset_6.svg") {
-              document.getElementById("home-img").src = "static/img/Asset_4.svg";
             } else if (fileName == "Asset_4.svg") {
               document.getElementById("home-img").src = "static/img/shrek.png";
             } else if (fileName == "shrek.png") {
