@@ -70,11 +70,12 @@ th {
     height: 3.5em;
     background-color: rgba(0,0,0, 0.2);
     font-size: 1.05em;
-    text-align: center;
+    
 }
 
 td, th {
     padding: 8px 25px 8px 20px;
+    text-align: center;
 }
 
 /* Responsiveness in tables */
