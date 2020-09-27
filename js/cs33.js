@@ -66,16 +66,16 @@ if ($("button.foldable").length > 0) {
 
 function changeImg(){
             const fileName = getFileName(document.getElementById("home-img").src);
-            if (fileName == "TraderTomsCsFaded.png") {
-              document.getElementById("home-img").src = "img/cauliflower-gnocci-no-bg";
-            } else if (fileName == "cauliflower-gnocci-no-bg") {
-              document.getElementById("home-img").src = "img/everything-bag-seas-no-bg";
-            } else if (fileName == "everything-bag-seas-no-bg") {
-              document.getElementById("home-img").src = "img/Pb-Cups-No-Bg";
-            } else if (fileName == "Pb-Cups-No-Bg") {
-              document.getElementById("home-img").src = "img/tt-watermelon-spread-resize.png";
-            } else if (fileName == "tt-watermelon-spread-resize.png") {
-              document.getElementById("home-img").src = "img/TraderTomsCsFaded.png";
+            if (fileName == "traderTomsCsFaded.png") {
+              document.getElementById("home-img").src = "img/cauliflower-gnocci-no-bg.png";
+            } else if (fileName == "cauliflower-gnocci-no-bg.png") {
+              document.getElementById("home-img").src = "img/everything-bag-seas-no-bg.png";
+            } else if (fileName == "everything-bag-seas-no-bg.png") {
+              document.getElementById("home-img").src = "img/PB-Cups-No-Bg.png";
+            } else if (fileName == "PB-Cups-No-Bg.png") {
+              document.getElementById("home-img").src = "img/tt-watermelon-spread-resize.jpg";
+            } else if (fileName == "tt-watermelon-spread-resize.jpg") {
+              document.getElementById("home-img").src = "img/traderTomsCsFaded.png";
             } else if (fileName == "Asset_4.svg") {
               document.getElementById("home-img").src = "static/img/shrek.png";
             } else if (fileName == "shrek.png") {
